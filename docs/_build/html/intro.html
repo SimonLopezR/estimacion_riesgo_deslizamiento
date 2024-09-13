@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Welcome to your Jupyter Book &#8212; Informe Prueba</title>
+    <title>Contextualización de la Problemática &#8212; Informe</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
   
@@ -156,8 +156,8 @@
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Informe Prueba - Home"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Informe Prueba - Home"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="Informe - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Informe - Home"/>`);</script>
   
   
 </a></div>
@@ -178,7 +178,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1 current active">
                 <a class="reference internal" href="#">
-                    Welcome to your Jupyter Book
+                    Contextualización de la Problemática
                 </a>
             </li>
         </ul>
@@ -358,7 +358,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -369,11 +371,27 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Welcome to your Jupyter Book</h1>
+    <h1>Contextualización de la Problemática</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Contextualización de la Problemática</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploracion-de-modelos-de-clasificacion-e-implementacion-de-calibracion">Exploración de modelos de clasificación e implementación de calibración</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos">Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología</a></li>
+</ul>
+</li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -383,13 +401,234 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="welcome-to-your-jupyter-book">
-<h1>Welcome to your Jupyter Book<a class="headerlink" href="#welcome-to-your-jupyter-book" title="Link to this heading">#</a></h1>
-<p>This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out <a class="reference external" href="https://jupyterbook.org">the Jupyter Book documentation</a> for more information.</p>
-<p>Check out the content pages bundled with this sample book to see more.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="contextualizacion-de-la-problematica">
+<h1>Contextualización de la Problemática<a class="headerlink" href="#contextualizacion-de-la-problematica" title="Link to this heading">#</a></h1>
+</section>
+<section class="tex2jax_ignore mathjax_ignore" id="exploracion-de-modelos-de-clasificacion-e-implementacion-de-calibracion">
+<h1>Exploración de modelos de clasificación e implementación de calibración<a class="headerlink" href="#exploracion-de-modelos-de-clasificacion-e-implementacion-de-calibracion" title="Link to this heading">#</a></h1>
+<section id="introduccion">
+<h2>Introducción<a class="headerlink" href="#introduccion" title="Link to this heading">#</a></h2>
+<p>Se emprende un análisis exhaustivo de un problema de clasificación, comenzando con un enfoque sistemático para garantizar resultados robustos y confiables. El primer paso en este proceso es realizar un Análisis Exploratorio de Datos (EDA), que permitirá examinar la distribución de las variables en el conjunto de datos de entrenamiento. A través del EDA, se busca identificar patrones subyacentes, y cualquier irregularidad que pueda influir en el rendimiento de los modelos. Esta etapa es crucial, ya que una comprensión profunda de los datos es fundamental para tomar decisiones informadas en las siguientes fases del análisis.</p>
+<p>Una vez extraídas las principales características del conjunto de datos, se procederá a explorar el rendimiento de cuatro modelos de clasificación de gran relevancia: Support Vector Machines (SVM), Random Forest Classifier, Gradient Boosting Trees y Regresión Logística. Cada uno de estos modelos posee sus propias fortalezas y debilidades, y el objetivo es evaluarlos en un entorno controlado para determinar cuál de ellos se adapta mejor al problema en cuestión. A través de la comparación de métricas clave como la precisión, la sensibilidad, la especificidad y el AUC-ROC, se buscará identificar el modelo que ofrezca el mejor equilibrio entre sesgo y varianza.</p>
+<p>Además de evaluar el rendimiento base de estos modelos, un aspecto crucial del análisis será la calibración de probabilidades. Muchos modelos de clasificación, especialmente aquellos como SVM y Gradient Boosting Trees, pueden producir predicciones de probabilidad que no están perfectamente calibradas. Esto significa que la probabilidad predicha no siempre refleja adecuadamente la verdadera probabilidad de pertenencia a una clase. Por lo tanto, se examinará si los modelos necesitan un ajuste adicional a través de técnicas de calibración, como la regresión isotónica o el método de Platt, para mejorar la precisión de las probabilidades predichas.</p>
+<p>Finalmente, el análisis concluirá con una comparación integral de los resultados obtenidos de los modelos, tanto antes como después de la calibración de probabilidades. El objetivo es identificar el modelo que no solo tenga un alto rendimiento en términos de precisión, sino que también ofrezca predicciones de probabilidad bien calibradas. Este enfoque detallado garantizará que el modelo seleccionado no solo sea el más preciso, sino también el más fiable para la toma de decisiones en la prediccion del riesgo de deslizamiento de tierra.</p>
+</section>
+<section id="objetivos">
+<h2>Objetivos<a class="headerlink" href="#objetivos" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Desarrollar un modelo de clasificación binaria para estimar las clases de deslizamientos de tierra positivas y negativas para un conjunto de datos de entrenamiento dado, mediante diferentes técnicas para mejorar rendimientos de los modelos con el fin de tener un insumo para la calibración de las probabilidades</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Estimar el método de calibración a usar, por medio de exploración de diferentes métodos que se ajusten al comportamiento del modelo para estimar la probabilidad de deslizamiento de tierra dada las calcificaciones del modelo entrenado</p></li>
+</ul>
+<br>
+<ul class="simple">
+<li><p>Desplegar mapa geográfico de la ciudad de Cali para que pueda capturar por zonas geográficas las probabilidades de deslizamiento de tierras con el fin de tener una herramienta predictiva de anticipación</p></li>
+</ul>
+</section>
+<section id="datos">
+<h2>Datos<a class="headerlink" href="#datos" title="Link to this heading">#</a></h2>
+<p>Los deslizamientos de tierra (también llamados movimientos en masa o derrumbes) son los eventos de riesgo de mayor frecuencia e impacto en el territorio de Santiago de Cali. Estas situaciones tienen diferentes detonantes como la lluvia acumulada o intensa, intervención humana y sismos. El desarrollo de un Mecanismo de Anticipación o Alerta Temprana para este tipo de fenómeno es esencial para la preparación institucional y comunitaria con el objetivo de salvar vidas y bienes en el territorio.</p>
+<p>La alcaldía de Cali, al integrarse con empresas expertas en desarrollo tecnológico y analítica, pretende levantar este requerimiento de un modelo predictor de deslizamiento de tierras. Junto con SATIC (<a class="reference external" href="https://satic.cali.gov.co/satic">Sistema de Alertas Tempranas Inteligentes y Comunitarias</a>), las oficinas gestoras de la alcaldía y la empresa donde trabajo se han empezado en el desarrollo de este modelo.</p>
+<p>El equipo de geólogos de SATIC, cuenta con los siguientes datos que recibe de diversas fuentes y que ya tienen catalogados como eventos de “Sí deslizamiento” y eventos de “No deslizamiento” dado su tiempo enfrentando este tipo de desastres. En el siguiente mapa de ejemplo, se muestran los datos donde por latitud y longitud se ubica cada putno de evento, los puntos rojos indican Sí deslizamiento y los verdes indican No deslizamiento.</p>
+<p><img alt="eventos" src="_images/puntos_eventos.png" /></p>
+<p>Importamos los conjuntos de datos de entrenamiento con el que contamos, los cuales pasaron por un pre-procesamiento para tenerlos listos para la analítica. Estos son provenientes de los archivos Eventos_SI_MM.csv y Eventos_NO_MM.csv proporcionados por la oficina de SATIC de la alcaldía de Cali. Estos contienen datos sobre de precipitaciones en diferentes periodos de tiempo, algunas características del suelo y la categorización binaria si hubo un derrumbe o no</p>
+<p>A continuación, podemos ver la biblioteca de datos de las variables iniciales a tomar en cuenta con su descripción, cabe resaltar que cada una de estas features está asociada a un punto geográfico visto en la imagen anterior</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Variable</strong></p></th>
+<th class="head"><p><strong>Tipo de dato</strong></p></th>
+<th class="head"><p><strong>Descripción</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Elevacion</p></td>
+<td><p>Numérico</p></td>
+<td><p>Elevación del punto de movimiento en masa en metros sobre el nivel del mar (metros)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pendiente</p></td>
+<td><p>Numérico</p></td>
+<td><p>Pendiente del punto de movimiento en masa en porcentaje (%)</p></td>
+</tr>
+<tr class="row-even"><td><p>Zonificacion</p></td>
+<td><p>Categórico</p></td>
+<td><p>Es un nivel de riesgo: Nombre de la clasificación de amenaza o riesgo del punto de movimiento en masa asignado por geólogos de la alcaldía de Cali basado en el historial de casos de deslizamientos de tierra en la ciudad</p></td>
+</tr>
+<tr class="row-odd"><td><p>Tipo_geologia</p></td>
+<td><p>Categórico</p></td>
+<td><p>Nombre de la unidad geológica asociada al punto de movimiento en masa</p></td>
+</tr>
+<tr class="row-even"><td><p>Cobertura_Suelo</p></td>
+<td><p>Categórico</p></td>
+<td><p>Nombre de la cobertura de suelo Metodología Land Corine Escala 1:25000</p></td>
+</tr>
+<tr class="row-odd"><td><p>24h</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 24 horas en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-even"><td><p>7d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 7 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-odd"><td><p>10d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 10 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-even"><td><p>15d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 15 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-odd"><td><p>30d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 30 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-even"><td><p>60d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 60 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-odd"><td><p>90d</p></td>
+<td><p>Numérico</p></td>
+<td><p>Precipitación de lluvia acumulada en 90 días en milímetros. Este dato proviene de estaciones medidoras de lluvia a través de la ciudad</p></td>
+</tr>
+<tr class="row-even"><td><p>deslizamiento</p></td>
+<td><p>Binario</p></td>
+<td><p>Indica si hubo deslizamiento de tierra en el punto de movimiento en masa (1 ó 0)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Así se ven las primeras 5 lineas de nuestra data limpia:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>ELEVACION</strong></p></th>
+<th class="head"><p><strong>PENDIENT</strong></p></th>
+<th class="head"><p><strong>zonificacion</strong></p></th>
+<th class="head"><p><strong>Nomenclatura_del_Suelo</strong></p></th>
+<th class="head"><p><strong>tipo_geologia</strong></p></th>
+<th class="head"><p><strong>24h</strong></p></th>
+<th class="head"><p><strong>7d</strong></p></th>
+<th class="head"><p><strong>10d</strong></p></th>
+<th class="head"><p><strong>15d</strong></p></th>
+<th class="head"><p><strong>30d</strong></p></th>
+<th class="head"><p><strong>60d</strong></p></th>
+<th class="head"><p><strong>90d</strong></p></th>
+<th class="head"><p><strong>deslizamientos</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1085.033813</p></td>
+<td><p>36.38882065</p></td>
+<td><p>Riesgo alto</p></td>
+<td><p>Otras superficies artificiales sin construcción</p></td>
+<td><p>Formacion Volcanica</p></td>
+<td><p>20.0</p></td>
+<td><p>33.0</p></td>
+<td><p>38.0</p></td>
+<td><p>254.0</p></td>
+<td><p>477.0</p></td>
+<td><p>773.0</p></td>
+<td><p>872.0</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-odd"><td><p>1027.715698</p></td>
+<td><p>25.13285637</p></td>
+<td><p>Amenaza baja</p></td>
+<td><p>Bosque mixto denso bajo de tierra firme</p></td>
+<td><p>Formacion Jamundi</p></td>
+<td><p>13.0</p></td>
+<td><p>17.0</p></td>
+<td><p>17.0</p></td>
+<td><p>51.0</p></td>
+<td><p>65.0</p></td>
+<td><p>118.0</p></td>
+<td><p>252.0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1173.279907</p></td>
+<td><p>14.10933781</p></td>
+<td><p>Amenaza baja</p></td>
+<td><p>Pasto cultivado enmalezado</p></td>
+<td><p>Formacion Jamundi</p></td>
+<td><p>0.0</p></td>
+<td><p>7.2</p></td>
+<td><p>21.1</p></td>
+<td><p>23.1</p></td>
+<td><p>128.3</p></td>
+<td><p>292.7</p></td>
+<td><p>599.4</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>973.211731</p></td>
+<td><p>12.89175129</p></td>
+<td><p>Riesgo bajo</p></td>
+<td><p>Zonas urbanas continuas</p></td>
+<td><p>Cono aluvial rio Melendez</p></td>
+<td><p>0.0</p></td>
+<td><p>17.9</p></td>
+<td><p>22.3</p></td>
+<td><p>41.1</p></td>
+<td><p>70.2</p></td>
+<td><p>249.0</p></td>
+<td><p>363.0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>1062.026245</p></td>
+<td><p>9.081903458</p></td>
+<td><p>Amenaza baja</p></td>
+<td><p>Bosque mixto fragmentado con pastos y cultivos</p></td>
+<td><p>Cono aluvial 1 rio Pance</p></td>
+<td><p>0.0</p></td>
+<td><p>48.1</p></td>
+<td><p>88.6</p></td>
+<td><p>163.4</p></td>
+<td><p>304.6</p></td>
+<td><p>533.0</p></td>
+<td><p>722.6</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>1184.547241</p></td>
+<td><p>27.58821106</p></td>
+<td><p>Riesgo bajo</p></td>
+<td><p>Zonas urbanas continuas</p></td>
+<td><p>Formacion Volcanica</p></td>
+<td><p>0.0</p></td>
+<td><p>0.0</p></td>
+<td><p>1.0</p></td>
+<td><p>47.0</p></td>
+<td><p>47.0</p></td>
+<td><p>99.0</p></td>
+<td><p>170.0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<br>
+</section>
+<section id="metodologia">
+<h2>Metodología<a class="headerlink" href="#metodologia" title="Link to this heading">#</a></h2>
+<p>Dentro de los modelos de aprendizaje automático para problemas de clasificación, se ejecutarán pruebas de rendimiento para modelos de ensamble como lo son Random Forest y XGBoost, para modelos basados en el hiperplano como el SVM (support vector machines), y modelos de regresión para clasificación como lo es la regresión logística</p>
+<ul class="simple">
+<li><p>Bosques Aleatorios (Random Forest)</p></li>
+<li><p>XGBoost (Extreme Gradient Boosting Trees)</p></li>
+<li><p>Rgresión Logistica</p></li>
+<li><p>Máquinas de Vectores de Soporte (SVM)</p></li>
+</ul>
+<p>Ahora, la idea es hacer una tubería de datos tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> en <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.</p>
+<p><img alt="Sci-kit Learn Pipeline" src="_images/pipeline-scikitlearn.png" /></p>
+<p>De la misma manera, se busca optimizar las estimaciones y la calidad de los modelos, por lo que se usa la metodología de Grid search o búsqueda de malla para optimizar parámetros dentro de los modelos. Es una herramienta poderosa para optimizar los parámetros de un modelo de aprendizaje automático. Permite definir una cuadrícula de valores para diferentes parámetros del modelo y busca exhaustivamente la mejor combinación de estos parameros, a lo que se le llama hiperparametrizacion.</p>
+<p>En términos más simples, el <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> realiza una búsqueda exhaustiva sobre una cuadrícula de valores especificados para los hiperparámetros de un estimador. Esto permite encontrar la combinación óptima de hiperparámetros que maximiza la precisión o cualquier otra métrica de evaluación definida.</p>
+<p>La idea detrás del GridSearchCV es que, en lugar de ajustar manualmente los hiperparámetros del modelo y evaluar su rendimiento, el proceso se automatiza y se realiza de manera sistemática. Esto ahorra tiempo y esfuerzo, ya que el GridSearchCV evalúa todas las combinaciones posibles de los hiperparámetros dentro de la cuadrícula especificada y selecciona la mejor combinación según la métrica de evaluación especificada.</p>
+<p><img alt="Grid-Search" src="_images/Grid_serach.png" /></p>
+<p>Tercero, se propone usar validación cruzada aleatoria y dividida. Esto con el proposito de no usar la clasica division unitaria de entrenamiento-pruba, ya que en este tipo de división el entrenamiento o aprendizaje, el modelo puede quedar sesgado debido a que al dividir aleatoriamente no sabemos con que proporción de los datos el modelo aprende, por ejemplo, al dividir una sola vez el conjunto de datos nos puede quedar que en el conjunto de test solo haya valores con el label de 0 (no deslizamiento en este caso) y en el entrenamiento solo existan registros del label 1 (deslizamientos), esto puede ocasionar que el modelo no aprenda de la manera más optima.</p>
+<p>Con la validación cruzada aleatoria y dividida (<code class="docutils literal notranslate"><span class="pre">shuffle-split</span></code>), cada división (split) está compuesta de tanto train_size puntos (disyuntos) para el conjunto de entrenamiento y tantos test_size puntos (disjuntos) para el conjunto de prueba, se fijen inicialmente. Esta división se repite n veces, de forma aleatoria. Por ejemplo en la siguiente imagen, para la ejecución de 4 iteraciones de división de un conjunto de datos que consta de 50 puntos, con una fracción de conjunto de entrenamiento de 0.8 y una fracción de conjunto de prueba de 0.2 puntos cada uno. Esto no debe ser necesariamente igual a la fraccion completa, podemos usar un <code class="docutils literal notranslate"><span class="pre">train_size</span></code> de 0.5 y un <code class="docutils literal notranslate"><span class="pre">test_size</span></code> de 0.1, quiere decir que habrán puntos disyuntos que no tomara para entrenarse ni para testear.</p>
+<p><img alt="Shuffle-split" src="_images/shufflesplit_diagram.png" /></p>
+<p>Por último, se busca indagar si a cada clasificador le es necesario la implementación de la calibración de probabilidades o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también una probabilidad asociada a dicha estimación.</p>
+<p>Los clasificadores bien calibrados son clasificadores en los que la salida del método <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> cercano a, digamos, 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva.</p>
+<p>Hay diferentes metodos por los cuales se puede probar esto. Primero se pueba con “Calibration curves”,</p>
+<br>
+<p><strong>Tabla de contenidos:</strong></p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="markdown.html">Markdown Files</a></li>
@@ -397,6 +636,7 @@ It does not go in-depth into any particular topic - check out <a class="referenc
 <li class="toctree-l1"><a class="reference internal" href="markdown-notebooks.html">Notebooks with MyST Markdown</a></li>
 </ul>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -444,6 +684,29 @@ It does not go in-depth into any particular topic - check out <a class="referenc
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Contextualización de la Problemática</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#exploracion-de-modelos-de-clasificacion-e-implementacion-de-calibracion">Exploración de modelos de clasificación e implementación de calibración</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduccion">Introducción</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos">Objetivos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#datos">Datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
               
             
           </div>
