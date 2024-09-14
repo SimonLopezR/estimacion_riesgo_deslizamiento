@@ -70,6 +70,8 @@ Así se ven las primeras 5 lineas de nuestra data limpia:
 
 ## Metodología
 
+### Modelos
+
 Dentro de los modelos de aprendizaje automático para problemas de clasificación, se ejecutarán pruebas de rendimiento para modelos de ensamble como lo son Random Forest y XGBoost, para modelos basados en el hiperplano como el SVM (support vector machines), y modelos de regresión para clasificación como lo es la regresión logística
 
 
@@ -79,11 +81,12 @@ Dentro de los modelos de aprendizaje automático para problemas de clasificació
 - XGBoost (Extreme Gradient Boosting Trees)
 
 
-- Rgresión Logistica 
+- Rgresión Logística 
 
 
 - Máquinas de Vectores de Soporte (SVM)
 
+### Esquema de entrenamiento
 
 Ahora, la idea es hacer una tubería de datos tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, `pipeline` en `scikit-learn` es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.
 
@@ -104,12 +107,25 @@ Con la validación cruzada aleatoria y dividida (`shuffle-split`), cada divisió
 
 ![Shuffle-split](./resources/shufflesplit_diagram.png)
 
+### Calibradores de probabilidad
 
-Por último, se busca indagar si a cada clasificador le es necesario la implementación de la calibración de probabilidades o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también una probabilidad asociada a dicha estimación. 
+Por último, se busca indagar si a cada clasificador le es necesario la implementación de la calibración de probabilidades o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación. 
 
-Los clasificadores bien calibrados son clasificadores en los que la salida del método `predict_proba` se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de `predict_proba` cercano a, digamos, 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva. 
+Los clasificadores bien calibrados son aquellos en los que la salida del método `predict_proba` se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de `predict_proba` cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta
 
-Hay diferentes metodos por los cuales se puede probar esto. Primero se pueba con "Calibration curves", 
+Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero se utiliza las "Calibration curves" o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.
+
+En la siguiente gráfica de ejemplo, podemos ver el eje X (`Mean predicted value`) representa las probabilidades predichas por los modelos, va de 0 a 1, indicando la confianza con la que los modelos predicen la clase positiva. Respecto al eje Y (`Fraction of positives`)  muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.  
+
+Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los eventos reales. Por ejemplo, una predicción de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente. Entonces si nos enfocamos por ejemplo en el modelo de regresión logística (curva azul), la curva azul está bastante cerca de la línea de calibración perfecta. Esto indica que las probabilidades predichas por la regresión logística están bastante bien calibradas. Para cualquier probabilidad predicha, la fracción de positivos observados es similar, lo que significa que este modelo tiene buenas predicciones calibradas. 
+
+![calibration-curves](./resources/calibration-curves.png)
+
+Este es el método que se utilizará para saber si un modelo de clasificación está bien calibrado o no.
+
+### Métodos para calibrar clasificadores
+
+
 
 <br>
 
