@@ -1015,79 +1015,79 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>940</th>
-      <td>1055.200195</td>
-      <td>64.479439</td>
+      <th>899</th>
+      <td>1054.006714</td>
+      <td>22.413567</td>
+      <td>4</td>
+      <td>25</td>
+      <td>9</td>
+      <td>10.0</td>
+      <td>167.0</td>
+      <td>188.0</td>
+      <td>313.0</td>
+      <td>456.0</td>
+      <td>536.0</td>
+      <td>694.0</td>
+    </tr>
+    <tr>
+      <th>462</th>
+      <td>1064.613892</td>
+      <td>13.493474</td>
+      <td>1</td>
+      <td>6</td>
+      <td>8</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>31.6</td>
+      <td>147.9</td>
+      <td>380.9</td>
+    </tr>
+    <tr>
+      <th>747</th>
+      <td>1064.599976</td>
+      <td>60.087574</td>
       <td>5</td>
+      <td>25</td>
+      <td>7</td>
+      <td>24.4</td>
+      <td>114.8</td>
+      <td>139.0</td>
+      <td>165.2</td>
+      <td>262.6</td>
+      <td>371.2</td>
+      <td>449.0</td>
+    </tr>
+    <tr>
+      <th>651</th>
+      <td>1029.619263</td>
+      <td>4.604765</td>
+      <td>1</td>
       <td>25</td>
       <td>9</td>
       <td>0.0</td>
-      <td>182.0</td>
-      <td>207.0</td>
-      <td>244.0</td>
-      <td>566.0</td>
-      <td>735.0</td>
-      <td>878.0</td>
+      <td>21.3</td>
+      <td>21.3</td>
+      <td>21.3</td>
+      <td>84.6</td>
+      <td>417.5</td>
+      <td>622.5</td>
     </tr>
     <tr>
-      <th>600</th>
-      <td>1094.184814</td>
-      <td>44.072903</td>
+      <th>289</th>
+      <td>1307.238647</td>
+      <td>22.076199</td>
       <td>5</td>
-      <td>25</td>
-      <td>9</td>
-      <td>1.0</td>
-      <td>52.0</td>
-      <td>99.0</td>
-      <td>103.0</td>
-      <td>326.0</td>
-      <td>493.0</td>
-      <td>626.0</td>
-    </tr>
-    <tr>
-      <th>573</th>
-      <td>1154.147583</td>
-      <td>36.524639</td>
-      <td>5</td>
-      <td>26</td>
-      <td>9</td>
-      <td>12.0</td>
-      <td>25.0</td>
-      <td>25.0</td>
-      <td>27.0</td>
-      <td>45.0</td>
-      <td>223.0</td>
-      <td>406.0</td>
-    </tr>
-    <tr>
-      <th>672</th>
-      <td>1035.735718</td>
-      <td>52.075058</td>
-      <td>5</td>
-      <td>25</td>
+      <td>15</td>
       <td>7</td>
       <td>1.0</td>
-      <td>76.0</td>
-      <td>88.0</td>
-      <td>100.0</td>
-      <td>162.0</td>
-      <td>276.0</td>
-      <td>384.0</td>
-    </tr>
-    <tr>
-      <th>164</th>
-      <td>1782.700317</td>
-      <td>16.081852</td>
-      <td>0</td>
-      <td>7</td>
-      <td>10</td>
-      <td>8.0</td>
-      <td>43.0</td>
-      <td>72.0</td>
-      <td>99.0</td>
-      <td>188.0</td>
-      <td>269.0</td>
-      <td>335.0</td>
+      <td>7.0</td>
+      <td>7.2</td>
+      <td>24.6</td>
+      <td>264.2</td>
+      <td>294.8</td>
+      <td>309.2</td>
     </tr>
   </tbody>
 </table>
@@ -1100,11 +1100,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>940    0
-600    0
-573    1
-672    0
-164    0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>899    0
+462    1
+747    0
+651    1
+289    1
 Name: deslizamientos, dtype: int64
 </pre></div>
 </div>
@@ -1114,218 +1114,23 @@ Name: deslizamientos, dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rf</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">shuffle_split</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
 <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> Puntaje recall en entrenamiento: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s2">, </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> Puntaje Precision en entrenamiento: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s2">, </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">msg_training</span><span class="p">)</span>
 <span class="n">model_rf</span><span class="o">=</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">14</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rf</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">shuffle_split</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> Puntaje recall en entrenamiento: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s2">, </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="nb">print</span><span class="p">(</span><span class="n">msg_training</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:1473,</span> in <span class="ni">_fit_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(estimator, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1466</span>     <span class="n">estimator</span><span class="o">.</span><span class="n">_validate_params</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1469</span>     <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1470</span>         <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1471</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1472</span> <span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1473</span>     <span class="k">return</span> <span class="n">fit_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/model_selection/_search.py:1018,</span> in <span class="ni">BaseSearchCV.fit</span><span class="nt">(self, X, y, **params)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1012</span>     <span class="n">results</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format_results</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1013</span>         <span class="n">all_candidate_params</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">,</span> <span class="n">all_out</span><span class="p">,</span> <span class="n">all_more_results</span>
-<span class="g g-Whitespace">   </span><span class="mi">1014</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1016</span>     <span class="k">return</span> <span class="n">results</span>
-<span class="ne">-&gt; </span><span class="mi">1018</span> <span class="bp">self</span><span class="o">.</span><span class="n">_run_search</span><span class="p">(</span><span class="n">evaluate_candidates</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1020</span> <span class="c1"># multimetric is determined here because in the case of a callable</span>
-<span class="g g-Whitespace">   </span><span class="mi">1021</span> <span class="c1"># self.scoring the return type is only known after calling</span>
-<span class="g g-Whitespace">   </span><span class="mi">1022</span> <span class="n">first_test_score</span> <span class="o">=</span> <span class="n">all_out</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;test_scores&quot;</span><span class="p">]</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/model_selection/_search.py:1572,</span> in <span class="ni">GridSearchCV._run_search</span><span class="nt">(self, evaluate_candidates)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1570</span> <span class="k">def</span> <span class="nf">_run_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">evaluate_candidates</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1571</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Search all candidates in param_grid&quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1572</span>     <span class="n">evaluate_candidates</span><span class="p">(</span><span class="n">ParameterGrid</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_grid</span><span class="p">))</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/model_selection/_search.py:964,</span> in <span class="ni">BaseSearchCV.fit.&lt;locals&gt;.evaluate_candidates</span><span class="nt">(candidate_params, cv, more_results)</span>
-<span class="g g-Whitespace">    </span><span class="mi">956</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">957</span>     <span class="nb">print</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">958</span>         <span class="s2">&quot;Fitting </span><span class="si">{0}</span><span class="s2"> folds for each of </span><span class="si">{1}</span><span class="s2"> candidates,&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">959</span>         <span class="s2">&quot; totalling </span><span class="si">{2}</span><span class="s2"> fits&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">960</span>             <span class="n">n_splits</span><span class="p">,</span> <span class="n">n_candidates</span><span class="p">,</span> <span class="n">n_candidates</span> <span class="o">*</span> <span class="n">n_splits</span>
-<span class="g g-Whitespace">    </span><span class="mi">961</span>         <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">962</span>     <span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">964</span> <span class="n">out</span> <span class="o">=</span> <span class="n">parallel</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">965</span>     <span class="n">delayed</span><span class="p">(</span><span class="n">_fit_and_score</span><span class="p">)(</span>
-<span class="g g-Whitespace">    </span><span class="mi">966</span>         <span class="n">clone</span><span class="p">(</span><span class="n">base_estimator</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">967</span>         <span class="n">X</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">968</span>         <span class="n">y</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">969</span>         <span class="n">train</span><span class="o">=</span><span class="n">train</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">970</span>         <span class="n">test</span><span class="o">=</span><span class="n">test</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">971</span>         <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">972</span>         <span class="n">split_progress</span><span class="o">=</span><span class="p">(</span><span class="n">split_idx</span><span class="p">,</span> <span class="n">n_splits</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">973</span>         <span class="n">candidate_progress</span><span class="o">=</span><span class="p">(</span><span class="n">cand_idx</span><span class="p">,</span> <span class="n">n_candidates</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">974</span>         <span class="o">**</span><span class="n">fit_and_score_kwargs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">975</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">976</span>     <span class="k">for</span> <span class="p">(</span><span class="n">cand_idx</span><span class="p">,</span> <span class="n">parameters</span><span class="p">),</span> <span class="p">(</span><span class="n">split_idx</span><span class="p">,</span> <span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">))</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">977</span>         <span class="nb">enumerate</span><span class="p">(</span><span class="n">candidate_params</span><span class="p">),</span>
-<span class="g g-Whitespace">    </span><span class="mi">978</span>         <span class="nb">enumerate</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">routed_params</span><span class="o">.</span><span class="n">splitter</span><span class="o">.</span><span class="n">split</span><span class="p">)),</span>
-<span class="g g-Whitespace">    </span><span class="mi">979</span>     <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">980</span> <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">982</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">983</span>     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">984</span>         <span class="s2">&quot;No fits were performed. &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">985</span>         <span class="s2">&quot;Was the CV iterator empty? &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">986</span>         <span class="s2">&quot;Were there no candidates?&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">987</span>     <span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/utils/parallel.py:74,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">     </span><span class="mi">69</span> <span class="n">config</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">70</span> <span class="n">iterable_with_config</span> <span class="o">=</span> <span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">71</span>     <span class="p">(</span><span class="n">_with_config</span><span class="p">(</span><span class="n">delayed_func</span><span class="p">,</span> <span class="n">config</span><span class="p">),</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">72</span>     <span class="k">for</span> <span class="n">delayed_func</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span> <span class="ow">in</span> <span class="n">iterable</span>
-<span class="g g-Whitespace">     </span><span class="mi">73</span> <span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">74</span> <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__call__</span><span class="p">(</span><span class="n">iterable_with_config</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/joblib/parallel.py:1918,</span> in <span class="ni">Parallel.__call__</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1916</span>     <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_sequential_output</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1917</span>     <span class="nb">next</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1918</span>     <span class="k">return</span> <span class="n">output</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_generator</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1920</span> <span class="c1"># Let&#39;s create an ID that uniquely identifies the current call. If the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1921</span> <span class="c1"># call is interrupted early and that the same instance is immediately</span>
-<span class="g g-Whitespace">   </span><span class="mi">1922</span> <span class="c1"># re-used, this id will be used to prevent workers that were</span>
-<span class="g g-Whitespace">   </span><span class="mi">1923</span> <span class="c1"># concurrently finalizing a task from the previous call to run the</span>
-<span class="g g-Whitespace">   </span><span class="mi">1924</span> <span class="c1"># callback.</span>
-<span class="g g-Whitespace">   </span><span class="mi">1925</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock</span><span class="p">:</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/joblib/parallel.py:1847,</span> in <span class="ni">Parallel._get_sequential_output</span><span class="nt">(self, iterable)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1845</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_batches</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1846</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_dispatched_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">-&gt; </span><span class="mi">1847</span> <span class="n">res</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1848</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_completed_tasks</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">   </span><span class="mi">1849</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_progress</span><span class="p">()</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/utils/parallel.py:136,</span> in <span class="ni">_FuncWrapper.__call__</span><span class="nt">(self, *args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span>     <span class="n">config</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="g g-Whitespace">    </span><span class="mi">135</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span><span class="o">**</span><span class="n">config</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">136</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/model_selection/_validation.py:888,</span> in <span class="ni">_fit_and_score</span><span class="nt">(estimator, X, y, scorer, train, test, verbose, parameters, fit_params, score_params, return_train_score, return_parameters, return_n_test_samples, return_times, return_estimator, split_progress, candidate_progress, error_score)</span>
-<span class="g g-Whitespace">    </span><span class="mi">886</span>         <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">887</span>     <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">888</span>         <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="o">**</span><span class="n">fit_params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">890</span> <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">891</span>     <span class="c1"># Note fit time as time until error</span>
-<span class="g g-Whitespace">    </span><span class="mi">892</span>     <span class="n">fit_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:1473,</span> in <span class="ni">_fit_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(estimator, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1466</span>     <span class="n">estimator</span><span class="o">.</span><span class="n">_validate_params</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1469</span>     <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1470</span>         <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1471</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1472</span> <span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1473</span>     <span class="k">return</span> <span class="n">fit_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/pipeline.py:473,</span> in <span class="ni">Pipeline.fit</span><span class="nt">(self, X, y, **params)</span>
-<span class="g g-Whitespace">    </span><span class="mi">471</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_estimator</span> <span class="o">!=</span> <span class="s2">&quot;passthrough&quot;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">472</span>         <span class="n">last_step_params</span> <span class="o">=</span> <span class="n">routed_params</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">steps</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
-<span class="ne">--&gt; </span><span class="mi">473</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_final_estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">Xt</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">last_step_params</span><span class="p">[</span><span class="s2">&quot;fit&quot;</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">475</span> <span class="k">return</span> <span class="bp">self</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:1473,</span> in <span class="ni">_fit_context.&lt;locals&gt;.decorator.&lt;locals&gt;.wrapper</span><span class="nt">(estimator, *args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1466</span>     <span class="n">estimator</span><span class="o">.</span><span class="n">_validate_params</span><span class="p">()</span>
-<span class="g g-Whitespace">   </span><span class="mi">1468</span> <span class="k">with</span> <span class="n">config_context</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1469</span>     <span class="n">skip_parameter_validation</span><span class="o">=</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1470</span>         <span class="n">prefer_skip_nested_validation</span> <span class="ow">or</span> <span class="n">global_skip_validation</span>
-<span class="g g-Whitespace">   </span><span class="mi">1471</span>     <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1472</span> <span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1473</span>     <span class="k">return</span> <span class="n">fit_method</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/ensemble/_forest.py:479,</span> in <span class="ni">BaseForest.fit</span><span class="nt">(self, X, y, sample_weight)</span>
-<span class="g g-Whitespace">    </span><span class="mi">473</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">warm_start</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">474</span>     <span class="c1"># We draw from the random state to get the random state we</span>
-<span class="g g-Whitespace">    </span><span class="mi">475</span>     <span class="c1"># would have got if we hadn&#39;t used a warm_start.</span>
-<span class="g g-Whitespace">    </span><span class="mi">476</span>     <span class="n">random_state</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">MAX_INT</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimators_</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">478</span> <span class="n">trees</span> <span class="o">=</span> <span class="p">[</span>
-<span class="ne">--&gt; </span><span class="mi">479</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_make_estimator</span><span class="p">(</span><span class="n">append</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">)</span>
-<span class="nn">    480     for i</span> in <span class="ni">range</span><span class="nt">(n_more_estimators)</span>
-<span class="g g-Whitespace">    </span><span class="mi">481</span> <span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">483</span> <span class="c1"># Parallel loop: we prefer the threading backend as the Cython code</span>
-<span class="g g-Whitespace">    </span><span class="mi">484</span> <span class="c1"># for fitting the trees is internally releasing the Python GIL</span>
-<span class="g g-Whitespace">    </span><span class="mi">485</span> <span class="c1"># making threading more efficient than multiprocessing in</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span> <span class="c1"># that case. However, for joblib 0.12+ we respect any</span>
-<span class="g g-Whitespace">    </span><span class="mi">487</span> <span class="c1"># parallel_backend contexts set at a higher level,</span>
-<span class="g g-Whitespace">    </span><span class="mi">488</span> <span class="c1"># since correctness does not rely on using threads.</span>
-<span class="g g-Whitespace">    </span><span class="mi">489</span> <span class="n">trees</span> <span class="o">=</span> <span class="n">Parallel</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>     <span class="n">n_jobs</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">n_jobs</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">491</span>     <span class="n">verbose</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verbose</span><span class="p">,</span>
-   <span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="nn">    507     for i, t</span> in <span class="ni">enumerate</span><span class="nt">(trees)</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/ensemble/_base.py:145,</span> in <span class="ni">BaseEnsemble._make_estimator</span><span class="nt">(self, append, random_state)</span>
-<span class="g g-Whitespace">    </span><span class="mi">139</span> <span class="k">def</span> <span class="nf">_make_estimator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">140</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Make and configure a copy of the `estimator_` attribute.</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">142</span><span class="sd">     Warning: This method should be used to properly instantiate new</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span><span class="sd">     sub-estimators.</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="ne">--&gt; </span><span class="mi">145</span>     <span class="n">estimator</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">estimator_</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">146</span>     <span class="n">estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">p</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">estimator_params</span><span class="p">})</span>
-<span class="g g-Whitespace">    </span><span class="mi">148</span>     <span class="k">if</span> <span class="n">random_state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:90,</span> in <span class="ni">clone</span><span class="nt">(estimator, safe)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span><span class="w"> </span><span class="sd">&quot;&quot;&quot;Construct a new unfitted estimator with the same parameters.</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span><span class="sd"> </span>
-<span class="g g-Whitespace">     </span><span class="mi">43</span><span class="sd"> Clone does a deep copy of the model in an estimator</span>
-<span class="sd">   (...)</span>
-<span class="g g-Whitespace">     </span><span class="mi">87</span><span class="sd"> False</span>
-<span class="g g-Whitespace">     </span><span class="mi">88</span><span class="sd"> &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;__sklearn_clone__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">estimator</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">90</span>     <span class="k">return</span> <span class="n">estimator</span><span class="o">.</span><span class="n">__sklearn_clone__</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">91</span> <span class="k">return</span> <span class="n">_clone_parametrized</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="n">safe</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:296,</span> in <span class="ni">BaseEstimator.__sklearn_clone__</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span> <span class="k">def</span> <span class="nf">__sklearn_clone__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">296</span>     <span class="k">return</span> <span class="n">_clone_parametrized</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:123,</span> in <span class="ni">_clone_parametrized</span><span class="nt">(estimator, safe)</span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span> <span class="n">new_object_params</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">get_params</span><span class="p">(</span><span class="n">deep</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">new_object_params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-<span class="ne">--&gt; </span><span class="mi">123</span>     <span class="n">new_object_params</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">clone</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">125</span> <span class="n">new_object</span> <span class="o">=</span> <span class="n">klass</span><span class="p">(</span><span class="o">**</span><span class="n">new_object_params</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">126</span> <span class="k">try</span><span class="p">:</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:91,</span> in <span class="ni">clone</span><span class="nt">(estimator, safe)</span>
-<span class="g g-Whitespace">     </span><span class="mi">89</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;__sklearn_clone__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isclass</span><span class="p">(</span><span class="n">estimator</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">90</span>     <span class="k">return</span> <span class="n">estimator</span><span class="o">.</span><span class="n">__sklearn_clone__</span><span class="p">()</span>
-<span class="ne">---&gt; </span><span class="mi">91</span> <span class="k">return</span> <span class="n">_clone_parametrized</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="n">safe</span><span class="o">=</span><span class="n">safe</span><span class="p">)</span>
-
-<span class="nn">File ~/env_glue/lib/python3.12/site-packages/sklearn/base.py:104,</span> in <span class="ni">_clone_parametrized</span><span class="nt">(estimator, safe)</span>
-<span class="g g-Whitespace">    </span><span class="mi">102</span> <span class="k">elif</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="s2">&quot;get_params&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">103</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">safe</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">104</span>         <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">estimator</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">105</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">106</span>         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">estimator</span><span class="p">,</span> <span class="nb">type</span><span class="p">):</span>
-
-<span class="nn">File /usr/lib/python3.12/copy.py:118,</span> in <span class="ni">deepcopy</span><span class="nt">(x, memo, _nil)</span>
-<span class="g g-Whitespace">    </span><span class="mi">114</span> <span class="n">d</span><span class="p">[</span><span class="nb">bytearray</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="o">.</span><span class="n">copy</span>
-<span class="g g-Whitespace">    </span><span class="mi">116</span> <span class="k">del</span> <span class="n">d</span><span class="p">,</span> <span class="n">t</span>
-<span class="ne">--&gt; </span><span class="mi">118</span> <span class="k">def</span> <span class="nf">deepcopy</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">_nil</span><span class="o">=</span><span class="p">[]):</span>
-<span class="g g-Whitespace">    </span><span class="mi">119</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Deep copy operation on arbitrary Python objects.</span>
-<span class="g g-Whitespace">    </span><span class="mi">120</span><span class="sd"> </span>
-<span class="g g-Whitespace">    </span><span class="mi">121</span><span class="sd">     See the module&#39;s __doc__ string for more info.</span>
-<span class="g g-Whitespace">    </span><span class="mi">122</span><span class="sd">     &quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">124</span>     <span class="k">if</span> <span class="n">memo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rendimiento en training -&gt; RandomForestClassifier 
+ Puntaje recall en entrenamiento: 0.9354255284147465, 
+ modelo ganador: Pipeline(steps=[(&#39;preprocessor&#39;,
+                 ColumnTransformer(remainder=&#39;passthrough&#39;,
+                                   transformers=[(&#39;num&#39;, StandardScaler(),
+                                                  [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;,
+                                                   &#39;24h&#39;, &#39;7d&#39;, &#39;10d&#39;, &#39;15d&#39;,
+                                                   &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;])])),
+                (&#39;classifier&#39;, RandomForestClassifier(n_estimators=500))]) 
+ mejor combinacion de parametros: {&#39;classifier__max_depth&#39;: None, &#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__min_samples_split&#39;: 2, &#39;classifier__n_estimators&#39;: 500}
 </pre></div>
 </div>
 </div>
@@ -1334,7 +1139,7 @@ Name: deslizamientos, dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
 <span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Recall en test para RandomForestClassifier: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision en test para RandomForestClassifier: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

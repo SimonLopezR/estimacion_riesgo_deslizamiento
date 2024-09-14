@@ -39,7 +39,7 @@ Here is a preview of the cell contents:
 -------------------
 grid_search = GridSearchCV(pipeline_rf, param_grid_rf, cv=shuffle_split,scoring='precision')
 grid_search.fit(X_train, y_train)
-msg_training=f"Rendimiento en training -> RandomForestClassifier \n Puntaje recall en entrenamiento: {grid_search.best_score_}, \n modelo ganador: {grid_search.best_estimator_} \n mejor combinacion de parametros: {grid_search.best_params_}"
+msg_training=f"Rendimiento en training -> RandomForestClassifier \n Puntaje Precision en entrenamiento: {grid_search.best_score_}, \n modelo ganador: {grid_search.best_estimator_} \n mejor combinacion de parametros: {grid_search.best_params_}"
 print(msg_training)
 model_rf=grid_search.best_estimator_
 -------------------
