@@ -381,6 +381,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>
             </nav>
         </div>
@@ -604,7 +605,7 @@ document.write(`
 </section>
 <section id="variables-numericas">
 <h2>Variables Numéricas<a class="headerlink" href="#variables-numericas" title="Link to this heading">#</a></h2>
-<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalance de datos en el aprendizaje automático ocurre cuando hay muchas más muestras de una cosa que de otra. Por ejemplo, en este caso, si queremos detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo identificar los deslizamientos porque tiene menos ejemplos para aprender de ellos. Es importante revisar esto al explorar los datos para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalance, el modelo podría no funcionar correctamente.</p>
+<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalance de datos en el aprendizaje automático ocurre cuando hay muchas más muestras de una clase que de otra. Por ejemplo, en este caso, si queremos detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo identificar los deslizamientos porque tiene menos ejemplos para aprender de ellos. Es importante revisar esto al explorar los datos para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalance, el modelo podría no funcionar correctamente.</p>
 <p>Para esto haremos una revisión simple de cuantos registros hay de cada clase</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -647,7 +648,7 @@ y 1 representa la clase positiva que es “No deslizamiento de tierra”</p>
 <img alt="_images/97ffe75b6265cdc70b5af0b9ee77e88d77a46ed9ac5f7500d3a92c02a5489661.png" src="_images/97ffe75b6265cdc70b5af0b9ee77e88d77a46ed9ac5f7500d3a92c02a5489661.png" />
 </div>
 </div>
-<p>En este caso vemos que tenemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en los últimos 15 días en comparación con los que no han presentado deslizamientos. Esto nos da un indicio de que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
+<p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
 <p>También podremos pensar que al tratarse de variables que capturan data de manera acumulada, puede haber valor que da una variable que también lo de otra, podemos revisar las correlaciones entre las precipitaciones</p>
 </section>
 <section id="variables-categoricas">
@@ -1066,7 +1067,7 @@ y 1 representa la clase positiva que es “No deslizamiento de tierra”</p>
 </section>
 <section id="correlaciones-entre-variables-independientes">
 <h2>Correlaciones entre variables independientes<a class="headerlink" href="#correlaciones-entre-variables-independientes" title="Link to this heading">#</a></h2>
-<p>Queremos que haya la menor correlación lineal y no lineal entre las variables independientes, ya que queremos que cada variable aporte su valor único al modelo, y evitar redundancias</p>
+<p>Queremos que exista la menor correlación lineal y no lineal entre las variables independientes, ya que queremos que cada variable aporte su valor único al modelo, y evitar redundancias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correlaciones entre variables independientes</span>
@@ -1092,9 +1093,42 @@ y 1 representa la clase positiva que es “No deslizamiento de tierra”</p>
 <img alt="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" src="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" />
 </div>
 </div>
-<p>Observamos que existe una alta correlación lineal entre las variables principalmente de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
+<p>Observamos que existe una alta correlación lineal entre las variables númericas de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
 <p>Esto genera multicolinealidad, lo que puede hacer que los coeficientes en modelos lineales (como la regresión logística, que se modelará en este analisis) se vuelvan inestables y difíciles de interpretar, esto ocurre porque el modelo no puede distinguir fácilmente el efecto individual de cada variable correlacionada.</p>
-<p>Así mismo, las variables altamente correlacionadas aportan información redundante. Esto puede hacer que el modelo sea más complejo de lo necesario, sin mejorar el rendimiento predictivo, lo cual puede llevar a un modelo sobreajustado que no generaliza bien a datos nuevos. En algunos casos, los algoritmos de clasificación uqe se usaran en este analisis, como los árboles de decisión o los modelos basados en conjuntos (e.g., Random Forest, XGBoost), no se ven tan afectados por la multicolinealidad, pero la presencia de variables altamente correlacionadas puede todavía llevar a un modelo más complejo de lo necesario.</p>
+<p>Tambien se podria explorar como se ve la matriz de correlaciones, eliminando algunas variables para hacer mas grande la brecha que separa los dias acumulados, es decir en ves de usar una variable como <code class="docutils literal notranslate"><span class="pre">7d</span></code> y <code class="docutils literal notranslate"><span class="pre">10d</span></code>, usar variables que representen brechas de acumulacion de lluvia mas grande para tratar de disminuir la multicolinealidad</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columnas_a_graficar2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span><span class="s1">&#39;10d&#39;</span><span class="p">,</span><span class="s1">&#39;30d&#39;</span><span class="p">,</span><span class="s1">&#39;90d&#39;</span><span class="p">]</span> 
+<span class="c1"># Correlaciones entre variables independientes</span>
+<span class="n">correlation_matrix</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">columnas_a_graficar2</span><span class="p">]</span><span class="o">.</span><span class="n">corr</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;pearson&#39;</span><span class="p">)</span>
+
+<span class="c1"># Configurar el estilo del mapa de calor</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+
+<span class="c1"># Crear el mapa de calor de correlación</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">correlation_matrix</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;.2f&quot;</span><span class="p">)</span>
+
+<span class="c1"># Añadir título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Mapa de calor de correlación entre variables numéricas - 2&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el mapa de calor</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" src="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" />
+</div>
+</div>
+<p>Al eliminar ciertas variables, el mapa de calor se torna menos rojo, es decir hay menos variables que nos aportan multicolinealidad. Este conjunto de variables se pueden evaluar para la selecicon de features a tomar en cuenta para cada modelo.</p>
+<p>Las variables altamente correlacionadas aportan información redundante. Esto puede hacer que el modelo sea más complejo de lo necesario, sin mejorar el rendimiento predictivo, lo cual puede llevar a un modelo sobre ajustado que no generaliza bien a datos nuevos. En algunos casos, los algoritmos de clasificación que se usarán en este análisis, como los árboles de decisión o los modelos basados en conjuntos (e.g., Random Forest, XGBoost), no se ven tan afectados por la multicolinealidad, pero la presencia de variables altamente correlacionadas puede todavía llevar a un modelo más complejo de lo necesario.</p>
+</section>
+<section id="decisiones">
+<h2>Decisiones<a class="headerlink" href="#decisiones" title="Link to this heading">#</a></h2>
+<p>Del EDA podemos concluir que sería bueno eliminar ciertas variables numéricas debido a la alta redundancia entre las mismas, esta decisión dependerá del modelo a utilizar, ya que esto afecta de maneras diferentes cada modelo. En cuanto a las variables categóricas se decidirá trabajar con todas, se usará un codificador de etiquetas y no un one-hot encoder debido a la cantidad de clases que puede tomar una categoría.</p>
+<p>La data de entrenamiento puede variar dependiendo del modelo a usar y los rendimientos de este</p>
 </section>
 </section>
 
@@ -1166,6 +1200,7 @@ y 1 representa la clase positiva que es “No deslizamiento de tierra”</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>
   </nav></div>
 

@@ -378,7 +378,9 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo">Desarrollo</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrizacion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training">Rendimiento en Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-test">Rendimiento en Test</a></li>
 </ul>
 </li>
 </ul>
@@ -403,23 +405,17 @@ document.write(`
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">OrdinalEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>  <span class="c1"># Para clasificación SVM</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span><span class="n">GridSearchCV</span><span class="p">,</span><span class="n">ShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">ConfusionMatrixDisplay</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">GridSearchCV</span><span class="p">,</span><span class="n">ShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
 </pre></div>
 </div>
 </div>
@@ -444,6 +440,22 @@ document.write(`
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">export_pickle</span><span class="p">(</span><span class="n">objeto</span><span class="p">,</span> <span class="n">ruta_archivo</span><span class="p">):</span>
+    <span class="c1"># Verificar si la ruta del directorio existe, si no, crearla</span>
+    <span class="n">directorio</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directorio</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directorio</span><span class="p">)</span>
+
+    <span class="c1"># Guardar el objeto en un archivo pickle en la ruta especificada</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ruta_archivo</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">archivo</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">objeto</span><span class="p">,</span> <span class="n">archivo</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Objeto exportado exitosamente a </span><span class="si">{</span><span class="n">ruta_archivo</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">=</span><span class="n">cargar_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">,</span><span class="s1">&#39;train_data_1.csv&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -453,10 +465,11 @@ document.write(`
 <section id="desarrollo">
 <h2>Desarrollo<a class="headerlink" href="#desarrollo" title="Link to this heading">#</a></h2>
 <section id="parametrizacion">
-<h3>Parametrizacion<a class="headerlink" href="#parametrizacion" title="Link to this heading">#</a></h3>
+<h3>Parametrización<a class="headerlink" href="#parametrizacion" title="Link to this heading">#</a></h3>
+<p>En esta sección se busca parametrizar el desarrollo, dividir el conjunto de datos, definir parámetros de entrenamiento y hacer la creación del pipeline para el modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">]</span>
 <span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
 <span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
 </pre></div>
@@ -485,12 +498,13 @@ document.write(`
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Variables categoricas:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&#39;, &#39;tipo_geologia&#39;]
-Variables numericas:  [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;, &#39;24h&#39;, &#39;7d&#39;, &#39;10d&#39;, &#39;15d&#39;, &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;]
-Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&#39;, &#39;tipo_geologia&#39;, &#39;ELEVACION&#39;, &#39;PENDIENT&#39;, &#39;24h&#39;, &#39;7d&#39;, &#39;10d&#39;, &#39;15d&#39;, &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;]
+Variables numericas:  [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;, &#39;24h&#39;, &#39;7d&#39;, &#39;15d&#39;, &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;]
+Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&#39;, &#39;tipo_geologia&#39;, &#39;ELEVACION&#39;, &#39;PENDIENT&#39;, &#39;24h&#39;, &#39;7d&#39;, &#39;15d&#39;, &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;]
 </pre></div>
 </div>
 </div>
 </div>
+<p>Esto nos indica cuales son las variables que usaremos para el entrenamiento y cuales variables eliminamos, adicionalmente guardamos por separados las variables categóricas y las numéricas para su tratamiento</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crea un diccionario para los codificadores</span>
@@ -506,6 +520,22 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">label_encoders</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>{&#39;zonificacion&#39;: LabelEncoder(),
+ &#39;Nomenclatura_del_Suelo&#39;: LabelEncoder(),
+ &#39;tipo_geologia&#39;: LabelEncoder()}
+</pre></div>
+</div>
+</div>
+</div>
+<p>Creamos los codificadores, usaremos <code class="docutils literal notranslate"><span class="pre">LabelEncoder()</span></code> debido a la cantidad de clases que puede tomar cada variable categórica, optimizando recursos computacionales.</p>
+<p>Este objeto nos servirá para codificar valores nuevos que entren al modelo</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -518,11 +548,12 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 </div>
 </div>
+<p>Como se había explicado en la seccion de Contextualización, usaremos <a class="reference internal" href="intro.html#esquema-de-entrenamiento"><span class="std std-ref">validación cruzada aleatoria y dividida</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">param_grid_rf</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;classifier__n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="mi">250</span><span class="p">,</span><span class="mi">500</span><span class="p">],</span> 
-    <span class="s1">&#39;classifier__max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span>
+    <span class="s1">&#39;classifier__max_depth&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
     <span class="s1">&#39;classifier__min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
     <span class="s1">&#39;classifier__min_samples_leaf&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
     <span class="p">}</span>
@@ -553,7 +584,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {
+<div class="output text_html"><style>#sk-container-id-11 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
   --sklearn-color-line: gray;
@@ -583,15 +614,15 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   }
 }
 
-#sk-container-id-1 {
+#sk-container-id-11 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-1 pre {
+#sk-container-id-11 pre {
   padding: 0;
 }
 
-#sk-container-id-1 input.sk-hidden--visually {
+#sk-container-id-11 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -603,7 +634,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   width: 1px;
 }
 
-#sk-container-id-1 div.sk-dashed-wrapped {
+#sk-container-id-11 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -611,7 +642,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-1 div.sk-container {
+#sk-container-id-11 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -621,7 +652,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   position: relative;
 }
 
-#sk-container-id-1 div.sk-text-repr-fallback {
+#sk-container-id-11 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -637,14 +668,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-1 div.sk-parallel-item::after {
+#sk-container-id-11 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-1 div.sk-parallel {
+#sk-container-id-11 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -652,28 +683,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-1 div.sk-parallel-item {
+#sk-container-id-11 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
+#sk-container-id-11 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
+#sk-container-id-11 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
+#sk-container-id-11 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-1 div.sk-serial {
+#sk-container-id-11 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -691,14 +722,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-1 div.sk-toggleable {
+#sk-container-id-11 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
+#sk-container-id-11 label.sk-toggleable__label {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -708,7 +739,7 @@ clickable and can be expanded/collapsed.
   text-align: center;
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+#sk-container-id-11 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -716,13 +747,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-11 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-1 div.sk-toggleable__content {
+#sk-container-id-11 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -731,12 +762,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted {
+#sk-container-id-11 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content pre {
+#sk-container-id-11 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -744,79 +775,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+#sk-container-id-11 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-11 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-11 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-11 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-11 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-11 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-11 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-11 div.sk-label label.sk-toggleable__label,
+#sk-container-id-11 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-11 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-11 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-11 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-1 div.sk-label-container {
+#sk-container-id-11 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
+#sk-container-id-11 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -826,18 +857,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted {
+#sk-container-id-11 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
+#sk-container-id-11 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted:hover {
+#sk-container-id-11 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -924,7 +955,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-1 a.estimator_doc_link {
+#sk-container-id-11 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -939,41 +970,42 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted {
+#sk-container-id-11 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
+#sk-container-id-11 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+#sk-container-id-11 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+</style><div id="sk-container-id-11" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
-                                                   &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;10d&#x27;, &#x27;15d&#x27;,
-                                                   &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                                                   &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
+                                                   &#x27;60d&#x27;, &#x27;90d&#x27;])])),
+                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-71" type="checkbox" ><label for="sk-estimator-id-71" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
-                                                   &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;10d&#x27;, &#x27;15d&#x27;,
-                                                   &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
+                                                   &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
+                                                   &#x27;60d&#x27;, &#x27;90d&#x27;])])),
+                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-72" type="checkbox" ><label for="sk-estimator-id-72" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                   transformers=[(&#x27;num&#x27;, StandardScaler(),
-                                 [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;10d&#x27;,
-                                  &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;10d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></label><div class="sk-toggleable__content "><pre>RandomForestClassifier()</pre></div> </div></div></div></div></div></div></div></div>
+                                 [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;,
+                                  &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-73" type="checkbox" ><label for="sk-estimator-id-73" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-74" type="checkbox" ><label for="sk-estimator-id-74" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-75" type="checkbox" ><label for="sk-estimator-id-75" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-76" type="checkbox" ><label for="sk-estimator-id-76" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-77" type="checkbox" ><label for="sk-estimator-id-77" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></label><div class="sk-toggleable__content "><pre>RandomForestClassifier()</pre></div> </div></div></div></div></div></div></div></div>
 </div>
+<p>Esto quiere decir que nuestro pipeline encapsula un proceso en el que las columnas numéricas pasan por un proceso de estandarización antes de pasar al modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -1006,7 +1038,6 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
       <th>tipo_geologia</th>
       <th>24h</th>
       <th>7d</th>
-      <th>10d</th>
       <th>15d</th>
       <th>30d</th>
       <th>60d</th>
@@ -1015,79 +1046,74 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>899</th>
-      <td>1054.006714</td>
-      <td>22.413567</td>
+      <th>143</th>
+      <td>1073.708740</td>
+      <td>6.012948</td>
       <td>4</td>
       <td>25</td>
       <td>9</td>
-      <td>10.0</td>
-      <td>167.0</td>
-      <td>188.0</td>
-      <td>313.0</td>
-      <td>456.0</td>
-      <td>536.0</td>
-      <td>694.0</td>
+      <td>0.0</td>
+      <td>104.0</td>
+      <td>260.0</td>
+      <td>446.0</td>
+      <td>553.0</td>
+      <td>711.0</td>
     </tr>
     <tr>
-      <th>462</th>
-      <td>1064.613892</td>
-      <td>13.493474</td>
-      <td>1</td>
-      <td>6</td>
-      <td>8</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>0.0</td>
-      <td>31.6</td>
-      <td>147.9</td>
-      <td>380.9</td>
-    </tr>
-    <tr>
-      <th>747</th>
-      <td>1064.599976</td>
-      <td>60.087574</td>
-      <td>5</td>
-      <td>25</td>
-      <td>7</td>
-      <td>24.4</td>
-      <td>114.8</td>
-      <td>139.0</td>
-      <td>165.2</td>
-      <td>262.6</td>
-      <td>371.2</td>
-      <td>449.0</td>
-    </tr>
-    <tr>
-      <th>651</th>
-      <td>1029.619263</td>
-      <td>4.604765</td>
-      <td>1</td>
+      <th>321</th>
+      <td>1087.004517</td>
+      <td>21.071693</td>
+      <td>4</td>
       <td>25</td>
       <td>9</td>
       <td>0.0</td>
-      <td>21.3</td>
-      <td>21.3</td>
-      <td>21.3</td>
-      <td>84.6</td>
-      <td>417.5</td>
-      <td>622.5</td>
+      <td>104.0</td>
+      <td>260.0</td>
+      <td>446.0</td>
+      <td>553.0</td>
+      <td>711.0</td>
     </tr>
     <tr>
-      <th>289</th>
-      <td>1307.238647</td>
-      <td>22.076199</td>
+      <th>629</th>
+      <td>1109.522949</td>
+      <td>13.987661</td>
       <td>5</td>
-      <td>15</td>
-      <td>7</td>
-      <td>1.0</td>
-      <td>7.0</td>
-      <td>7.2</td>
-      <td>24.6</td>
-      <td>264.2</td>
-      <td>294.8</td>
-      <td>309.2</td>
+      <td>25</td>
+      <td>9</td>
+      <td>10.0</td>
+      <td>193.0</td>
+      <td>311.0</td>
+      <td>583.0</td>
+      <td>735.0</td>
+      <td>918.0</td>
+    </tr>
+    <tr>
+      <th>944</th>
+      <td>978.786621</td>
+      <td>3.903704</td>
+      <td>5</td>
+      <td>25</td>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1.2</td>
+      <td>4.3</td>
+      <td>69.4</td>
+      <td>142.9</td>
+    </tr>
+    <tr>
+      <th>442</th>
+      <td>1043.582886</td>
+      <td>42.156261</td>
+      <td>4</td>
+      <td>25</td>
+      <td>9</td>
+      <td>0.0</td>
+      <td>182.0</td>
+      <td>244.0</td>
+      <td>566.0</td>
+      <td>735.0</td>
+      <td>878.0</td>
     </tr>
   </tbody>
 </table>
@@ -1100,21 +1126,26 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>899    0
-462    1
-747    0
-651    1
-289    1
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>143    0
+321    0
+629    0
+944    1
+442    0
 Name: deslizamientos, dtype: int64
 </pre></div>
 </div>
 </div>
 </div>
+<p>Así se ve nuestra data de entrenamiento que pasará por el <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> que se definió</p>
+</section>
+<section id="rendimiento-en-training">
+<h3>Rendimiento en Training<a class="headerlink" href="#rendimiento-en-training" title="Link to this heading">#</a></h3>
+<p>La siguiente celda de código junta todas las piezas que definimos previamente, y entrena el modelo de clasificación. Después imprime un mensaje personalizado con el pipeline definido y la combinación de parámetros ganadora</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rf</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">shuffle_split</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rf</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">shuffle_split</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> Puntaje Precision en entrenamiento: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_score_</span><span class="si">}</span><span class="s2">, </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">msg_training</span><span class="p">)</span>
 <span class="n">model_rf</span><span class="o">=</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
 </pre></div>
@@ -1122,29 +1153,334 @@ Name: deslizamientos, dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rendimiento en training -&gt; RandomForestClassifier 
- Puntaje recall en entrenamiento: 0.9354255284147465, 
  modelo ganador: Pipeline(steps=[(&#39;preprocessor&#39;,
                  ColumnTransformer(remainder=&#39;passthrough&#39;,
                                    transformers=[(&#39;num&#39;, StandardScaler(),
                                                   [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;,
-                                                   &#39;24h&#39;, &#39;7d&#39;, &#39;10d&#39;, &#39;15d&#39;,
-                                                   &#39;30d&#39;, &#39;60d&#39;, &#39;90d&#39;])])),
-                (&#39;classifier&#39;, RandomForestClassifier(n_estimators=500))]) 
- mejor combinacion de parametros: {&#39;classifier__max_depth&#39;: None, &#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__min_samples_split&#39;: 2, &#39;classifier__n_estimators&#39;: 500}
+                                                   &#39;24h&#39;, &#39;7d&#39;, &#39;15d&#39;, &#39;30d&#39;,
+                                                   &#39;60d&#39;, &#39;90d&#39;])])),
+                (&#39;classifier&#39;,
+                 RandomForestClassifier(max_depth=10, min_samples_split=5,
+                                        n_estimators=500))]) 
+ mejor combinacion de parametros: {&#39;classifier__max_depth&#39;: 10, &#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__min_samples_split&#39;: 5, &#39;classifier__n_estimators&#39;: 500}
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
-<span class="n">precision</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Precision en test para RandomForestClassifier: </span><span class="si">{</span><span class="n">precision</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Resultados del GridSearchCV</span>
+<span class="n">results_rf</span> <span class="o">=</span> <span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span>
+<span class="c1">#  Convertir los resultados en un DataFrame para una mejor visualización</span>
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">grid_search</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">)</span>
+
+<span class="c1"># Mostrar solo las columnas relevantes</span>
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">df_results</span><span class="p">[[</span><span class="s1">&#39;rank_test_score&#39;</span><span class="p">,</span><span class="s1">&#39;param_classifier__n_estimators&#39;</span><span class="p">,</span><span class="s1">&#39;param_classifier__max_depth&#39;</span><span class="p">,</span> <span class="s1">&#39;param_classifier__min_samples_split&#39;</span><span class="p">,</span><span class="s1">&#39;param_classifier__min_samples_leaf&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_train_score&#39;</span><span class="p">,</span> <span class="s1">&#39;mean_test_score&#39;</span><span class="p">]]</span>
+<span class="n">df_results</span><span class="o">=</span><span class="n">df_results</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;param_classifier__n_estimators&#39;</span><span class="p">:</span><span class="s1">&#39;n_estimators&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;param_classifier__max_depth&#39;</span><span class="p">:</span><span class="s1">&#39;max_depth&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;param_classifier__min_samples_split&#39;</span><span class="p">:</span><span class="s1">&#39;min_samples_split&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;param_classifier__min_samples_leaf&#39;</span><span class="p">:</span><span class="s1">&#39;min_samples_leaf&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;mean_train_score&#39;</span><span class="p">:</span><span class="s1">&#39;Rendimiento promedio - Train&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;mean_test_score&#39;</span><span class="p">:</span><span class="s1">&#39;Rendimiento promedio - Test&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;rank_test_score&#39;</span><span class="p">:</span><span class="s1">&#39;Model Ranking&#39;</span>
+                                      <span class="p">})</span>
+<span class="c1"># Ordenar por la mejor puntuación en test</span>
+<span class="n">df_sorted</span> <span class="o">=</span> <span class="n">df_results</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;Model Ranking&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Mostrar las primeras 10 filas (los mejores modelos)</span>
+<span class="n">df_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Recall en test para RandomForestClassifier: 0.9444444444444444
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model Ranking</th>
+      <th>n_estimators</th>
+      <th>max_depth</th>
+      <th>min_samples_split</th>
+      <th>min_samples_leaf</th>
+      <th>Rendimiento promedio - Train</th>
+      <th>Rendimiento promedio - Test</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>59</th>
+      <td>1</td>
+      <td>500</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0.998196</td>
+      <td>0.945435</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>2</td>
+      <td>100</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0.999112</td>
+      <td>0.944721</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>3</td>
+      <td>100</td>
+      <td>10</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1.000000</td>
+      <td>0.944066</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>4</td>
+      <td>250</td>
+      <td>6</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0.990766</td>
+      <td>0.943483</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>5</td>
+      <td>500</td>
+      <td>10</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1.000000</td>
+      <td>0.942249</td>
+    </tr>
+    <tr>
+      <th>61</th>
+      <td>6</td>
+      <td>250</td>
+      <td>10</td>
+      <td>10</td>
+      <td>1</td>
+      <td>0.988999</td>
+      <td>0.942138</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>7</td>
+      <td>250</td>
+      <td>10</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1.000000</td>
+      <td>0.939637</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>8</td>
+      <td>250</td>
+      <td>10</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0.998640</td>
+      <td>0.937331</td>
+    </tr>
+    <tr>
+      <th>62</th>
+      <td>9</td>
+      <td>500</td>
+      <td>10</td>
+      <td>10</td>
+      <td>1</td>
+      <td>0.988956</td>
+      <td>0.936936</td>
+    </tr>
+    <tr>
+      <th>31</th>
+      <td>10</td>
+      <td>250</td>
+      <td>6</td>
+      <td>5</td>
+      <td>1</td>
+      <td>0.987597</td>
+      <td>0.936404</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Las métricas de rendimiento en el conjunto de entrenamiento y prueba se calculan durante el proceso de búsqueda de hiperparámetros.</p>
+<p>En esta tabla podemos ver el top 10 de los modelos que fueron entrenados con los valores de sus parámetros. Como podemos ver, el modelo ganador, es aquel que tiene el valor de <code class="docutils literal notranslate"><span class="pre">Model</span> <span class="pre">Ranking</span></code> como 1. Podemos ver su puntaje en Entrenamiento y en Prueba, vemos que tuvo muy buenos puntajes</p>
+</section>
+<section id="rendimiento-en-test">
+<h3>Rendimiento en Test<a class="headerlink" href="#rendimiento-en-test" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">precision_rf</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">accuracy_rf</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">recall_rf</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">f1_rf</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+
+<span class="n">data_reporte_rf</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">precision_rf</span><span class="p">],</span>
+    <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">recall_rf</span><span class="p">],</span>
+    <span class="s1">&#39;Exactitud&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">accuracy_rf</span><span class="p">],</span>
+    <span class="s1">&#39;F1-score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">f1_rf</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df_reporte_rf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_reporte_rf</span><span class="p">)</span>
+<span class="n">df_reporte_rf</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>Exactitud</th>
+      <th>F1-score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest Classifier</td>
+      <td>0.949367</td>
+      <td>0.882353</td>
+      <td>0.926316</td>
+      <td>0.914634</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Al probar el modelo ganador con datos de validación que nunca ha visto, miramos que las métricas se mantienen y son muy buenas</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="c1"># Crear el gráfico de la matriz de confusión</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">])</span>
+
+<span class="c1"># Añadir etiquetas y título</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Valores Reales&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Matriz de Confusión&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/856b1872b6bdd3754e91ba69fcd622899286242ca9c39a400b194d85a5bff920.png" src="_images/856b1872b6bdd3754e91ba69fcd622899286242ca9c39a400b194d85a5bff920.png" />
+</div>
+</div>
+<p>Al mirar la matriz de confusión, nos damos cuenta de que el conteo más bajo es cuando el modelo predice que no habrá deslizamientos, pero en realidad si hubo deslizamiento. Este es el índice que precisamente debemos apuntar a minimizar, porque en la realidad del negocio el costo de actuar sobre un falso positivo es alto, es decir se tiene recursos limitados para manejar casos positivos y se quiere minimizar las consecuencias negativas de las predicciones incorrectas de la clase positiva (falsos positivos).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_performance</span><span class="o">=</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">df_sorted</span><span class="p">[</span><span class="s1">&#39;Model Ranking&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Rendimiento promedio - Train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">trest_performance</span><span class="o">=</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">df_sorted</span><span class="p">[</span><span class="s1">&#39;Model Ranking&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Rendimiento promedio - Test&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<span class="n">valid_performance</span><span class="o">=</span><span class="n">df_reporte_rf</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Como conclusión tenemos un modelo de clasificación Random Forest con estos puntajes de rendimiento para la medida de Precision</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en training: </span><span class="si">{</span><span class="n">train_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en test: </span><span class="si">{</span><span class="n">trest_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en validation: </span><span class="si">{</span><span class="n">valid_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9981959390583244
+Precision score en test: 0.9454345137243829
+Precision score en validation: 0.9493670886075949
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Explicabilidad del modelo</strong></p>
+<p>Veamos como se comporta el modelo, midiendo las variables que el modelo tome como importantes mediante <code class="docutils literal notranslate"><span class="pre">feature_importance</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importancia de las características para RandomForest</span>
+<span class="n">importances</span> <span class="o">=</span> <span class="n">model_rf</span><span class="p">[</span><span class="s1">&#39;classifier&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="n">features</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">columns</span>
+
+<span class="c1"># Obtener índices de las importancias ordenadas de mayor a menor</span>
+<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">importances</span><span class="p">)</span>
+<span class="c1"># Ordenar importancias y características según el índice</span>
+<span class="n">sorted_importances</span> <span class="o">=</span> <span class="n">importances</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+<span class="n">sorted_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+<span class="c1"># Si quieres mostrarlo de manera visual</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">sorted_features</span><span class="p">,</span> <span class="n">sorted_importances</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Features Importance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Random Forest Features Importance&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/98df5a8ab467c82ac10bc5ad2b9cf1b63260c73219c4f3e7aa5888498261d431.png" src="_images/98df5a8ab467c82ac10bc5ad2b9cf1b63260c73219c4f3e7aa5888498261d431.png" />
+</div>
+</div>
+<p>En la gráfica vemos que las variables que más tienen valor para que el modelo pueda estimar si existe deslizamiento de tierra o no son <code class="docutils literal notranslate"><span class="pre">tipo_geologia</span></code>, <code class="docutils literal notranslate"><span class="pre">24h</span></code> y <code class="docutils literal notranslate"><span class="pre">Nomenclatura_del_Suelo</span></code></p>
+<p>Exportamos el modelo:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># En esta celda exportamos el modelo para usarlo posteriormente</span>
+
+<span class="n">model_object</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;modelo&#39;</span><span class="p">:</span><span class="n">model_rf</span>
+              <span class="p">,</span><span class="s1">&#39;encoder&#39;</span><span class="p">:</span><span class="n">label_encoders</span><span class="p">}</span>
+<span class="n">nombre_modelo</span><span class="o">=</span><span class="s1">&#39;random-forest-model&#39;</span>
+<span class="n">ruta_m</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Models&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">,</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">nombre_modelo</span><span class="si">}</span><span class="s1">.pkl&#39;</span><span class="p">)</span>
+
+<span class="n">export_pickle</span><span class="p">(</span><span class="n">model_object</span><span class="p">,</span><span class="n">ruta_m</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Objeto exportado exitosamente a ../Models/output/random-forest-model.pkl
 </pre></div>
 </div>
 </div>
@@ -1210,7 +1546,9 @@ Name: deslizamientos, dtype: int64
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo">Desarrollo</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrizacion</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training">Rendimiento en Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-test">Rendimiento en Test</a></li>
 </ul>
 </li>
 </ul>
