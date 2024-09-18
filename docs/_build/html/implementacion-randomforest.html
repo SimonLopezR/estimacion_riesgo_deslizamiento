@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'implementacion-randomforest';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Implementación 2: Gradient Boosted Trees" href="implementacion-xgboost.html" />
     <link rel="prev" title="Análisis Exploratorio de datos" href="eda.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -181,6 +182,8 @@
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="eda.html">Análisis Exploratorio de datos</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementación 1: Modelo RandomForest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
 </ul>
 
     </div>
@@ -379,8 +382,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo">Desarrollo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training">Rendimiento en Training</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-test">Rendimiento en Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
 </ul>
 </li>
 </ul>
@@ -469,7 +472,7 @@ document.write(`
 <p>En esta sección se busca parametrizar el desarrollo, dividir el conjunto de datos, definir parámetros de entrenamiento y hacer la creación del pipeline para el modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a los 10 dias</span>
 <span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
 <span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
 </pre></div>
@@ -536,7 +539,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 <p>Este objeto nos servirá para codificar valores nuevos que entren al modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -584,7 +587,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-11 {
+<div class="output text_html"><style>#sk-container-id-14 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
   --sklearn-color-line: gray;
@@ -614,15 +617,15 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   }
 }
 
-#sk-container-id-11 {
+#sk-container-id-14 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-11 pre {
+#sk-container-id-14 pre {
   padding: 0;
 }
 
-#sk-container-id-11 input.sk-hidden--visually {
+#sk-container-id-14 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -634,7 +637,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   width: 1px;
 }
 
-#sk-container-id-11 div.sk-dashed-wrapped {
+#sk-container-id-14 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -642,7 +645,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-11 div.sk-container {
+#sk-container-id-14 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -652,7 +655,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   position: relative;
 }
 
-#sk-container-id-11 div.sk-text-repr-fallback {
+#sk-container-id-14 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -668,14 +671,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-11 div.sk-parallel-item::after {
+#sk-container-id-14 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-11 div.sk-parallel {
+#sk-container-id-14 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -683,28 +686,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-11 div.sk-parallel-item {
+#sk-container-id-14 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-11 div.sk-parallel-item:first-child::after {
+#sk-container-id-14 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-11 div.sk-parallel-item:last-child::after {
+#sk-container-id-14 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-11 div.sk-parallel-item:only-child::after {
+#sk-container-id-14 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-11 div.sk-serial {
+#sk-container-id-14 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -722,14 +725,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-11 div.sk-toggleable {
+#sk-container-id-14 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-11 label.sk-toggleable__label {
+#sk-container-id-14 label.sk-toggleable__label {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -739,7 +742,7 @@ clickable and can be expanded/collapsed.
   text-align: center;
 }
 
-#sk-container-id-11 label.sk-toggleable__label-arrow:before {
+#sk-container-id-14 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -747,13 +750,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-11 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-14 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-11 div.sk-toggleable__content {
+#sk-container-id-14 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -762,12 +765,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-11 div.sk-toggleable__content.fitted {
+#sk-container-id-14 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-11 div.sk-toggleable__content pre {
+#sk-container-id-14 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -775,79 +778,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-11 div.sk-toggleable__content.fitted pre {
+#sk-container-id-14 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-11 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-14 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-11 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-14 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-11 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-14 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-11 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-14 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-11 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-14 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-11 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-14 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-11 div.sk-label label.sk-toggleable__label,
-#sk-container-id-11 div.sk-label label {
+#sk-container-id-14 div.sk-label label.sk-toggleable__label,
+#sk-container-id-14 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-11 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-14 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-11 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-14 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-11 div.sk-label label {
+#sk-container-id-14 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-11 div.sk-label-container {
+#sk-container-id-14 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-11 div.sk-estimator {
+#sk-container-id-14 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -857,18 +860,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-11 div.sk-estimator.fitted {
+#sk-container-id-14 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-11 div.sk-estimator:hover {
+#sk-container-id-14 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-11 div.sk-estimator.fitted:hover {
+#sk-container-id-14 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -955,7 +958,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-11 a.estimator_doc_link {
+#sk-container-id-14 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -970,40 +973,40 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-11 a.estimator_doc_link.fitted {
+#sk-container-id-14 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-11 a.estimator_doc_link:hover {
+#sk-container-id-14 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-11 a.estimator_doc_link.fitted:hover {
+#sk-container-id-14 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-11" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+</style><div id="sk-container-id-14" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
                                                    &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
                                                    &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-71" type="checkbox" ><label for="sk-estimator-id-71" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-92" type="checkbox" ><label for="sk-estimator-id-92" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
                                                    &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
                                                    &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-72" type="checkbox" ><label for="sk-estimator-id-72" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
+                (&#x27;classifier&#x27;, RandomForestClassifier())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-93" type="checkbox" ><label for="sk-estimator-id-93" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                   transformers=[(&#x27;num&#x27;, StandardScaler(),
                                  [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;,
-                                  &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-73" type="checkbox" ><label for="sk-estimator-id-73" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-74" type="checkbox" ><label for="sk-estimator-id-74" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-75" type="checkbox" ><label for="sk-estimator-id-75" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-76" type="checkbox" ><label for="sk-estimator-id-76" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-77" type="checkbox" ><label for="sk-estimator-id-77" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></label><div class="sk-toggleable__content "><pre>RandomForestClassifier()</pre></div> </div></div></div></div></div></div></div></div>
+                                  &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-94" type="checkbox" ><label for="sk-estimator-id-94" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-95" type="checkbox" ><label for="sk-estimator-id-95" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-96" type="checkbox" ><label for="sk-estimator-id-96" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-97" type="checkbox" ><label for="sk-estimator-id-97" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-98" type="checkbox" ><label for="sk-estimator-id-98" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;RandomForestClassifier<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.5/modules/generated/sklearn.ensemble.RandomForestClassifier.html">?<span>Documentation for RandomForestClassifier</span></a></label><div class="sk-toggleable__content "><pre>RandomForestClassifier()</pre></div> </div></div></div></div></div></div></div></div>
 </div>
 <p>Esto quiere decir que nuestro pipeline encapsula un proceso en el que las columnas numéricas pasan por un proceso de estandarización antes de pasar al modelo</p>
 <div class="cell docutils container">
@@ -1046,74 +1049,74 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>143</th>
-      <td>1073.708740</td>
-      <td>6.012948</td>
+      <th>385</th>
+      <td>1109.965332</td>
+      <td>42.944015</td>
+      <td>4</td>
+      <td>25</td>
+      <td>7</td>
+      <td>7.6</td>
+      <td>83.5</td>
+      <td>213.5</td>
+      <td>343.7</td>
+      <td>452.1</td>
+      <td>531.0</td>
+    </tr>
+    <tr>
+      <th>568</th>
+      <td>1099.497681</td>
+      <td>63.939667</td>
+      <td>1</td>
+      <td>8</td>
+      <td>8</td>
+      <td>1.0</td>
+      <td>4.4</td>
+      <td>4.6</td>
+      <td>31.4</td>
+      <td>294.2</td>
+      <td>310.6</td>
+    </tr>
+    <tr>
+      <th>50</th>
+      <td>1096.610596</td>
+      <td>52.120461</td>
       <td>4</td>
       <td>25</td>
       <td>9</td>
-      <td>0.0</td>
-      <td>104.0</td>
-      <td>260.0</td>
-      <td>446.0</td>
-      <td>553.0</td>
-      <td>711.0</td>
+      <td>4.0</td>
+      <td>171.0</td>
+      <td>315.0</td>
+      <td>458.0</td>
+      <td>540.0</td>
+      <td>698.0</td>
     </tr>
     <tr>
-      <th>321</th>
-      <td>1087.004517</td>
-      <td>21.071693</td>
-      <td>4</td>
-      <td>25</td>
-      <td>9</td>
-      <td>0.0</td>
-      <td>104.0</td>
-      <td>260.0</td>
-      <td>446.0</td>
-      <td>553.0</td>
-      <td>711.0</td>
-    </tr>
-    <tr>
-      <th>629</th>
-      <td>1109.522949</td>
-      <td>13.987661</td>
+      <th>745</th>
+      <td>1080.625122</td>
+      <td>46.239780</td>
       <td>5</td>
       <td>25</td>
       <td>9</td>
-      <td>10.0</td>
-      <td>193.0</td>
-      <td>311.0</td>
-      <td>583.0</td>
-      <td>735.0</td>
-      <td>918.0</td>
+      <td>0.0</td>
+      <td>18.0</td>
+      <td>225.0</td>
+      <td>471.0</td>
+      <td>753.0</td>
+      <td>859.0</td>
     </tr>
     <tr>
-      <th>944</th>
-      <td>978.786621</td>
-      <td>3.903704</td>
+      <th>701</th>
+      <td>1644.266846</td>
+      <td>22.834097</td>
       <td>5</td>
-      <td>25</td>
-      <td>4</td>
+      <td>20</td>
+      <td>10</td>
       <td>0.0</td>
-      <td>0.0</td>
-      <td>1.2</td>
-      <td>4.3</td>
-      <td>69.4</td>
-      <td>142.9</td>
-    </tr>
-    <tr>
-      <th>442</th>
-      <td>1043.582886</td>
-      <td>42.156261</td>
-      <td>4</td>
-      <td>25</td>
-      <td>9</td>
-      <td>0.0</td>
-      <td>182.0</td>
-      <td>244.0</td>
-      <td>566.0</td>
-      <td>735.0</td>
-      <td>878.0</td>
+      <td>0.2</td>
+      <td>32.8</td>
+      <td>98.4</td>
+      <td>181.0</td>
+      <td>222.8</td>
     </tr>
   </tbody>
 </table>
@@ -1126,11 +1129,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>143    0
-321    0
-629    0
-944    1
-442    0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>385    1
+568    0
+50     1
+745    1
+701    0
 Name: deslizamientos, dtype: int64
 </pre></div>
 </div>
@@ -1138,21 +1141,21 @@ Name: deslizamientos, dtype: int64
 </div>
 <p>Así se ve nuestra data de entrenamiento que pasará por el <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> que se definió</p>
 </section>
-<section id="rendimiento-en-training">
-<h3>Rendimiento en Training<a class="headerlink" href="#rendimiento-en-training" title="Link to this heading">#</a></h3>
+<section id="rendimiento-en-training-y-test">
+<h3>Rendimiento en Training y Test<a class="headerlink" href="#rendimiento-en-training-y-test" title="Link to this heading">#</a></h3>
 <p>La siguiente celda de código junta todas las piezas que definimos previamente, y entrena el modelo de clasificación. Después imprime un mensaje personalizado con el pipeline definido y la combinación de parámetros ganadora</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline_rf</span><span class="p">,</span> <span class="n">param_grid_rf</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">shuffle_split</span><span class="p">,</span><span class="n">scoring</span><span class="o">=</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span> <span class="n">return_train_score</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Rendimiento en training -&gt; RandomForestClassifier </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="n">msg_training</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;RandomForestClassifier </span><span class="se">\n</span><span class="s2"> modelo ganador: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2"> mejor combinacion de parametros: </span><span class="si">{</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">msg_training</span><span class="p">)</span>
 <span class="n">model_rf</span><span class="o">=</span><span class="n">grid_search</span><span class="o">.</span><span class="n">best_estimator_</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rendimiento en training -&gt; RandomForestClassifier 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>RandomForestClassifier 
  modelo ganador: Pipeline(steps=[(&#39;preprocessor&#39;,
                  ColumnTransformer(remainder=&#39;passthrough&#39;,
                                    transformers=[(&#39;num&#39;, StandardScaler(),
@@ -1160,9 +1163,8 @@ Name: deslizamientos, dtype: int64
                                                    &#39;24h&#39;, &#39;7d&#39;, &#39;15d&#39;, &#39;30d&#39;,
                                                    &#39;60d&#39;, &#39;90d&#39;])])),
                 (&#39;classifier&#39;,
-                 RandomForestClassifier(max_depth=10, min_samples_split=5,
-                                        n_estimators=500))]) 
- mejor combinacion de parametros: {&#39;classifier__max_depth&#39;: 10, &#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__min_samples_split&#39;: 5, &#39;classifier__n_estimators&#39;: 500}
+                 RandomForestClassifier(max_depth=10, min_samples_split=5))]) 
+ mejor combinacion de parametros: {&#39;classifier__max_depth&#39;: 10, &#39;classifier__min_samples_leaf&#39;: 1, &#39;classifier__min_samples_split&#39;: 5, &#39;classifier__n_estimators&#39;: 100}
 </pre></div>
 </div>
 </div>
@@ -1222,104 +1224,104 @@ Name: deslizamientos, dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>59</th>
-      <td>1</td>
-      <td>500</td>
-      <td>10</td>
-      <td>5</td>
-      <td>1</td>
-      <td>0.998196</td>
-      <td>0.945435</td>
-    </tr>
-    <tr>
       <th>57</th>
-      <td>2</td>
+      <td>1</td>
       <td>100</td>
       <td>10</td>
       <td>5</td>
       <td>1</td>
-      <td>0.999112</td>
-      <td>0.944721</td>
-    </tr>
-    <tr>
-      <th>54</th>
-      <td>3</td>
-      <td>100</td>
-      <td>10</td>
-      <td>2</td>
-      <td>1</td>
-      <td>1.000000</td>
-      <td>0.944066</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>4</td>
-      <td>250</td>
-      <td>6</td>
-      <td>2</td>
-      <td>1</td>
-      <td>0.990766</td>
-      <td>0.943483</td>
-    </tr>
-    <tr>
-      <th>56</th>
-      <td>5</td>
-      <td>500</td>
-      <td>10</td>
-      <td>2</td>
-      <td>1</td>
-      <td>1.000000</td>
-      <td>0.942249</td>
-    </tr>
-    <tr>
-      <th>61</th>
-      <td>6</td>
-      <td>250</td>
-      <td>10</td>
-      <td>10</td>
-      <td>1</td>
-      <td>0.988999</td>
-      <td>0.942138</td>
+      <td>0.999030</td>
+      <td>0.928429</td>
     </tr>
     <tr>
       <th>55</th>
-      <td>7</td>
+      <td>2</td>
       <td>250</td>
       <td>10</td>
       <td>2</td>
       <td>1</td>
       <td>1.000000</td>
-      <td>0.939637</td>
+      <td>0.927436</td>
+    </tr>
+    <tr>
+      <th>56</th>
+      <td>3</td>
+      <td>500</td>
+      <td>10</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1.000000</td>
+      <td>0.927007</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>4</td>
+      <td>100</td>
+      <td>10</td>
+      <td>2</td>
+      <td>1</td>
+      <td>1.000000</td>
+      <td>0.926567</td>
+    </tr>
+    <tr>
+      <th>63</th>
+      <td>5</td>
+      <td>100</td>
+      <td>10</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.994874</td>
+      <td>0.924606</td>
     </tr>
     <tr>
       <th>58</th>
-      <td>8</td>
+      <td>6</td>
       <td>250</td>
       <td>10</td>
       <td>5</td>
       <td>1</td>
-      <td>0.998640</td>
-      <td>0.937331</td>
+      <td>0.999690</td>
+      <td>0.924245</td>
     </tr>
     <tr>
-      <th>62</th>
+      <th>65</th>
+      <td>7</td>
+      <td>500</td>
+      <td>10</td>
+      <td>2</td>
+      <td>2</td>
+      <td>0.995884</td>
+      <td>0.924021</td>
+    </tr>
+    <tr>
+      <th>68</th>
+      <td>8</td>
+      <td>500</td>
+      <td>10</td>
+      <td>5</td>
+      <td>2</td>
+      <td>0.993968</td>
+      <td>0.923738</td>
+    </tr>
+    <tr>
+      <th>59</th>
       <td>9</td>
       <td>500</td>
       <td>10</td>
-      <td>10</td>
-      <td>1</td>
-      <td>0.988956</td>
-      <td>0.936936</td>
-    </tr>
-    <tr>
-      <th>31</th>
-      <td>10</td>
-      <td>250</td>
-      <td>6</td>
       <td>5</td>
       <td>1</td>
-      <td>0.987597</td>
-      <td>0.936404</td>
+      <td>0.999691</td>
+      <td>0.922644</td>
+    </tr>
+    <tr>
+      <th>66</th>
+      <td>10</td>
+      <td>100</td>
+      <td>10</td>
+      <td>5</td>
+      <td>2</td>
+      <td>0.993344</td>
+      <td>0.922316</td>
     </tr>
   </tbody>
 </table>
@@ -1328,8 +1330,8 @@ Name: deslizamientos, dtype: int64
 <p>Las métricas de rendimiento en el conjunto de entrenamiento y prueba se calculan durante el proceso de búsqueda de hiperparámetros.</p>
 <p>En esta tabla podemos ver el top 10 de los modelos que fueron entrenados con los valores de sus parámetros. Como podemos ver, el modelo ganador, es aquel que tiene el valor de <code class="docutils literal notranslate"><span class="pre">Model</span> <span class="pre">Ranking</span></code> como 1. Podemos ver su puntaje en Entrenamiento y en Prueba, vemos que tuvo muy buenos puntajes</p>
 </section>
-<section id="rendimiento-en-test">
-<h3>Rendimiento en Test<a class="headerlink" href="#rendimiento-en-test" title="Link to this heading">#</a></h3>
+<section id="rendimiento-en-validation">
+<h3>Rendimiento en Validation<a class="headerlink" href="#rendimiento-en-validation" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid</span><span class="p">)</span>
@@ -1381,10 +1383,10 @@ Name: deslizamientos, dtype: int64
     <tr>
       <th>0</th>
       <td>Random Forest Classifier</td>
-      <td>0.949367</td>
-      <td>0.882353</td>
+      <td>0.908257</td>
+      <td>0.961165</td>
       <td>0.926316</td>
-      <td>0.914634</td>
+      <td>0.933962</td>
     </tr>
   </tbody>
 </table>
@@ -1394,9 +1396,10 @@ Name: deslizamientos, dtype: int64
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">cm</span>
 <span class="c1"># Crear el gráfico de la matriz de confusión</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cm</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">,</span> <span class="n">cbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">],</span> <span class="n">yticklabels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;No Deslizamiento de tierra&#39;</span><span class="p">,</span> <span class="s1">&#39;Deslizamiento de tierra&#39;</span><span class="p">])</span>
 
 <span class="c1"># Añadir etiquetas y título</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Predicciones&#39;</span><span class="p">)</span>
@@ -1407,7 +1410,7 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/856b1872b6bdd3754e91ba69fcd622899286242ca9c39a400b194d85a5bff920.png" src="_images/856b1872b6bdd3754e91ba69fcd622899286242ca9c39a400b194d85a5bff920.png" />
+<img alt="_images/2b28cac9c3c6c38bbc721c4af9b5c7a11dc60a4870e636191f744a9ac8396c86.png" src="_images/2b28cac9c3c6c38bbc721c4af9b5c7a11dc60a4870e636191f744a9ac8396c86.png" />
 </div>
 </div>
 <p>Al mirar la matriz de confusión, nos damos cuenta de que el conteo más bajo es cuando el modelo predice que no habrá deslizamientos, pero en realidad si hubo deslizamiento. Este es el índice que precisamente debemos apuntar a minimizar, porque en la realidad del negocio el costo de actuar sobre un falso positivo es alto, es decir se tiene recursos limitados para manejar casos positivos y se quiere minimizar las consecuencias negativas de las predicciones incorrectas de la clase positiva (falsos positivos).</p>
@@ -1430,9 +1433,9 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9981959390583244
-Precision score en test: 0.9454345137243829
-Precision score en validation: 0.9493670886075949
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9990298342587751
+Precision score en test: 0.928428560449785
+Precision score en validation: 0.908256880733945
 </pre></div>
 </div>
 </div>
@@ -1451,7 +1454,7 @@ Precision score en validation: 0.9493670886075949
 <span class="n">sorted_importances</span> <span class="o">=</span> <span class="n">importances</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 <span class="n">sorted_features</span> <span class="o">=</span> <span class="n">features</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
 <span class="c1"># Si quieres mostrarlo de manera visual</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="n">plt</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">sorted_features</span><span class="p">,</span> <span class="n">sorted_importances</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Features Importance&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Features&#39;</span><span class="p">)</span>
@@ -1461,7 +1464,7 @@ Precision score en validation: 0.9493670886075949
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/98df5a8ab467c82ac10bc5ad2b9cf1b63260c73219c4f3e7aa5888498261d431.png" src="_images/98df5a8ab467c82ac10bc5ad2b9cf1b63260c73219c4f3e7aa5888498261d431.png" />
+<img alt="_images/f9d800fa9b3038f54238b94d8bd6f8d21c7a5d7da8eef8cfcbc98c878f7e77d2.png" src="_images/f9d800fa9b3038f54238b94d8bd6f8d21c7a5d7da8eef8cfcbc98c878f7e77d2.png" />
 </div>
 </div>
 <p>En la gráfica vemos que las variables que más tienen valor para que el modelo pueda estimar si existe deslizamiento de tierra o no son <code class="docutils literal notranslate"><span class="pre">tipo_geologia</span></code>, <code class="docutils literal notranslate"><span class="pre">24h</span></code> y <code class="docutils literal notranslate"><span class="pre">Nomenclatura_del_Suelo</span></code></p>
@@ -1528,6 +1531,15 @@ Precision score en validation: 0.9493670886075949
         <p class="prev-next-title">Análisis Exploratorio de datos</p>
       </div>
     </a>
+    <a class="right-next"
+       href="implementacion-xgboost.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Implementación 2: Gradient Boosted Trees</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1547,8 +1559,8 @@ Precision score en validation: 0.9493670886075949
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#desarrollo">Desarrollo</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training">Rendimiento en Training</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-test">Rendimiento en Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
 </ul>
 </li>
 </ul>

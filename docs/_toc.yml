@@ -7,3 +7,4 @@ chapters:
 - file: eda
 - file: implementacion-randomforest
 - file: implementacion-xgboost
+- file: implementacion-logisticR
