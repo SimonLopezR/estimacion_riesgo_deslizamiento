@@ -8,3 +8,4 @@ chapters:
 - file: implementacion-randomforest
 - file: implementacion-xgboost
 - file: implementacion-logisticR
+- file: implementacion-svc
