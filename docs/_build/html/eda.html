@@ -184,6 +184,8 @@
 <li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
 </ul>
 
     </div>
@@ -611,7 +613,7 @@ document.write(`
 <p>Para esto haremos una revisión simple de cuantos registros hay de cada clase</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grafica el histograma usando Seaborn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grafica el histograma usando Seaborn.</span>
 <span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">)</span>
 
 <span class="c1"># Añade etiquetas y título</span>

@@ -184,6 +184,8 @@
 <li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementación 2: Gradient Boosted Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
 </ul>
 
     </div>
@@ -384,6 +386,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicabilidad-del-modelo">Explicabilidad del modelo</a></li>
 </ul>
 </li>
 </ul>
@@ -1486,7 +1489,9 @@ Precision score en validation: 0.9345794392523364
 </div>
 </div>
 </div>
-<p><strong>Explicabilidad del modelo</strong></p>
+</section>
+<section id="explicabilidad-del-modelo">
+<h3>Explicabilidad del modelo<a class="headerlink" href="#explicabilidad-del-modelo" title="Link to this heading">#</a></h3>
 <p>Veamos como se comporta el modelo, midiendo las variables que el modelo tome como importantes mediante <code class="docutils literal notranslate"><span class="pre">feature_importance</span></code></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1516,7 +1521,7 @@ Precision score en validation: 0.9345794392523364
 <p>Exportamos el modelo:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># En esta celda exportamos el modelo para usarlo posteriormente</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># En esta celda exportamos el modelo para usarlo posteriormente.</span>
 
 <span class="n">model_object</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;modelo&#39;</span><span class="p">:</span><span class="n">model_xgb</span>
               <span class="p">,</span><span class="s1">&#39;encoder&#39;</span><span class="p">:</span><span class="n">label_encoders</span><span class="p">}</span>
@@ -1606,6 +1611,7 @@ Precision score en validation: 0.9345794392523364
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicabilidad-del-modelo">Explicabilidad del modelo</a></li>
 </ul>
 </li>
 </ul>

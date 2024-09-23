@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'implementacion-logisticR';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Implementación 4: Modelo Support Vector Machines" href="implementacion-svc.html" />
     <link rel="prev" title="Implementación 2: Gradient Boosted Trees" href="implementacion-xgboost.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -183,6 +184,8 @@
 <li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
 </ul>
 
     </div>
@@ -383,6 +386,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicabilidad-del-modelo">Explicabilidad del modelo</a></li>
 </ul>
 </li>
 </ul>
@@ -563,6 +567,11 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 </div>
 </div>
+<ul class="simple">
+<li><p>C: Controla la fuerza de la regularización. Un valor más pequeño implica una mayor penalización y por tanto, menor susceptibilidad a la multicolinealidad.</p></li>
+<li><p>solver: Es el algoritmo utilizado para optimizar el modelo. liblinear es eficiente para conjuntos de datos pequeños, mientras que saga puede manejar conjuntos de datos grandes y dispersos.</p></li>
+<li><p>penalty: Seleccionamos l2 para manejar la multicolinealidad.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">preprocessor_lr</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">(</span>
@@ -1414,7 +1423,9 @@ Precision score en validation: 0.92
 </div>
 </div>
 </div>
-<p><strong>Explicabilidad del modelo</strong></p>
+</section>
+<section id="explicabilidad-del-modelo">
+<h3>Explicabilidad del modelo<a class="headerlink" href="#explicabilidad-del-modelo" title="Link to this heading">#</a></h3>
 <p>Veamos el AUC</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1457,6 +1468,9 @@ Precision score en validation: 0.92
 <img alt="_images/22b0cd93e918e3c8385eda4549819ac1e6a0e2c92a4a51e78efdc6ce17b77edb.png" src="_images/22b0cd93e918e3c8385eda4549819ac1e6a0e2c92a4a51e78efdc6ce17b77edb.png" />
 </div>
 </div>
+<p>En la parte izquierda de la gráfica (bajos valores de recall), la precisión es muy alta (cerca de 1). Esto indica que cuando el modelo clasifica una instancia como positiva, la probabilidad de que sea correcta es alta, aunque no detecta muchas de las verdaderas instancias positivas (bajo recall). A medida que el recall aumenta, la precisión empieza a disminuir. Esto es común, ya que al aumentar el número de verdaderos positivos identificados (mayor recall), el modelo también puede empezar a identificar más falsos positivos, lo que reduce la precisión.</p>
+<p>En la parte derecha (altos valores de recall), la precisión cae drásticamente. Esto ocurre porque el modelo intenta clasificar la mayor cantidad posible de positivos, pero a expensas de incluir falsos positivos, lo que disminuye su precisión.</p>
+<p>Esta curva muestra un buen equilibrio entre precisión y recall en la mayor parte del rango, especialmente cuando se busca maximizar la precisión sin sacrificar demasiado el recall. El modelo es bueno capturando positivos sin generar muchos falsos positivos, pero su rendimiento decae cuando intenta maximizar demasiado el recall.</p>
 <p>Exportamos el modelo:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1520,6 +1534,15 @@ Precision score en validation: 0.92
         <p class="prev-next-title">Implementación 2: Gradient Boosted Trees</p>
       </div>
     </a>
+    <a class="right-next"
+       href="implementacion-svc.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Implementación 4: Modelo Support Vector Machines</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1541,6 +1564,7 @@ Precision score en validation: 0.92
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parametrizacion">Parametrización</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-training-y-test">Rendimiento en Training y Test</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rendimiento-en-validation">Rendimiento en Validation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#explicabilidad-del-modelo">Explicabilidad del modelo</a></li>
 </ul>
 </li>
 </ul>

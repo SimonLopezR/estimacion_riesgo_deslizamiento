@@ -1,0 +1,863 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calibración de clasificadores &#8212; Informe</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'calibracion';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Implementación 4: Modelo Support Vector Machines" href="implementacion-svc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Informe - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Informe - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Contextualización de la Problemática
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Análisis Exploratorio de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Calibración de clasificadores</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fcalibracion.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/calibracion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Calibración de clasificadores</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-modelos">Revisión de Modelos</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="calibracion-de-clasificadores">
+<h1>Calibración de clasificadores<a class="headerlink" href="#calibracion-de-clasificadores" title="Link to this heading">#</a></h1>
+<section id="importacion-de-librerias-y-creacion-de-funciones">
+<h2>Importación de librerias y creación de funciones<a class="headerlink" href="#importacion-de-librerias-y-creacion-de-funciones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Importar las bibliotecas necesarias</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span><span class="p">,</span><span class="n">calibration_curve</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_csv</span><span class="p">(</span><span class="n">ruta_csv</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_csv</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">df</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;El archivo en la ruta </span><span class="si">{</span><span class="n">ruta_csv</span><span class="si">}</span><span class="s2"> no se encontró.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">EmptyDataError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;El archivo CSV está vacío.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">pd</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">ParserError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error al analizar el archivo CSV.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ocurrió un error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_pkl</span><span class="p">(</span><span class="n">ruta</span><span class="p">):</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ruta</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">archivo</span><span class="p">:</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">archivo</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datos</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_validation_data</span><span class="p">(</span><span class="n">ruta_csv</span><span class="p">):</span>
+    <span class="n">df</span><span class="o">=</span><span class="n">load_csv</span><span class="p">(</span><span class="n">ruta_csv</span><span class="p">)</span>
+    <span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a los 10 dias</span>
+    <span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
+    <span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
+    <span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">independent_var</span><span class="p">]</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">dependent_var</span><span class="p">]</span>
+    <span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_models</span><span class="p">(</span><span class="n">ruta_m</span><span class="p">):</span>
+    <span class="n">ruta_modelos</span><span class="o">=</span><span class="n">ruta_m</span>
+    <span class="n">modelos</span><span class="o">=</span><span class="p">[</span><span class="n">archivo</span> <span class="k">for</span> <span class="n">archivo</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">ruta_modelos</span><span class="p">)</span> <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ruta_modelos</span><span class="p">,</span> <span class="n">archivo</span><span class="p">))]</span>
+
+    <span class="n">dict_modelos</span><span class="o">=</span><span class="p">{}</span>
+    <span class="k">for</span> <span class="n">modelo</span> <span class="ow">in</span> <span class="n">modelos</span><span class="p">:</span>
+        <span class="n">pkl</span><span class="o">=</span><span class="n">load_pkl</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">ruta_modelos</span><span class="p">,</span><span class="n">modelo</span><span class="p">))</span>
+        <span class="n">key</span><span class="o">=</span><span class="n">modelo</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dict_modelos</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">=</span><span class="n">pkl</span>
+
+    <span class="n">rf</span><span class="o">=</span><span class="n">dict_modelos</span><span class="p">[</span><span class="s1">&#39;random-forest-model&#39;</span><span class="p">]</span>
+    <span class="n">xgb</span><span class="o">=</span><span class="n">dict_modelos</span><span class="p">[</span><span class="s1">&#39;xgboosted-trees-model&#39;</span><span class="p">]</span>
+    <span class="n">lr</span><span class="o">=</span><span class="n">dict_modelos</span><span class="p">[</span><span class="s1">&#39;logistic-regressor-model&#39;</span><span class="p">]</span>
+    <span class="n">svc</span><span class="o">=</span><span class="n">dict_modelos</span><span class="p">[</span><span class="s1">&#39;svc-model&#39;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">rf</span><span class="p">,</span><span class="n">xgb</span><span class="p">,</span><span class="n">lr</span><span class="p">,</span><span class="n">svc</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">preprocess_data</span><span class="p">(</span><span class="n">encoder</span><span class="p">,</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">columns_to_encode</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">encoder</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="n">df2</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">columns_to_encode</span><span class="p">:</span>
+        <span class="n">array</span><span class="o">=</span><span class="n">encoder</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">df2</span><span class="p">[</span><span class="n">column</span><span class="p">])</span>
+        <span class="n">df2</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">=</span><span class="n">array</span>
+    
+    <span class="k">return</span> <span class="n">df2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">validation_model_performance</span><span class="p">(</span><span class="n">ruta_m</span><span class="p">,</span><span class="n">ruta_csv</span><span class="p">):</span>
+    <span class="n">rf</span><span class="p">,</span><span class="n">xgb</span><span class="p">,</span><span class="n">lr</span><span class="p">,</span><span class="n">svc</span><span class="o">=</span><span class="n">load_models</span><span class="p">(</span><span class="n">ruta_m</span><span class="p">)</span>
+    <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="o">=</span><span class="n">load_validation_data</span><span class="p">(</span><span class="n">ruta_csv</span><span class="p">)</span>
+
+    <span class="c1"># RF</span>
+    <span class="n">model_rf</span><span class="o">=</span><span class="n">rf</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+    <span class="n">encoder_rf</span><span class="o">=</span><span class="n">rf</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+    <span class="n">X_valid_rf</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_rf</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+    <span class="n">X_valid_rf</span><span class="o">=</span><span class="n">X_valid_rf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+    <span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid_rf</span><span class="p">)</span>
+    <span class="n">precision_rf</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+    <span class="n">accuracy_rf</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+    <span class="n">recall_rf</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+    <span class="n">f1_rf</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+
+    <span class="c1"># XGBoost</span>
+    <span class="n">model_xgb</span><span class="o">=</span><span class="n">xgb</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+    <span class="n">encoder_xgb</span><span class="o">=</span><span class="n">xgb</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+    <span class="n">X_valid_xgb</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_xgb</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+    <span class="n">X_valid_xgb</span><span class="o">=</span><span class="n">X_valid_xgb</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+    <span class="n">y_pred_xgb</span> <span class="o">=</span> <span class="n">model_xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid_xgb</span><span class="p">)</span>
+    <span class="n">precision_xgb</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+    <span class="n">accuracy_xgb</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+    <span class="n">recall_xgb</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+    <span class="n">f1_xgb</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+
+    <span class="c1"># Logistic Reg</span>
+    <span class="n">model_lr</span><span class="o">=</span><span class="n">lr</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+    <span class="n">encoder_lr</span><span class="o">=</span><span class="n">lr</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+    <span class="n">X_valid_lr</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_lr</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+    <span class="n">X_valid_lr</span><span class="o">=</span><span class="n">X_valid_lr</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;7d&#39;</span><span class="p">,</span><span class="s1">&#39;15d&#39;</span><span class="p">,</span><span class="s1">&#39;60d&#39;</span><span class="p">])</span>
+
+    <span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">model_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid_lr</span><span class="p">)</span>
+    <span class="n">precision_lr</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+    <span class="n">accuracy_lr</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+    <span class="n">recall_lr</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+    <span class="n">f1_lr</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+
+    <span class="c1"># SVC</span>
+    <span class="n">model_svc</span><span class="o">=</span><span class="n">svc</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+    <span class="n">encoder_svc</span><span class="o">=</span><span class="n">svc</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+    <span class="n">X_valid_svc</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_svc</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+    <span class="n">X_valid_svc</span><span class="o">=</span><span class="n">X_valid_svc</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+    <span class="n">y_pred_svc</span> <span class="o">=</span> <span class="n">model_svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">)</span>
+    <span class="n">precision_svc</span> <span class="o">=</span> <span class="n">precision_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+    <span class="n">accuracy_svc</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+    <span class="n">recall_svc</span> <span class="o">=</span> <span class="n">recall_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+    <span class="n">f1_svc</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+
+    <span class="c1">#####</span>
+    <span class="n">data_reporte</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Support Vector Classifer&#39;</span>
+                   <span class="p">],</span>
+        <span class="s1">&#39;Precision&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">precision_rf</span><span class="p">,</span><span class="n">precision_xgb</span><span class="p">,</span><span class="n">precision_lr</span><span class="p">,</span><span class="n">precision_svc</span>
+                      <span class="p">],</span>
+        <span class="s1">&#39;Recall&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">recall_rf</span><span class="p">,</span><span class="n">recall_xgb</span><span class="p">,</span><span class="n">accuracy_lr</span><span class="p">,</span><span class="n">accuracy_svc</span>
+                   <span class="p">],</span>
+        <span class="s1">&#39;Exactitud&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">accuracy_rf</span><span class="p">,</span><span class="n">accuracy_xgb</span><span class="p">,</span><span class="n">recall_lr</span><span class="p">,</span><span class="n">recall_svc</span>
+                      <span class="p">],</span>
+        <span class="s1">&#39;F1-score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">f1_rf</span><span class="p">,</span><span class="n">f1_xgb</span><span class="p">,</span><span class="n">f1_lr</span><span class="p">,</span><span class="n">f1_svc</span>
+                     <span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">df_reporte</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_reporte</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df_reporte</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="revision-de-modelos">
+<h2>Revisión de Modelos<a class="headerlink" href="#revision-de-modelos" title="Link to this heading">#</a></h2>
+<p>Recapitulando, se muestra el comportamiento de los mejores modelos selectos durante el proceso de validación cruzada en la siguiente tabla, se proyectan sus rendimientos en la etapa de entrenamiento y de prueba durante.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Modelo</p></th>
+<th class="head"><p>Rendimiento en Train (Precision)</p></th>
+<th class="head"><p>Rendimiento en Test (Precision)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Random Forest Classifier</p></td>
+<td><p>0.99903</p></td>
+<td><p>0.92842</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gradient Boosting Classifier</p></td>
+<td><p>1.0</p></td>
+<td><p>0.96009</p></td>
+</tr>
+<tr class="row-even"><td><p>Logistic Regressor</p></td>
+<td><p>0.91033</p></td>
+<td><p>0.90531</p></td>
+</tr>
+<tr class="row-odd"><td><p>Support Vector Classifer</p></td>
+<td><p>0.95424</p></td>
+<td><p>0.92172</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Como podemos observar, todos los modelos usados se ajustan bastante bien a la data de entrenamiento. En estos casos se puede tomar la decisión del mejor modelo a usar dependiendo de otros aspectos, por ejemplo, el tiempo de entrenamiento, el recurso computacional consumido, la versatilidad del modelo y que tan calibrado está, esto último lo revisaremos con detalle más adelante.</p>
+<p>Veamos ahora como les fue con data de validación,la cual nunca habían visto durante el entrenamiento y prueba:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_reporte</span><span class="o">=</span><span class="n">validation_model_performance</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Models&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">),</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">,</span><span class="s1">&#39;train_data_1.csv&#39;</span><span class="p">))</span>
+<span class="n">df_reporte</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Modelo</th>
+      <th>Precision</th>
+      <th>Recall</th>
+      <th>Exactitud</th>
+      <th>F1-score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest Classifier</td>
+      <td>0.908257</td>
+      <td>0.961165</td>
+      <td>0.926316</td>
+      <td>0.933962</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Gradient Boosting Classifier</td>
+      <td>0.934579</td>
+      <td>0.970874</td>
+      <td>0.947368</td>
+      <td>0.952381</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Logistic Regressor</td>
+      <td>0.920000</td>
+      <td>0.900000</td>
+      <td>0.893204</td>
+      <td>0.906404</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Support Vector Classifer</td>
+      <td>0.913978</td>
+      <td>0.863158</td>
+      <td>0.825243</td>
+      <td>0.867347</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span><span class="p">,</span><span class="n">xgb</span><span class="p">,</span><span class="n">lr</span><span class="p">,</span><span class="n">svc</span><span class="o">=</span><span class="n">load_models</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Models&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">))</span>
+<span class="n">X_valid</span><span class="p">,</span> <span class="n">y_valid</span><span class="o">=</span><span class="n">load_validation_data</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">,</span><span class="s1">&#39;train_data_1.csv&#39;</span><span class="p">))</span>
+
+<span class="c1"># RF</span>
+<span class="n">model_rf</span><span class="o">=</span><span class="n">rf</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+<span class="n">encoder_rf</span><span class="o">=</span><span class="n">rf</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+<span class="n">X_valid_rf</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_rf</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">X_valid_rf</span><span class="o">=</span><span class="n">X_valid_rf</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+<span class="c1"># XGBoost</span>
+<span class="n">model_xgb</span><span class="o">=</span><span class="n">xgb</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+<span class="n">encoder_xgb</span><span class="o">=</span><span class="n">xgb</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+<span class="n">X_valid_xgb</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_xgb</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">X_valid_xgb</span><span class="o">=</span><span class="n">X_valid_xgb</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+<span class="c1"># Logistic Reg</span>
+<span class="n">model_lr</span><span class="o">=</span><span class="n">lr</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+<span class="n">encoder_lr</span><span class="o">=</span><span class="n">lr</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+<span class="n">X_valid_lr</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_lr</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">X_valid_lr</span><span class="o">=</span><span class="n">X_valid_lr</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;7d&#39;</span><span class="p">,</span><span class="s1">&#39;15d&#39;</span><span class="p">,</span><span class="s1">&#39;60d&#39;</span><span class="p">])</span>
+
+<span class="c1"># SVC</span>
+<span class="n">model_svc</span><span class="o">=</span><span class="n">svc</span><span class="p">[</span><span class="s1">&#39;modelo&#39;</span><span class="p">]</span>
+<span class="n">encoder_svc</span><span class="o">=</span><span class="n">svc</span><span class="p">[</span><span class="s1">&#39;encoder&#39;</span><span class="p">]</span>
+
+<span class="n">X_valid_svc</span><span class="o">=</span><span class="n">preprocess_data</span><span class="p">(</span><span class="n">encoder_svc</span><span class="p">,</span><span class="n">X_valid</span><span class="p">)</span>
+<span class="n">X_valid_svc</span><span class="o">=</span><span class="n">X_valid_svc</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">])</span>
+
+<span class="c1"># Obtener las probabilidades predichas</span>
+<span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">model_rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_rf</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred_xgb</span> <span class="o">=</span> <span class="n">model_xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_xgb</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">model_lr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_lr</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_pred_svc</span> <span class="o">=</span> <span class="n">model_svc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+
+<span class="c1"># Obtener las curvas de calibración</span>
+<span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">mean_predicted_value_rf</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">mean_predicted_value_lr</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">mean_predicted_value_svc</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Graficar todas las curvas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf</span><span class="p">,</span> <span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_xgb</span><span class="p">,</span> <span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_lr</span><span class="p">,</span> <span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_svc</span><span class="p">,</span> <span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Support Vector Classifer&#39;</span><span class="p">)</span>
+
+<span class="c1"># Graficar la línea ideal de calibración</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
+
+<span class="c1"># Etiquetas y leyenda</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad promedio predicha&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Fracción real de positivos&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Curva de calibración para modelos&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>  <span class="c1"># Agregar la leyenda para identificar cada modelo</span>
+
+<span class="c1"># Mostrar la gráfica</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" src="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="implementacion-svc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Implementación 4: Modelo Support Vector Machines</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-modelos">Revisión de Modelos</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Lopez Ramos
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
