@@ -86,6 +86,7 @@ mdit-py-plugins==0.4.1
 mdurl==0.1.2
 mistune==3.0.2
 ml-dtypes==0.4.0
+mlxtend==0.23.1
 myst-nb==1.1.1
 myst-parser==2.0.0
 namex==0.0.8
@@ -189,4 +190,5 @@ Werkzeug==3.0.3
 wheel==0.43.0
 widgetsnbextension==4.0.11
 wrapt==1.16.0
+yellowbrick==1.5
 zipp==3.19.2

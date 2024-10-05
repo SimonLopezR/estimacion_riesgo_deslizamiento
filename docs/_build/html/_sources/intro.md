@@ -88,12 +88,12 @@ Dentro de los modelos de aprendizaje automático para problemas de clasificació
 
 ### Esquema de entrenamiento
 
-Ahora, la idea es hacer una tubería de datos tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, `pipeline` en `scikit-learn` es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.
+Ahora, la idea es lograr desarrollar una **tubería de datos** tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, `pipeline` en `scikit-learn` es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.
 
 ![Sci-kit Learn Pipeline](./resources/pipeline-scikitlearn.png)
 
 
-De la misma manera, se busca optimizar las estimaciones y la calidad de los modelos, por lo que se usa la metodología de Grid search o búsqueda de malla para optimizar parámetros dentro de los modelos. Es una herramienta poderosa para optimizar los parámetros de un modelo de aprendizaje automático. Permite definir una cuadrícula de valores para diferentes parámetros del modelo y busca exhaustivamente la mejor combinación de estos parameros, a lo que se le llama hiperparametrizacion.
+De la misma manera, se busca optimizar las estimaciones y la calidad de los modelos, por lo que se usa la metodología de **Grid search** o **búsqueda de malla** para optimizar parámetros dentro de los modelos. Es una herramienta poderosa para optimizar los parámetros de un modelo de aprendizaje automático. Permite definir una cuadrícula de valores para diferentes parámetros del modelo y busca exhaustivamente la mejor combinación de estos parameros, a lo que se le llama hiperparametrizacion.
 
 En términos más simples, el `GridSearchCV` realiza una búsqueda exhaustiva sobre una cuadrícula de valores especificados para los hiperparámetros de un estimador. Esto permite encontrar la combinación óptima de hiperparámetros que maximiza la precisión o cualquier otra métrica de evaluación definida.
 
@@ -101,19 +101,35 @@ La idea detrás del GridSearchCV es que, en lugar de ajustar manualmente los hip
 
 ![Grid-Search](./resources/Grid_serach.png)
 
-Tercero, se propone usar validación cruzada aleatoria y dividida. Esto con el proposito de no usar la clasica division unitaria de entrenamiento-pruba, ya que en este tipo de división el entrenamiento o aprendizaje, el modelo puede quedar sesgado debido a que al dividir aleatoriamente no sabemos con que proporción de los datos el modelo aprende, por ejemplo, al dividir una sola vez el conjunto de datos nos puede quedar que en el conjunto de test solo haya valores con el label de 0 (no deslizamiento en este caso) y en el entrenamiento solo existan registros del label 1 (deslizamientos), esto puede ocasionar que el modelo no aprenda de la manera más optima.
+Tercero, se propone usar **validación cruzada aleatoria y dividida**. Esto con el proposito de no usar la clasica division unitaria de entrenamiento-pruba, ya que en este tipo de división el entrenamiento o aprendizaje puede quedar sesgado debido a que al dividir aleatoriamente no sabemos con qué proporción de los datos el modelo aprende, por ejemplo, al dividir una sola vez el conjunto de datos nos puede quedar que en el conjunto de test solo haya valores con el label de 0 (no deslizamiento en este caso) y en el entrenamiento solo existan registros del label 1 (deslizamientos), esto puede ocasionar que el modelo no aprenda de la manera más optima.
 
 Con la validación cruzada aleatoria y dividida (`shuffle-split`), cada división (split) está compuesta de tanto train_size puntos (disyuntos) para el conjunto de entrenamiento y tantos test_size puntos (disjuntos) para el conjunto de prueba, se fijen inicialmente. Esta división se repite n veces, de forma aleatoria. Por ejemplo en la siguiente imagen, para la ejecución de 4 iteraciones de división de un conjunto de datos que consta de 50 puntos, con una fracción de conjunto de entrenamiento de 0.8 y una fracción de conjunto de prueba de 0.2 puntos cada uno. Esto no debe ser necesariamente igual a la fraccion completa, podemos usar un `train_size` de 0.5 y un `test_size` de 0.1, quiere decir que habrán puntos disyuntos que no tomara para entrenarse ni para testear.
 
 ![Shuffle-split](./resources/shufflesplit_diagram.png)
 
+### Métrica de evaluación
+
+En el desarrollo de nuestros modelos de clasificación binaria para la identificación de zonas propensas a deslizamientos de tierra, enfrentamos una decisión crucial en la selección de la métrica de rendimiento a optimizar. La esencia de nuestra clasificación distingue dos categorías claves: la clase positiva (1), que indica la presencia de un deslizamiento de tierra, y la clase negativa (0), que señala su ausencia. 
+
+![metrics-classification](./resources/matriz_confusion_ejemplo.png)
+
+Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos negativos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.
+
+En este mismo orden de ideas, queremos entonces limitar el número de falsos positivos, por lo que entonces nos conviene maximizar la `precision` en la fase de entrenamiento
+
+**Precision** mide cuántas de las muestras predichas como positivas son realmente positivas, es decir, precision intenta responder a la siguiente pregunta: ¿qué proporción de identificaciones positivas fue correcta?
+
+$$ \text{Precision} = \frac{TP}{TP + FP} $$
+
+Precision se utiliza como métrica de rendimiento cuando el objetivo es limitar el número de falsos positivos
+
 ### Calibradores de probabilidad
 
-Por último, se busca indagar si a cada clasificador le es necesario la implementación de la calibración de probabilidades o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación. 
+Por último, se busca indagar si a cada clasificador le es necesario la implementación de la **calibración de probabilidades** o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación. 
 
 Los clasificadores bien calibrados son aquellos en los que la salida del método `predict_proba` se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de `predict_proba` cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta
 
-Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero se utiliza las "Calibration curves" o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.
+Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero, se utilizará las "**Calibration curves**" o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.
 
 En la siguiente gráfica de ejemplo, podemos ver el eje X (`Mean predicted value`) representa las probabilidades predichas por los modelos, va de 0 a 1, indicando la confianza con la que los modelos predicen la clase positiva. Respecto al eje Y (`Fraction of positives`)  muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.  
 
@@ -121,7 +137,40 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 
 ![calibration-curves](./resources/calibration-curves.png)
 
-Este es el método que se utilizará para saber si un modelo de clasificación está bien calibrado o no.
+
+Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de **Brier score** y **Log Loss**. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.
+
+El **Brier Score** es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la calibración.Se define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:
+
+$$
+\text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
+$$
+
+Donde:
+
+- \( N \) es el número de muestras.
+- \( p_i \) es la probabilidad predicha para la muestra \( i \).
+- \( y_i \) es la etiqueta verdadera para la muestra \( i \) (1 si es positiva y 0 si es negativa).
+
+- **Un Brier Score de 0** indica una predicción perfecta, donde las probabilidades predichas coinciden exactamente con las clases reales.
+- **Un Brier Score de 1** es el peor resultado posible, ya que indica una discrepancia completa entre las probabilidades predichas y las etiquetas reales.
+- En general, **cuanto menor sea el Brier Score, mejor calibrado estará el clasificador**. 
+
+El **Log Loss**, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el **Log Loss** se enfoca en penalizar fuertemente las predicciones con **alta confianza pero incorrectas**. Se define como:
+
+$$
+\text{Log Loss} = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
+$$
+
+Donde:
+- \( N \) es el número total de muestras.
+- \( y_i \) es la etiqueta verdadera para la muestra \( i \), 1 para la clase positiva y 0 para la clase negativa.
+- \( p_i \) es la probabilidad predicha de la clase positiva para la muestra \( i \).
+
+- El **Log Loss es siempre positivo**, y **cuanto menor sea, mejor calibrado está el modelo**.
+- El **Log Loss castiga fuertemente** las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.
+
+Este es el método que se utilizará en este proyecto para saber si un modelo de clasificación está bien calibrado o no.
 
 ### Métodos para calibrar clasificadores
 
@@ -129,7 +178,7 @@ Este es el método que se utilizará para saber si un modelo de clasificación e
 
 <br>
 
-**Tabla de contenidos:**
+## **Tabla de contenidos**
 
 ```{tableofcontents}
 ```

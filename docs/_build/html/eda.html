@@ -384,6 +384,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>
@@ -408,23 +409,17 @@ document.write(`
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">OrdinalEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>  <span class="c1"># Para clasificación SVM</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span><span class="n">GridSearchCV</span><span class="p">,</span><span class="n">ShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">ConfusionMatrixDisplay</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="kn">import</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="k">as</span> <span class="nn">sch</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">yellowbrick.cluster</span> <span class="kn">import</span> <span class="n">silhouette_visualizer</span>
 </pre></div>
 </div>
 </div>
@@ -627,7 +622,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/94979085bce621b53929b3a3ee3b1bf985180b87d09761c0f5f4fa42c55de650.png" src="_images/94979085bce621b53929b3a3ee3b1bf985180b87d09761c0f5f4fa42c55de650.png" />
+<img alt="_images/b323b8c3017f099d5aabfc905a643539b60289df08ff1ec6d05720294348758e.png" src="_images/b323b8c3017f099d5aabfc905a643539b60289df08ff1ec6d05720294348758e.png" />
 </div>
 </div>
 <p>Donde 0 representa la clase negativa que es “No Deslizamiento de tierra” en punto geográfico
@@ -649,7 +644,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c9665d6457ec7f4348ce6d065eb3e298bef93e3dd450df20362bef16a45323e7.png" src="_images/c9665d6457ec7f4348ce6d065eb3e298bef93e3dd450df20362bef16a45323e7.png" />
+<img alt="_images/606570a7856eb53c4ec8503af7285e1bcd1dc9c82522671297edccf0be865201.png" src="_images/606570a7856eb53c4ec8503af7285e1bcd1dc9c82522671297edccf0be865201.png" />
 </div>
 </div>
 <p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
@@ -1069,6 +1064,803 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </ul>
 <p>Todo esto puede afectar en las métricas de evaluación, como la precisión, el recall, y la F1-score, ya que el rendimiento en estas categorías raras puede no estar bien representado</p>
 </section>
+<section id="analisis-cluster">
+<h2>Análisis Cluster<a class="headerlink" href="#analisis-cluster" title="Link to this heading">#</a></h2>
+<p>En este análisis, se implementará un análisis de clustering como parte del análisis exploratorio para las variables predictoras. El objetivo principal será identificar y entender los perfiles ocultos que existen en los datos de entrenamiento, con el fin de extraer conclusiones valiosas sobre la estructura subyacente de las muestras.</p>
+<p>Se utilizarán técnicas de clustering como K-Means para agrupar los datos en función de sus características, sin considerar la variable objetivo. Esto permitirá descubrir patrones, segmentaciones y grupos homogéneos que podrían ofrecer perspectivas adicionales, facilitando la comprensión del problema de clasificación y sugiriendo posibles mejoras en las estrategias de modelado predictivo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a 10 dias</span>
+<span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
+<span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">independent_var</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">dependent_var</span><span class="p">]</span>
+<span class="c1"># Seleccionar columnas categoricas</span>
+<span class="n">VAR_categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">]</span>
+
+<span class="c1"># Seleccionar columnas numericas</span>
+<span class="n">VAR_numerical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]]</span>
+
+<span class="n">label_encoders</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">VAR_categorical_cols</span><span class="p">:</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+    <span class="n">label_encoders</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>zonificacion</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>tipo_geologia</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.566235</td>
+      <td>-0.470035</td>
+      <td>1.215925</td>
+      <td>0.635991</td>
+      <td>0.385252</td>
+      <td>0.854159</td>
+      <td>2.144217</td>
+      <td>1.791373</td>
+      <td>2.273389</td>
+      <td>1.997366</td>
+      <td>1.824370</td>
+      <td>1.770709</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.105551</td>
+      <td>1.203249</td>
+      <td>0.118416</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.250162</td>
+      <td>0.327085</td>
+      <td>0.400193</td>
+      <td>0.834211</td>
+      <td>0.671545</td>
+      <td>0.499336</td>
+      <td>0.223749</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.527533</td>
+      <td>0.037522</td>
+      <td>0.667170</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.429474</td>
+      <td>0.450362</td>
+      <td>0.497575</td>
+      <td>0.852142</td>
+      <td>0.242164</td>
+      <td>-0.045285</td>
+      <td>-0.174275</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.312436</td>
+      <td>0.747974</td>
+      <td>-1.527849</td>
+      <td>-2.257647</td>
+      <td>0.385252</td>
+      <td>-0.467084</td>
+      <td>-0.593488</td>
+      <td>-0.545810</td>
+      <td>-0.680465</td>
+      <td>-0.717435</td>
+      <td>-0.646261</td>
+      <td>-0.752847</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.793653</td>
+      <td>-0.507262</td>
+      <td>0.667170</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.571035</td>
+      <td>-0.830436</td>
+      <td>-0.958990</td>
+      <td>-0.808812</td>
+      <td>-0.989469</td>
+      <td>-0.747701</td>
+      <td>-0.629747</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Escalamos el conjunto de datos para evitar el sesgo debido a escalas diferentes, mejorar la convergencia de K-Means y garantizar la consistencia en la métrica de distancia</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inercia para el Método del Codo</span>
+<span class="n">inertia</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Coeficiente de Silueta</span>
+<span class="n">silhouette_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_clusters_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="c1"># de 2 a 10 cluster</span>
+<span class="n">clusters_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_clusters_range</span><span class="p">:</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+    <span class="n">inertia</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+    <span class="n">silhouette_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+
+    <span class="c1"># Crear un DataFrame con los datos escalados y la columna &quot;clusters&quot;</span>
+    <span class="n">df_with_clusters</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_with_clusters</span><span class="p">[</span><span class="s1">&#39;clusters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
+
+    <span class="c1"># Guardar en el diccionario con la clave como el número de clusters</span>
+    <span class="n">clusters_dict</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;con_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_clusters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_with_clusters</span>
+
+<span class="c1"># Graficar ambos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Número de Clusters&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Inercia&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_clusters_range</span><span class="p">,</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Inercia&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># Crear un segundo eje que comparte el eje x</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Coeficiente de Silueta&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_clusters_range</span><span class="p">,</span> <span class="n">silhouette_scores</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Coef. de Silueta&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Método del Codo e Índice de Silueta&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/407d0ad9a87c74e0d28f2766eccd0af555eaf42d2ae7001ccf44c07d5be2be1d.png" src="_images/407d0ad9a87c74e0d28f2766eccd0af555eaf42d2ae7001ccf44c07d5be2be1d.png" />
+</div>
+</div>
+<p>Utilizaremos el método del codo (<code class="docutils literal notranslate"><span class="pre">Inercia</span></code>) y el <code class="docutils literal notranslate"><span class="pre">Coeficiente</span> <span class="pre">de</span> <span class="pre">Silueta</span></code> para identificar el número de clusters más optimo.</p>
+<p>Este método evalúa la suma de los errores cuadrados dentro de cada cluster (inertia) para diferentes valores de n_clusters. A medida que aumenta el número de clusters, la inercia disminuye, pero llega un punto en el que la mejora se vuelve marginal. El “codo” en la gráfica es el punto donde el incremento de clusters deja de ofrecer una mejora significativa.</p>
+<p>El coeficiente de silueta mide la separación entre los clusters y qué tan bien están asignadas las muestras dentro de su propio cluster. Los valores del coeficiente de silueta están entre -1 y 1, donde un valor cercano a 1 indica que los puntos están bien agrupados.</p>
+<p>En este mismo orden de las ideas, tenemos que encontrar ese número que nos indique el codo en la serie de la inercia (línea azul) y el coeficiente de silueta más alto en la serie de silueta (línea roja). Vemos que el punto que cumple con esta condición es el 7</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado_cluster</span><span class="o">=</span><span class="n">clusters_dict</span><span class="p">[</span><span class="s1">&#39;con_7_clusters&#39;</span><span class="p">]</span>
+<span class="n">resultado_cluster</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>zonificacion</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>tipo_geologia</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+      <th>clusters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1030.110840</td>
+      <td>21.268663</td>
+      <td>6</td>
+      <td>25</td>
+      <td>9</td>
+      <td>14.0</td>
+      <td>197.0</td>
+      <td>210.0</td>
+      <td>366.0</td>
+      <td>583.0</td>
+      <td>746.0</td>
+      <td>908.0</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1176.433594</td>
+      <td>56.848099</td>
+      <td>4</td>
+      <td>25</td>
+      <td>7</td>
+      <td>7.6</td>
+      <td>83.5</td>
+      <td>110.0</td>
+      <td>213.5</td>
+      <td>343.7</td>
+      <td>452.1</td>
+      <td>531.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1038.540527</td>
+      <td>32.060978</td>
+      <td>5</td>
+      <td>25</td>
+      <td>7</td>
+      <td>9.5</td>
+      <td>91.2</td>
+      <td>117.0</td>
+      <td>215.4</td>
+      <td>266.2</td>
+      <td>331.3</td>
+      <td>434.0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1657.118408</td>
+      <td>47.167477</td>
+      <td>1</td>
+      <td>5</td>
+      <td>9</td>
+      <td>0.0</td>
+      <td>26.0</td>
+      <td>42.0</td>
+      <td>53.0</td>
+      <td>93.0</td>
+      <td>198.0</td>
+      <td>293.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>980.576721</td>
+      <td>20.477095</td>
+      <td>5</td>
+      <td>25</td>
+      <td>7</td>
+      <td>11.0</td>
+      <td>11.2</td>
+      <td>12.3</td>
+      <td>39.4</td>
+      <td>43.9</td>
+      <td>175.5</td>
+      <td>323.0</td>
+      <td>4</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funciones_agregacion</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]</span>
+<span class="n">agg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">funciones_agregacion</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">resultado_cluster</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;clusters&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col</span><span class="p">}</span>
+<span class="n">resultado</span> <span class="o">=</span> <span class="n">resultado_cluster</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;clusters&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_dict</span><span class="p">)</span>
+<span class="n">resultado</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5" halign="left">ELEVACION</th>
+      <th colspan="5" halign="left">PENDIENT</th>
+      <th>...</th>
+      <th colspan="5" halign="left">60d</th>
+      <th colspan="5" halign="left">90d</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>...</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1100.253703</td>
+      <td>1079.523193</td>
+      <td>81</td>
+      <td>982.548950</td>
+      <td>1386.967896</td>
+      <td>24.632541</td>
+      <td>18.411295</td>
+      <td>81</td>
+      <td>2.978758</td>
+      <td>92.066528</td>
+      <td>...</td>
+      <td>405.806173</td>
+      <td>400.8</td>
+      <td>81</td>
+      <td>234.0</td>
+      <td>753.0</td>
+      <td>561.907407</td>
+      <td>561.0</td>
+      <td>81</td>
+      <td>255.0</td>
+      <td>869.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1074.935264</td>
+      <td>1070.924927</td>
+      <td>197</td>
+      <td>979.613403</td>
+      <td>1599.939087</td>
+      <td>37.993050</td>
+      <td>36.388821</td>
+      <td>197</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+      <td>...</td>
+      <td>474.485279</td>
+      <td>446.1</td>
+      <td>197</td>
+      <td>256.0</td>
+      <td>848.0</td>
+      <td>599.757360</td>
+      <td>531.0</td>
+      <td>197</td>
+      <td>333.8</td>
+      <td>972.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1698.509124</td>
+      <td>1690.444214</td>
+      <td>103</td>
+      <td>1305.648315</td>
+      <td>2098.276855</td>
+      <td>35.253831</td>
+      <td>27.692619</td>
+      <td>103</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+      <td>...</td>
+      <td>246.880583</td>
+      <td>265.0</td>
+      <td>103</td>
+      <td>23.0</td>
+      <td>521.4</td>
+      <td>385.794175</td>
+      <td>364.0</td>
+      <td>103</td>
+      <td>103.0</td>
+      <td>815.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1080.719655</td>
+      <td>1063.546631</td>
+      <td>140</td>
+      <td>985.792114</td>
+      <td>1769.932861</td>
+      <td>43.140712</td>
+      <td>42.952623</td>
+      <td>140</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+      <td>...</td>
+      <td>677.208571</td>
+      <td>735.0</td>
+      <td>140</td>
+      <td>446.0</td>
+      <td>753.0</td>
+      <td>834.200000</td>
+      <td>878.0</td>
+      <td>140</td>
+      <td>666.0</td>
+      <td>918.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1094.907349</td>
+      <td>1060.142578</td>
+      <td>243</td>
+      <td>972.612610</td>
+      <td>1500.505249</td>
+      <td>27.524975</td>
+      <td>22.076199</td>
+      <td>243</td>
+      <td>1.231035</td>
+      <td>84.404579</td>
+      <td>...</td>
+      <td>169.339095</td>
+      <td>172.3</td>
+      <td>243</td>
+      <td>0.0</td>
+      <td>483.2</td>
+      <td>283.686008</td>
+      <td>300.0</td>
+      <td>243</td>
+      <td>0.0</td>
+      <td>660.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1155.213916</td>
+      <td>1170.223389</td>
+      <td>35</td>
+      <td>975.132202</td>
+      <td>1712.018311</td>
+      <td>30.145108</td>
+      <td>28.641380</td>
+      <td>35</td>
+      <td>8.977777</td>
+      <td>55.786831</td>
+      <td>...</td>
+      <td>446.937143</td>
+      <td>408.0</td>
+      <td>35</td>
+      <td>215.0</td>
+      <td>731.5</td>
+      <td>634.228571</td>
+      <td>600.0</td>
+      <td>35</td>
+      <td>284.0</td>
+      <td>984.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1073.816093</td>
+      <td>1061.876465</td>
+      <td>151</td>
+      <td>975.396118</td>
+      <td>1430.414063</td>
+      <td>18.580224</td>
+      <td>15.210188</td>
+      <td>151</td>
+      <td>0.984309</td>
+      <td>63.939667</td>
+      <td>...</td>
+      <td>138.431788</td>
+      <td>98.3</td>
+      <td>151</td>
+      <td>0.0</td>
+      <td>374.3</td>
+      <td>273.660927</td>
+      <td>261.0</td>
+      <td>151</td>
+      <td>0.0</td>
+      <td>572.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>7 rows × 60 columns</p>
+</div></div></div>
+</div>
+<p>Vemos el perfil de la variable de lluvia acumulada en las ultimas 24h</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.786420</td>
+      <td>0.0</td>
+      <td>81</td>
+      <td>0.0</td>
+      <td>30.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5.197970</td>
+      <td>1.2</td>
+      <td>197</td>
+      <td>0.0</td>
+      <td>24.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.865049</td>
+      <td>0.0</td>
+      <td>103</td>
+      <td>0.0</td>
+      <td>29.2</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6.715714</td>
+      <td>10.0</td>
+      <td>140</td>
+      <td>0.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1.878189</td>
+      <td>0.0</td>
+      <td>243</td>
+      <td>0.0</td>
+      <td>23.6</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>47.640000</td>
+      <td>42.0</td>
+      <td>35</td>
+      <td>29.0</td>
+      <td>108.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.615894</td>
+      <td>0.0</td>
+      <td>151</td>
+      <td>0.0</td>
+      <td>14.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Observamos que para el cluster 0, 2, 4 y 5 podría representar aquel grupo con niveles de lluvias acumuladas más bajos, mientras que los cluster numero 1, 3 y 6 con los mayores niveles al observar sus medidas de agrupación.</p>
+<p>Ahora observemos la variable de <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;PENDIENT&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>24.632541</td>
+      <td>18.411295</td>
+      <td>81</td>
+      <td>2.978758</td>
+      <td>92.066528</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>37.993050</td>
+      <td>36.388821</td>
+      <td>197</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>35.253831</td>
+      <td>27.692619</td>
+      <td>103</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>43.140712</td>
+      <td>42.952623</td>
+      <td>140</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>27.524975</td>
+      <td>22.076199</td>
+      <td>243</td>
+      <td>1.231035</td>
+      <td>84.404579</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>30.145108</td>
+      <td>28.641380</td>
+      <td>35</td>
+      <td>8.977777</td>
+      <td>55.786831</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>18.580224</td>
+      <td>15.210188</td>
+      <td>151</td>
+      <td>0.984309</td>
+      <td>63.939667</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>el cluster 0,4 y 6 son los que representan agrupan esos registros que representan terrenos con menos porcentajes de pendientes.</p>
+<p>Aunque sean bastantes cluster, se evidencia que la mayoría de cluster apuntan a 2 agrupamientos, es decir que nos tratan de decir que hay 2 clases de población dentro de nuestro conjunto de datos</p>
+</section>
 <section id="correlaciones-entre-variables-independientes">
 <h2>Correlaciones entre variables independientes<a class="headerlink" href="#correlaciones-entre-variables-independientes" title="Link to this heading">#</a></h2>
 <p>Queremos que exista la menor correlación lineal y no lineal entre las variables independientes, ya que queremos que cada variable aporte su valor único al modelo, y evitar redundancias</p>
@@ -1094,7 +1886,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" src="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" />
+<img alt="_images/bf43ef5aa9b51f59551bade8e0fd169d71fa020a2abd8229058669b6bc0afc7a.png" src="_images/bf43ef5aa9b51f59551bade8e0fd169d71fa020a2abd8229058669b6bc0afc7a.png" />
 </div>
 </div>
 <p>Observamos que existe una alta correlación lineal entre las variables númericas de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
@@ -1123,7 +1915,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" src="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" />
+<img alt="_images/302218a3dcbbf69aa32d39d9c5fcb11e7123ea4f36d9f6a3267acf37628b572e.png" src="_images/302218a3dcbbf69aa32d39d9c5fcb11e7123ea4f36d9f6a3267acf37628b572e.png" />
 </div>
 </div>
 <p>Al eliminar ciertas variables, el mapa de calor se torna menos rojo, es decir hay menos variables que nos aportan multicolinealidad. Este conjunto de variables se pueden evaluar para la selecicon de features a tomar en cuenta para cada modelo.</p>
@@ -1203,6 +1995,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>

@@ -57,6 +57,8 @@
     <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'intro';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -390,10 +392,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos">Modelos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-entrenamiento">Esquema de entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-de-evaluacion">Métrica de evaluación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibradores-de-probabilidad">Calibradores de probabilidad</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-para-calibrar-clasificadores">Métodos para calibrar clasificadores</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos"><strong>Tabla de contenidos</strong></a></li>
 </ul>
 </li>
 </ul>
@@ -627,30 +631,72 @@ document.write(`
 </section>
 <section id="esquema-de-entrenamiento">
 <h3>Esquema de entrenamiento<a class="headerlink" href="#esquema-de-entrenamiento" title="Link to this heading">#</a></h3>
-<p>Ahora, la idea es hacer una tubería de datos tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> en <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.</p>
+<p>Ahora, la idea es lograr desarrollar una <strong>tubería de datos</strong> tal que cuando lleguen los datos nuevos a estimar, estos pasen por las mismas transformaciones por las que pasaron los datos de entrenamiento. Más precisamente hablando, <code class="docutils literal notranslate"><span class="pre">pipeline</span></code> en <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> es una herramienta que te permite concatenar varios pasos de procesamiento de datos y modelado en un solo objeto. Esto facilita la construcción, entrenamiento y evaluación de modelos de aprendizaje automático, ya que puedes encapsular todo el flujo de trabajo en una única estructura.</p>
 <p><img alt="Sci-kit Learn Pipeline" src="_images/pipeline-scikitlearn.png" /></p>
-<p>De la misma manera, se busca optimizar las estimaciones y la calidad de los modelos, por lo que se usa la metodología de Grid search o búsqueda de malla para optimizar parámetros dentro de los modelos. Es una herramienta poderosa para optimizar los parámetros de un modelo de aprendizaje automático. Permite definir una cuadrícula de valores para diferentes parámetros del modelo y busca exhaustivamente la mejor combinación de estos parameros, a lo que se le llama hiperparametrizacion.</p>
+<p>De la misma manera, se busca optimizar las estimaciones y la calidad de los modelos, por lo que se usa la metodología de <strong>Grid search</strong> o <strong>búsqueda de malla</strong> para optimizar parámetros dentro de los modelos. Es una herramienta poderosa para optimizar los parámetros de un modelo de aprendizaje automático. Permite definir una cuadrícula de valores para diferentes parámetros del modelo y busca exhaustivamente la mejor combinación de estos parameros, a lo que se le llama hiperparametrizacion.</p>
 <p>En términos más simples, el <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> realiza una búsqueda exhaustiva sobre una cuadrícula de valores especificados para los hiperparámetros de un estimador. Esto permite encontrar la combinación óptima de hiperparámetros que maximiza la precisión o cualquier otra métrica de evaluación definida.</p>
 <p>La idea detrás del GridSearchCV es que, en lugar de ajustar manualmente los hiperparámetros del modelo y evaluar su rendimiento, el proceso se automatiza y se realiza de manera sistemática. Esto ahorra tiempo y esfuerzo, ya que el GridSearchCV evalúa todas las combinaciones posibles de los hiperparámetros dentro de la cuadrícula especificada y selecciona la mejor combinación según la métrica de evaluación especificada.</p>
 <p><img alt="Grid-Search" src="_images/Grid_serach.png" /></p>
-<p>Tercero, se propone usar validación cruzada aleatoria y dividida. Esto con el proposito de no usar la clasica division unitaria de entrenamiento-pruba, ya que en este tipo de división el entrenamiento o aprendizaje, el modelo puede quedar sesgado debido a que al dividir aleatoriamente no sabemos con que proporción de los datos el modelo aprende, por ejemplo, al dividir una sola vez el conjunto de datos nos puede quedar que en el conjunto de test solo haya valores con el label de 0 (no deslizamiento en este caso) y en el entrenamiento solo existan registros del label 1 (deslizamientos), esto puede ocasionar que el modelo no aprenda de la manera más optima.</p>
+<p>Tercero, se propone usar <strong>validación cruzada aleatoria y dividida</strong>. Esto con el proposito de no usar la clasica division unitaria de entrenamiento-pruba, ya que en este tipo de división el entrenamiento o aprendizaje puede quedar sesgado debido a que al dividir aleatoriamente no sabemos con qué proporción de los datos el modelo aprende, por ejemplo, al dividir una sola vez el conjunto de datos nos puede quedar que en el conjunto de test solo haya valores con el label de 0 (no deslizamiento en este caso) y en el entrenamiento solo existan registros del label 1 (deslizamientos), esto puede ocasionar que el modelo no aprenda de la manera más optima.</p>
 <p>Con la validación cruzada aleatoria y dividida (<code class="docutils literal notranslate"><span class="pre">shuffle-split</span></code>), cada división (split) está compuesta de tanto train_size puntos (disyuntos) para el conjunto de entrenamiento y tantos test_size puntos (disjuntos) para el conjunto de prueba, se fijen inicialmente. Esta división se repite n veces, de forma aleatoria. Por ejemplo en la siguiente imagen, para la ejecución de 4 iteraciones de división de un conjunto de datos que consta de 50 puntos, con una fracción de conjunto de entrenamiento de 0.8 y una fracción de conjunto de prueba de 0.2 puntos cada uno. Esto no debe ser necesariamente igual a la fraccion completa, podemos usar un <code class="docutils literal notranslate"><span class="pre">train_size</span></code> de 0.5 y un <code class="docutils literal notranslate"><span class="pre">test_size</span></code> de 0.1, quiere decir que habrán puntos disyuntos que no tomara para entrenarse ni para testear.</p>
 <p><img alt="Shuffle-split" src="_images/shufflesplit_diagram.png" /></p>
 </section>
+<section id="metrica-de-evaluacion">
+<h3>Métrica de evaluación<a class="headerlink" href="#metrica-de-evaluacion" title="Link to this heading">#</a></h3>
+<p>En el desarrollo de nuestros modelos de clasificación binaria para la identificación de zonas propensas a deslizamientos de tierra, enfrentamos una decisión crucial en la selección de la métrica de rendimiento a optimizar. La esencia de nuestra clasificación distingue dos categorías claves: la clase positiva (1), que indica la presencia de un deslizamiento de tierra, y la clase negativa (0), que señala su ausencia.</p>
+<p><img alt="metrics-classification" src="_images/matriz_confusion_ejemplo.png" /></p>
+<p>Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos negativos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.</p>
+<p>En este mismo orden de ideas, queremos entonces limitar el número de falsos positivos, por lo que entonces nos conviene maximizar la <code class="docutils literal notranslate"><span class="pre">precision</span></code> en la fase de entrenamiento</p>
+<p><strong>Precision</strong> mide cuántas de las muestras predichas como positivas son realmente positivas, es decir, precision intenta responder a la siguiente pregunta: ¿qué proporción de identificaciones positivas fue correcta?</p>
+<div class="math notranslate nohighlight">
+\[ \text{Precision} = \frac{TP}{TP + FP} \]</div>
+<p>Precision se utiliza como métrica de rendimiento cuando el objetivo es limitar el número de falsos positivos</p>
+</section>
 <section id="calibradores-de-probabilidad">
 <h3>Calibradores de probabilidad<a class="headerlink" href="#calibradores-de-probabilidad" title="Link to this heading">#</a></h3>
-<p>Por último, se busca indagar si a cada clasificador le es necesario la implementación de la calibración de probabilidades o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación.</p>
+<p>Por último, se busca indagar si a cada clasificador le es necesario la implementación de la <strong>calibración de probabilidades</strong> o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación.</p>
 <p>Los clasificadores bien calibrados son aquellos en los que la salida del método <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta</p>
-<p>Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero se utiliza las “Calibration curves” o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.</p>
+<p>Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero, se utilizará las “<strong>Calibration curves</strong>” o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.</p>
 <p>En la siguiente gráfica de ejemplo, podemos ver el eje X (<code class="docutils literal notranslate"><span class="pre">Mean</span> <span class="pre">predicted</span> <span class="pre">value</span></code>) representa las probabilidades predichas por los modelos, va de 0 a 1, indicando la confianza con la que los modelos predicen la clase positiva. Respecto al eje Y (<code class="docutils literal notranslate"><span class="pre">Fraction</span> <span class="pre">of</span> <span class="pre">positives</span></code>)  muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.</p>
 <p>Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los eventos reales. Por ejemplo, una predicción de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente. Entonces si nos enfocamos por ejemplo en el modelo de regresión logística (curva azul), la curva azul está bastante cerca de la línea de calibración perfecta. Esto indica que las probabilidades predichas por la regresión logística están bastante bien calibradas. Para cualquier probabilidad predicha, la fracción de positivos observados es similar, lo que significa que este modelo tiene buenas predicciones calibradas.</p>
 <p><img alt="calibration-curves" src="_images/calibration-curves.png" /></p>
-<p>Este es el método que se utilizará para saber si un modelo de clasificación está bien calibrado o no.</p>
+<p>Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de <strong>Brier score</strong> y <strong>Log Loss</strong>. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.</p>
+<p>El <strong>Brier Score</strong> es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la <a class="reference external" href="http://xn--calibracin-obb.Se">calibración.Se</a> define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
+\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p>( N ) es el número de muestras.</p></li>
+<li><p>( p_i ) es la probabilidad predicha para la muestra ( i ).</p></li>
+<li><p>( y_i ) es la etiqueta verdadera para la muestra ( i ) (1 si es positiva y 0 si es negativa).</p></li>
+<li><p><strong>Un Brier Score de 0</strong> indica una predicción perfecta, donde las probabilidades predichas coinciden exactamente con las clases reales.</p></li>
+<li><p><strong>Un Brier Score de 1</strong> es el peor resultado posible, ya que indica una discrepancia completa entre las probabilidades predichas y las etiquetas reales.</p></li>
+<li><p>En general, <strong>cuanto menor sea el Brier Score, mejor calibrado estará el clasificador</strong>.</p></li>
+</ul>
+<p>El <strong>Log Loss</strong>, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el <strong>Log Loss</strong> se enfoca en penalizar fuertemente las predicciones con <strong>alta confianza pero incorrectas</strong>. Se define como:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{Log Loss} = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
+\]</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><p>( N ) es el número total de muestras.</p></li>
+<li><p>( y_i ) es la etiqueta verdadera para la muestra ( i ), 1 para la clase positiva y 0 para la clase negativa.</p></li>
+<li><p>( p_i ) es la probabilidad predicha de la clase positiva para la muestra ( i ).</p></li>
+<li><p>El <strong>Log Loss es siempre positivo</strong>, y <strong>cuanto menor sea, mejor calibrado está el modelo</strong>.</p></li>
+<li><p>El <strong>Log Loss castiga fuertemente</strong> las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.</p></li>
+</ul>
+<p>Este es el método que se utilizará en este proyecto para saber si un modelo de clasificación está bien calibrado o no.</p>
 </section>
 <section id="metodos-para-calibrar-clasificadores">
 <h3>Métodos para calibrar clasificadores<a class="headerlink" href="#metodos-para-calibrar-clasificadores" title="Link to this heading">#</a></h3>
 <br>
-<p><strong>Tabla de contenidos:</strong></p>
+</section>
+</section>
+<section id="tabla-de-contenidos">
+<h2><strong>Tabla de contenidos</strong><a class="headerlink" href="#tabla-de-contenidos" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="eda.html">Análisis Exploratorio de datos</a></li>
@@ -661,7 +707,6 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
 </ul>
 </div>
-</section>
 </section>
 </section>
 
@@ -728,10 +773,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia">Metodología</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelos">Modelos</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-entrenamiento">Esquema de entrenamiento</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-de-evaluacion">Métrica de evaluación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibradores-de-probabilidad">Calibradores de probabilidad</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-para-calibrar-clasificadores">Métodos para calibrar clasificadores</a></li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos"><strong>Tabla de contenidos</strong></a></li>
 </ul>
 </li>
 </ul>
