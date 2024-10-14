@@ -382,6 +382,8 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-modelos">Revisión de Modelos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-de-calibracion-para-los-clasificadores">Validación de calibración para los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a></li>
 </ul>
             </nav>
         </div>
@@ -411,7 +413,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span><span class="p">,</span><span class="n">calibration_curve</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span><span class="p">,</span><span class="n">log_loss</span><span class="p">,</span><span class="n">brier_score_loss</span>
 </pre></div>
 </div>
 </div>
@@ -577,7 +579,7 @@ document.write(`
 </section>
 <section id="revision-de-modelos">
 <h2>Revisión de Modelos<a class="headerlink" href="#revision-de-modelos" title="Link to this heading">#</a></h2>
-<p>Recapitulando, se muestra el comportamiento de los mejores modelos selectos durante el proceso de validación cruzada en la siguiente tabla, se proyectan sus rendimientos en la etapa de entrenamiento y de prueba durante.</p>
+<p>Recapitulando, se muestra el comportamiento de los mejores modelos selectos durante el proceso de validación cruzada en la siguiente tabla, se proyectan sus rendimientos en la etapa de entrenamiento y de prueba.</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Modelo</p></th>
@@ -606,7 +608,7 @@ document.write(`
 </table>
 </div>
 <p>Como podemos observar, todos los modelos usados se ajustan bastante bien a la data de entrenamiento. En estos casos se puede tomar la decisión del mejor modelo a usar dependiendo de otros aspectos, por ejemplo, el tiempo de entrenamiento, el recurso computacional consumido, la versatilidad del modelo y que tan calibrado está, esto último lo revisaremos con detalle más adelante.</p>
-<p>Veamos ahora como les fue con data de validación,la cual nunca habían visto durante el entrenamiento y prueba:</p>
+<p>Veamos ahora como les fue con data de validación, la cual nunca habían visto durante el entrenamiento y prueba:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_reporte</span><span class="o">=</span><span class="n">validation_model_performance</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Models&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">),</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Data&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">,</span><span class="s1">&#39;train_data_1.csv&#39;</span><span class="p">))</span>
@@ -677,6 +679,12 @@ document.write(`
 </table>
 </div></div></div>
 </div>
+<p>En la función anterior, evaluamos cada modelo con data de validación, vemos en la tabla todos los modelos tuvieron buenos puntajes con data que nunca habían visto, lo que nos da indicios de que se ajusta bien a nuestra data de entrenamiento y son bueno para clasificar.</p>
+<p>Ahora debemos validar si están bien calibrados o no.</p>
+</section>
+<section id="validacion-de-calibracion-para-los-clasificadores">
+<h2>Validación de calibración para los clasificadores<a class="headerlink" href="#validacion-de-calibracion-para-los-clasificadores" title="Link to this heading">#</a></h2>
+<p>Como ya se habia explicado anteriormente, usaremos los 3 metodos explicados en la sección de <a class="reference internal" href="intro.html#calibradores-de-probabilidad"><span class="std std-ref">Calibradores de probabilidad</span></a>, empezaremos analizando la curva de calibración</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span><span class="p">,</span><span class="n">xgb</span><span class="p">,</span><span class="n">lr</span><span class="p">,</span><span class="n">svc</span><span class="o">=</span><span class="n">load_models</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span><span class="s1">&#39;Models&#39;</span><span class="p">,</span><span class="s1">&#39;output&#39;</span><span class="p">))</span>
@@ -746,6 +754,101 @@ document.write(`
 <img alt="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" src="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" />
 </div>
 </div>
+<p>En la siguiente gráfica de ejemplo, podemos ver el eje X (Mean predicted value) representa las probabilidades predichas por cada uno de los modelos, va de 0 a 1, indicando la confianza con la que los modelos estiman la existencia de deslizamientos de tierra (clase positiva). Respecto al eje Y (Fraction of positives) muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.
+Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los deslizamientos de tierra reales. Por ejemplo, una predicción de deslizamiento de tierra de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente.</p>
+<p>Dicho esto, y al ver la gráfica, el <code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Regressor</span></code> parece ser el mejor calibrado para estimar probabilidades, seguido por el <code class="docutils literal notranslate"><span class="pre">Support</span> <span class="pre">Vector</span> <span class="pre">Classifer</span></code>, que son los que más se ajustan a la línea diagonal ‘ideal’. El <code class="docutils literal notranslate"><span class="pre">Gradient</span> <span class="pre">Boosting</span> <span class="pre">Classifier</span></code> también se comporta razonablemente bien, mientras que el <code class="docutils literal notranslate"><span class="pre">Random</span> <span class="pre">Forest</span> <span class="pre">Classifier</span></code> es el que menos confiable es en cuanto a la calibración de probabilidades.</p>
+<p>Ahora, calculemos los indicadores expuestos y explicados en la sección de <a class="reference internal" href="intro.html#calibradores-de-probabilidad"><span class="std std-ref">Calibradores de probabilidad</span></a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calcular log loss y Brier score</span>
+<span class="n">logloss_rf</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">brier_rf</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+
+<span class="n">logloss_xgb</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+<span class="n">brier_xgb</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">)</span>
+
+<span class="n">logloss_lr</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="n">brier_lr</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+
+<span class="n">logloss_svc</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+<span class="n">brier_svc</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
+
+
+<span class="c1"># Agregar resultados a la lista</span>
+<span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Support Vector Classifer&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf</span><span class="p">,</span><span class="n">brier_xgb</span><span class="p">,</span><span class="n">brier_lr</span><span class="p">,</span><span class="n">brier_svc</span><span class="p">],</span>
+            <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf</span><span class="p">,</span><span class="n">logloss_xgb</span><span class="p">,</span><span class="n">logloss_lr</span><span class="p">,</span><span class="n">logloss_svc</span><span class="p">]}</span>
+<span class="n">indicators_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators</span><span class="p">)</span>
+<span class="n">indicators_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Classifier</th>
+      <th>Brier Score</th>
+      <th>Log Loss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest Classifier</td>
+      <td>0.044810</td>
+      <td>0.152377</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Gradient Boosting Classifier</td>
+      <td>0.038939</td>
+      <td>0.150294</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Logistic Regressor</td>
+      <td>0.074663</td>
+      <td>0.240863</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Support Vector Classifer</td>
+      <td>0.086991</td>
+      <td>0.278628</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p><strong>Gradient Boosting Classifier</strong>:
+Brier Score: El más bajo (0.038939) y el segundo mejor en Log Loss (0.150294). Esto concuerda con su comportamiento en la curva de calibración, donde se en promedio a lo largo de la líena ‘ideal’ se mantiene cerca en la mayoría de los puntos.</p></li>
+<li><p><strong>Random Forest Classifier:</strong>
+Brier Score: Un poco más alto que el Gradient Boosting (0.044810), pero no se desempeña bien en la curva de calibración, mostrando una gran discrepancia con la línea diagonal. Esto indica que, aunque su Brier Score no es el peor, su capacidad para calibrar probabilidades es deficiente.</p></li>
+<li><p><strong>Logistic Regressor:</strong>
+Brier Score: 0.074663, que es mayor que los dos anteriores, y su Log Loss es el más alto (0.240863). En la curva de calibración, mostró un rendimiento decente, pero sus métricas indican que tiene un desempeño menos confiable en comparación con los mejores modelos.</p></li>
+<li><p><strong>Support Vector Classifier:</strong>
+Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda con su comportamiento en la curva de calibración, donde se aleja significativamente de la línea diagonal.</p></li>
+</ul>
+</section>
+<section id="aplicar-calibracion">
+<h2>Aplicar Calibración<a class="headerlink" href="#aplicar-calibracion" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -806,6 +909,8 @@ document.write(`
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#revision-de-modelos">Revisión de Modelos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-de-calibracion-para-los-clasificadores">Validación de calibración para los clasificadores</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a></li>
 </ul>
   </nav></div>
 

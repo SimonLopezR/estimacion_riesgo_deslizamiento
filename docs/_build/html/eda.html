@@ -384,7 +384,11 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agrupaciones">Agrupaciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>
@@ -416,6 +420,10 @@ document.write(`
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">LabelEncoder</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
 <span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
 <span class="kn">import</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="k">as</span> <span class="nn">sch</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -622,7 +630,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b323b8c3017f099d5aabfc905a643539b60289df08ff1ec6d05720294348758e.png" src="_images/b323b8c3017f099d5aabfc905a643539b60289df08ff1ec6d05720294348758e.png" />
+<img alt="_images/798f16e56386fdca5cfd955beed5c75aa4460297792e225c40a5056e7229f991.png" src="_images/798f16e56386fdca5cfd955beed5c75aa4460297792e225c40a5056e7229f991.png" />
 </div>
 </div>
 <p>Donde 0 representa la clase negativa que es “No Deslizamiento de tierra” en punto geográfico
@@ -644,7 +652,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/606570a7856eb53c4ec8503af7285e1bcd1dc9c82522671297edccf0be865201.png" src="_images/606570a7856eb53c4ec8503af7285e1bcd1dc9c82522671297edccf0be865201.png" />
+<img alt="_images/098d436286066506bf59dbd4399d63507c022e59d069459a2a78237da345254e.png" src="_images/098d436286066506bf59dbd4399d63507c022e59d069459a2a78237da345254e.png" />
 </div>
 </div>
 <p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
@@ -1064,8 +1072,122 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </ul>
 <p>Todo esto puede afectar en las métricas de evaluación, como la precisión, el recall, y la F1-score, ya que el rendimiento en estas categorías raras puede no estar bien representado</p>
 </section>
+<section id="agrupaciones">
+<h2>Agrupaciones<a class="headerlink" href="#agrupaciones" title="Link to this heading">#</a></h2>
+<p>Agrupar los datos por la variable objetivo es util para entender las diferencias entre grupos, identificar relaciones con las variables predictoras, evaluar distribuciones y tendencias y facilitar la creación de estrategias de modelado</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols_g</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span> <span class="s1">&#39;15d&#39;</span><span class="p">,</span> <span class="s1">&#39;30d&#39;</span><span class="p">,</span> <span class="s1">&#39;60d&#39;</span><span class="p">,</span> <span class="s1">&#39;deslizamientos&#39;</span><span class="p">]</span>
+<span class="n">df__</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">cols_g</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df__</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">24h</th>
+      <th colspan="3" halign="left">15d</th>
+      <th colspan="3" halign="left">30d</th>
+      <th colspan="3" halign="left">60d</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>deslizamientos</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>353.0</td>
+      <td>0.882500</td>
+      <td>400</td>
+      <td>16423.0</td>
+      <td>41.057500</td>
+      <td>400</td>
+      <td>33964.8</td>
+      <td>84.912000</td>
+      <td>400</td>
+      <td>75263.5</td>
+      <td>188.158750</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4348.8</td>
+      <td>7.906909</td>
+      <td>550</td>
+      <td>102426.1</td>
+      <td>186.229273</td>
+      <td>550</td>
+      <td>177402.0</td>
+      <td>322.549091</td>
+      <td>550</td>
+      <td>249013.7</td>
+      <td>452.752182</td>
+      <td>550</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla muestra la acumulación de lluvia (en mm) en diferentes períodos de tiempo: 24 horas, 15 días, 30 días y 60 días, con las agrupaciones basadas en si hay deslizamientos de tierra (1) o no (0)</p>
+<p>Claramente, los días con deslizamientos (1) tienen una acumulación de lluvia significativamente mayor que los días sin deslizamientos (0) en todos los intervalos de tiempo.</p>
+<p>La diferencia es especialmente notable en los períodos de tiempo más largos (30 y 60 días), donde la acumulación de lluvia promedio en los días con deslizamientos es aproximadamente el doble o más que en los días sin deslizamientos, lo que sugiere que los deslizamientos están asociados a condiciones prolongadas de lluvia intensa.</p>
 <section id="analisis-cluster">
-<h2>Análisis Cluster<a class="headerlink" href="#analisis-cluster" title="Link to this heading">#</a></h2>
+<h3>Análisis Cluster<a class="headerlink" href="#analisis-cluster" title="Link to this heading">#</a></h3>
 <p>En este análisis, se implementará un análisis de clustering como parte del análisis exploratorio para las variables predictoras. El objetivo principal será identificar y entender los perfiles ocultos que existen en los datos de entrenamiento, con el fin de extraer conclusiones valiosas sobre la estructura subyacente de las muestras.</p>
 <p>Se utilizarán técnicas de clustering como K-Means para agrupar los datos en función de sus características, sin considerar la variable objetivo. Esto permitirá descubrir patrones, segmentaciones y grupos homogéneos que podrían ofrecer perspectivas adicionales, facilitando la comprensión del problema de clasificación y sugiriendo posibles mejoras en las estrategias de modelado predictivo.</p>
 <div class="cell docutils container">
@@ -1259,7 +1381,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/407d0ad9a87c74e0d28f2766eccd0af555eaf42d2ae7001ccf44c07d5be2be1d.png" src="_images/407d0ad9a87c74e0d28f2766eccd0af555eaf42d2ae7001ccf44c07d5be2be1d.png" />
+<img alt="_images/2d5a895e49ef9fb3270555fc4d67fdae015ec7ad2fbc334436d2a0b3d31f9f04.png" src="_images/2d5a895e49ef9fb3270555fc4d67fdae015ec7ad2fbc334436d2a0b3d31f9f04.png" />
 </div>
 </div>
 <p>Utilizaremos el método del codo (<code class="docutils literal notranslate"><span class="pre">Inercia</span></code>) y el <code class="docutils literal notranslate"><span class="pre">Coeficiente</span> <span class="pre">de</span> <span class="pre">Silueta</span></code> para identificar el número de clusters más optimo.</p>
@@ -1322,7 +1444,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>583.0</td>
       <td>746.0</td>
       <td>908.0</td>
-      <td>3</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1338,7 +1460,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>343.7</td>
       <td>452.1</td>
       <td>531.0</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1354,7 +1476,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>266.2</td>
       <td>331.3</td>
       <td>434.0</td>
-      <td>1</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1370,7 +1492,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>93.0</td>
       <td>198.0</td>
       <td>293.0</td>
-      <td>2</td>
+      <td>5</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1386,7 +1508,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>43.9</td>
       <td>175.5</td>
       <td>323.0</td>
-      <td>4</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
@@ -1482,126 +1604,30 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1100.253703</td>
-      <td>1079.523193</td>
-      <td>81</td>
-      <td>982.548950</td>
-      <td>1386.967896</td>
-      <td>24.632541</td>
-      <td>18.411295</td>
-      <td>81</td>
-      <td>2.978758</td>
-      <td>92.066528</td>
+      <td>1123.436993</td>
+      <td>1086.934937</td>
+      <td>107</td>
+      <td>988.844788</td>
+      <td>1585.298706</td>
+      <td>54.741749</td>
+      <td>52.195717</td>
+      <td>107</td>
+      <td>21.550568</td>
+      <td>98.122704</td>
       <td>...</td>
-      <td>405.806173</td>
-      <td>400.8</td>
-      <td>81</td>
-      <td>234.0</td>
-      <td>753.0</td>
-      <td>561.907407</td>
-      <td>561.0</td>
-      <td>81</td>
-      <td>255.0</td>
-      <td>869.0</td>
+      <td>272.012150</td>
+      <td>268.40</td>
+      <td>107</td>
+      <td>43.0</td>
+      <td>547.4</td>
+      <td>399.548598</td>
+      <td>392.0</td>
+      <td>107</td>
+      <td>59.0</td>
+      <td>706.8</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>1074.935264</td>
-      <td>1070.924927</td>
-      <td>197</td>
-      <td>979.613403</td>
-      <td>1599.939087</td>
-      <td>37.993050</td>
-      <td>36.388821</td>
-      <td>197</td>
-      <td>1.330287</td>
-      <td>94.294182</td>
-      <td>...</td>
-      <td>474.485279</td>
-      <td>446.1</td>
-      <td>197</td>
-      <td>256.0</td>
-      <td>848.0</td>
-      <td>599.757360</td>
-      <td>531.0</td>
-      <td>197</td>
-      <td>333.8</td>
-      <td>972.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1698.509124</td>
-      <td>1690.444214</td>
-      <td>103</td>
-      <td>1305.648315</td>
-      <td>2098.276855</td>
-      <td>35.253831</td>
-      <td>27.692619</td>
-      <td>103</td>
-      <td>1.930219</td>
-      <td>101.956207</td>
-      <td>...</td>
-      <td>246.880583</td>
-      <td>265.0</td>
-      <td>103</td>
-      <td>23.0</td>
-      <td>521.4</td>
-      <td>385.794175</td>
-      <td>364.0</td>
-      <td>103</td>
-      <td>103.0</td>
-      <td>815.6</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1080.719655</td>
-      <td>1063.546631</td>
-      <td>140</td>
-      <td>985.792114</td>
-      <td>1769.932861</td>
-      <td>43.140712</td>
-      <td>42.952623</td>
-      <td>140</td>
-      <td>3.538649</td>
-      <td>89.237999</td>
-      <td>...</td>
-      <td>677.208571</td>
-      <td>735.0</td>
-      <td>140</td>
-      <td>446.0</td>
-      <td>753.0</td>
-      <td>834.200000</td>
-      <td>878.0</td>
-      <td>140</td>
-      <td>666.0</td>
-      <td>918.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1094.907349</td>
-      <td>1060.142578</td>
-      <td>243</td>
-      <td>972.612610</td>
-      <td>1500.505249</td>
-      <td>27.524975</td>
-      <td>22.076199</td>
-      <td>243</td>
-      <td>1.231035</td>
-      <td>84.404579</td>
-      <td>...</td>
-      <td>169.339095</td>
-      <td>172.3</td>
-      <td>243</td>
-      <td>0.0</td>
-      <td>483.2</td>
-      <td>283.686008</td>
-      <td>300.0</td>
-      <td>243</td>
-      <td>0.0</td>
-      <td>660.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
       <td>1155.213916</td>
       <td>1170.223389</td>
       <td>35</td>
@@ -1614,7 +1640,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>55.786831</td>
       <td>...</td>
       <td>446.937143</td>
-      <td>408.0</td>
+      <td>408.00</td>
       <td>35</td>
       <td>215.0</td>
       <td>731.5</td>
@@ -1625,28 +1651,124 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>984.0</td>
     </tr>
     <tr>
+      <th>2</th>
+      <td>1072.415159</td>
+      <td>1066.576050</td>
+      <td>205</td>
+      <td>979.613403</td>
+      <td>1446.527344</td>
+      <td>32.567420</td>
+      <td>30.081882</td>
+      <td>205</td>
+      <td>1.330287</td>
+      <td>91.343422</td>
+      <td>...</td>
+      <td>487.003902</td>
+      <td>452.10</td>
+      <td>205</td>
+      <td>241.0</td>
+      <td>848.0</td>
+      <td>614.516585</td>
+      <td>536.0</td>
+      <td>205</td>
+      <td>358.0</td>
+      <td>972.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1083.914403</td>
+      <td>1049.092590</td>
+      <td>184</td>
+      <td>972.612610</td>
+      <td>1500.505249</td>
+      <td>17.919165</td>
+      <td>14.661365</td>
+      <td>184</td>
+      <td>1.231035</td>
+      <td>55.065750</td>
+      <td>...</td>
+      <td>141.712500</td>
+      <td>115.50</td>
+      <td>184</td>
+      <td>0.0</td>
+      <td>483.2</td>
+      <td>251.201630</td>
+      <td>252.4</td>
+      <td>184</td>
+      <td>0.0</td>
+      <td>610.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1081.198849</td>
+      <td>1063.869141</td>
+      <td>139</td>
+      <td>985.792114</td>
+      <td>1769.932861</td>
+      <td>43.343694</td>
+      <td>42.997940</td>
+      <td>139</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+      <td>...</td>
+      <td>677.720863</td>
+      <td>735.00</td>
+      <td>139</td>
+      <td>446.0</td>
+      <td>753.0</td>
+      <td>834.755396</td>
+      <td>878.0</td>
+      <td>139</td>
+      <td>666.0</td>
+      <td>918.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1700.024138</td>
+      <td>1690.586792</td>
+      <td>102</td>
+      <td>1305.648315</td>
+      <td>2098.276855</td>
+      <td>34.291852</td>
+      <td>27.239475</td>
+      <td>102</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+      <td>...</td>
+      <td>246.438235</td>
+      <td>266.80</td>
+      <td>102</td>
+      <td>23.0</td>
+      <td>521.4</td>
+      <td>383.480392</td>
+      <td>364.0</td>
+      <td>102</td>
+      <td>103.0</td>
+      <td>815.6</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>1073.816093</td>
-      <td>1061.876465</td>
-      <td>151</td>
-      <td>975.396118</td>
-      <td>1430.414063</td>
-      <td>18.580224</td>
-      <td>15.210188</td>
-      <td>151</td>
+      <td>1079.530821</td>
+      <td>1065.690491</td>
+      <td>178</td>
+      <td>978.607788</td>
+      <td>1488.616699</td>
+      <td>18.491779</td>
+      <td>15.856652</td>
+      <td>178</td>
       <td>0.984309</td>
       <td>63.939667</td>
       <td>...</td>
-      <td>138.431788</td>
-      <td>98.3</td>
-      <td>151</td>
-      <td>0.0</td>
-      <td>374.3</td>
-      <td>273.660927</td>
-      <td>261.0</td>
-      <td>151</td>
-      <td>0.0</td>
-      <td>572.0</td>
+      <td>192.574719</td>
+      <td>157.15</td>
+      <td>178</td>
+      <td>24.7</td>
+      <td>577.5</td>
+      <td>339.074719</td>
+      <td>336.9</td>
+      <td>178</td>
+      <td>62.7</td>
+      <td>742.2</td>
     </tr>
   </tbody>
 </table>
@@ -1697,46 +1819,14 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>2.786420</td>
+      <td>3.142056</td>
       <td>0.0</td>
-      <td>81</td>
+      <td>107</td>
       <td>0.0</td>
-      <td>30.0</td>
+      <td>20.0</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>5.197970</td>
-      <td>1.2</td>
-      <td>197</td>
-      <td>0.0</td>
-      <td>24.4</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>2.865049</td>
-      <td>0.0</td>
-      <td>103</td>
-      <td>0.0</td>
-      <td>29.2</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>6.715714</td>
-      <td>10.0</td>
-      <td>140</td>
-      <td>0.0</td>
-      <td>16.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1.878189</td>
-      <td>0.0</td>
-      <td>243</td>
-      <td>0.0</td>
-      <td>23.6</td>
-    </tr>
-    <tr>
-      <th>5</th>
       <td>47.640000</td>
       <td>42.0</td>
       <td>35</td>
@@ -1744,12 +1834,44 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>108.0</td>
     </tr>
     <tr>
+      <th>2</th>
+      <td>4.918537</td>
+      <td>1.2</td>
+      <td>205</td>
+      <td>0.0</td>
+      <td>24.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1.570652</td>
+      <td>0.0</td>
+      <td>184</td>
+      <td>0.0</td>
+      <td>23.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>6.706475</td>
+      <td>10.0</td>
+      <td>139</td>
+      <td>0.0</td>
+      <td>16.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2.918627</td>
+      <td>0.0</td>
+      <td>102</td>
+      <td>0.0</td>
+      <td>29.2</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>0.615894</td>
+      <td>0.960674</td>
       <td>0.0</td>
-      <td>151</td>
+      <td>178</td>
       <td>0.0</td>
-      <td>14.0</td>
+      <td>30.0</td>
     </tr>
   </tbody>
 </table>
@@ -1800,46 +1922,14 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>24.632541</td>
-      <td>18.411295</td>
-      <td>81</td>
-      <td>2.978758</td>
-      <td>92.066528</td>
+      <td>54.741749</td>
+      <td>52.195717</td>
+      <td>107</td>
+      <td>21.550568</td>
+      <td>98.122704</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>37.993050</td>
-      <td>36.388821</td>
-      <td>197</td>
-      <td>1.330287</td>
-      <td>94.294182</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>35.253831</td>
-      <td>27.692619</td>
-      <td>103</td>
-      <td>1.930219</td>
-      <td>101.956207</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>43.140712</td>
-      <td>42.952623</td>
-      <td>140</td>
-      <td>3.538649</td>
-      <td>89.237999</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>27.524975</td>
-      <td>22.076199</td>
-      <td>243</td>
-      <td>1.231035</td>
-      <td>84.404579</td>
-    </tr>
-    <tr>
-      <th>5</th>
       <td>30.145108</td>
       <td>28.641380</td>
       <td>35</td>
@@ -1847,10 +1937,42 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>55.786831</td>
     </tr>
     <tr>
+      <th>2</th>
+      <td>32.567420</td>
+      <td>30.081882</td>
+      <td>205</td>
+      <td>1.330287</td>
+      <td>91.343422</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>17.919165</td>
+      <td>14.661365</td>
+      <td>184</td>
+      <td>1.231035</td>
+      <td>55.065750</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>43.343694</td>
+      <td>42.997940</td>
+      <td>139</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>34.291852</td>
+      <td>27.239475</td>
+      <td>102</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>18.580224</td>
-      <td>15.210188</td>
-      <td>151</td>
+      <td>18.491779</td>
+      <td>15.856652</td>
+      <td>178</td>
       <td>0.984309</td>
       <td>63.939667</td>
     </tr>
@@ -1860,6 +1982,75 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 <p>el cluster 0,4 y 6 son los que representan agrupan esos registros que representan terrenos con menos porcentajes de pendientes.</p>
 <p>Aunque sean bastantes cluster, se evidencia que la mayoría de cluster apuntan a 2 agrupamientos, es decir que nos tratan de decir que hay 2 clases de población dentro de nuestro conjunto de datos</p>
+</section>
+</section>
+<section id="arbol-de-decision">
+<h2>Árbol de Decisión<a class="headerlink" href="#arbol-de-decision" title="Link to this heading">#</a></h2>
+<p>Entrenar un solo árbol de decisión en un EDA puede ser útil para identificar rápidamente qué variables tienen mayor relevancia en la predicción del objetivo.</p>
+<p>Los árboles de decisión dividen los datos en función de las características más informativas, esto te permite identificar qué variables son más útiles para predecir la variable dependiente. Tambien es nos ayuda en la interpretabilidad, ya que el árbol muestra claramente cómo se hace la toma de decisiones basadas en las características y qué variables se consideran importantes a cada paso y a la identificación de relaciones no lineales, porque pueden manejar relaciones no lineales entre variables, lo que te permite captar patrones que a veces no son evidentes con técnicas lineales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a 10 dias</span>
+<span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
+<span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">independent_var</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">VAR_categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">]</span>
+<span class="n">VAR_numerical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]]</span>
+<span class="n">VAR_cols</span> <span class="o">=</span> <span class="n">VAR_categorical_cols</span> <span class="o">+</span> <span class="n">VAR_numerical_cols</span>
+<span class="n">label_encoders</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">VAR_categorical_cols</span><span class="p">:</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+    <span class="n">label_encoders</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="c1"># Hacer predicciones en el conjunto de prueba</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Medir el rendimiento (en clasificación, por ejemplo)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.8842105263157894
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>  <span class="c1"># Ajustar el tamaño de la figura</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> 
+          <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+          <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+          <span class="n">class_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+          <span class="n">rounded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+          <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Ajustar el tamaño de la letra</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5aa47bb60623958bf67571884e7db1016d88d1f9c1d7d5453ad84f11b476a39a.png" src="_images/5aa47bb60623958bf67571884e7db1016d88d1f9c1d7d5453ad84f11b476a39a.png" />
+</div>
+</div>
+<p>El nodo raíz indica que la primera condición a evaluar es la <code class="docutils literal notranslate"><span class="pre">15d</span></code> (Precipitación de lluvia acumulada en 15 días en milímetros) del terreno. Si la varaible es menor o igual a 73.6, se avanza por la rama izquierda; de lo contrario, se avanza por la derecha.</p>
+<p>Los nodos finales (hojas) muestran la clase predicha (0 o 1) y el número de muestras en cada hoja. También se indica el valor de las muestras clasificadas, con la mayoría en una clase reflejando el resultado esperado.
+Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code> es menor o igual a 48.463 y <code class="docutils literal notranslate"><span class="pre">7d</span></code> es menor o igual a 53.9, se clasifica como <code class="docutils literal notranslate"><span class="pre">deslizamiento</span></code> (y[1]).</p>
+<p>El <code class="docutils literal notranslate"><span class="pre">índice</span> <span class="pre">de</span> <span class="pre">Gini</span></code> se muestra en cada nodo, que mide la pureza de los nodos. Un valor de 0 indica pureza completa (todas las muestras de una clase) y valores cercanos a 1 indican mezcla de clases. Los nodos con menor índice de Gini se consideran mejores para la clasificación.</p>
+<p>Las variables más significativas como <code class="docutils literal notranslate"><span class="pre">15d</span></code>, <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code>, y <code class="docutils literal notranslate"><span class="pre">30d</span></code>, son cruciales para determinar la probabilidad de deslizamientos.</p>
 </section>
 <section id="correlaciones-entre-variables-independientes">
 <h2>Correlaciones entre variables independientes<a class="headerlink" href="#correlaciones-entre-variables-independientes" title="Link to this heading">#</a></h2>
@@ -1886,7 +2077,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bf43ef5aa9b51f59551bade8e0fd169d71fa020a2abd8229058669b6bc0afc7a.png" src="_images/bf43ef5aa9b51f59551bade8e0fd169d71fa020a2abd8229058669b6bc0afc7a.png" />
+<img alt="_images/d2ad28087fbb37a096a9f7a6c6f5a9e2a69f21a3535c32a410f95d5414881cf4.png" src="_images/d2ad28087fbb37a096a9f7a6c6f5a9e2a69f21a3535c32a410f95d5414881cf4.png" />
 </div>
 </div>
 <p>Observamos que existe una alta correlación lineal entre las variables númericas de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
@@ -1915,7 +2106,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/302218a3dcbbf69aa32d39d9c5fcb11e7123ea4f36d9f6a3267acf37628b572e.png" src="_images/302218a3dcbbf69aa32d39d9c5fcb11e7123ea4f36d9f6a3267acf37628b572e.png" />
+<img alt="_images/4eedcf8b442770757c8a21682cfd139c246aa3f731c5466d335eaf844d7367e1.png" src="_images/4eedcf8b442770757c8a21682cfd139c246aa3f731c5466d335eaf844d7367e1.png" />
 </div>
 </div>
 <p>Al eliminar ciertas variables, el mapa de calor se torna menos rojo, es decir hay menos variables que nos aportan multicolinealidad. Este conjunto de variables se pueden evaluar para la selecicon de features a tomar en cuenta para cada modelo.</p>
@@ -1995,7 +2186,11 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agrupaciones">Agrupaciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
 </ul>
