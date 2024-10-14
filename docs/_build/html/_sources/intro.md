@@ -140,7 +140,7 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 
 Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de **Brier score** y **Log Loss**. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.
 
-El **Brier Score** es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la calibración.Se define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:
+El **Brier Score** es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la calibración. Se define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:
 
 $$
 \text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
@@ -152,11 +152,13 @@ Donde:
 - \( p_i \) es la probabilidad predicha para la muestra \( i \).
 - \( y_i \) es la etiqueta verdadera para la muestra \( i \) (1 si es positiva y 0 si es negativa).
 
+Interpretación:
+
 - **Un Brier Score de 0** indica una predicción perfecta, donde las probabilidades predichas coinciden exactamente con las clases reales.
 - **Un Brier Score de 1** es el peor resultado posible, ya que indica una discrepancia completa entre las probabilidades predichas y las etiquetas reales.
 - En general, **cuanto menor sea el Brier Score, mejor calibrado estará el clasificador**. 
 
-El **Log Loss**, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el **Log Loss** se enfoca en penalizar fuertemente las predicciones con **alta confianza pero incorrectas**. Se define como:
+El **Log Loss**, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el **Log Loss** se enfoca en penalizar fuertemente las predicciones con **alta confianza pero incorrectas**, mientras más cercana sea la probabilidad predicha a 0 o 1 para la clase correcta, menor será el log loss. Se define como:
 
 $$
 \text{Log Loss} = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
@@ -166,6 +168,8 @@ Donde:
 - \( N \) es el número total de muestras.
 - \( y_i \) es la etiqueta verdadera para la muestra \( i \), 1 para la clase positiva y 0 para la clase negativa.
 - \( p_i \) es la probabilidad predicha de la clase positiva para la muestra \( i \).
+
+Interpretación:
 
 - El **Log Loss es siempre positivo**, y **cuanto menor sea, mejor calibrado está el modelo**.
 - El **Log Loss castiga fuertemente** las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.

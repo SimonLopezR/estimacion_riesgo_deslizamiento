@@ -661,7 +661,7 @@ document.write(`
 <p>Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los eventos reales. Por ejemplo, una predicción de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente. Entonces si nos enfocamos por ejemplo en el modelo de regresión logística (curva azul), la curva azul está bastante cerca de la línea de calibración perfecta. Esto indica que las probabilidades predichas por la regresión logística están bastante bien calibradas. Para cualquier probabilidad predicha, la fracción de positivos observados es similar, lo que significa que este modelo tiene buenas predicciones calibradas.</p>
 <p><img alt="calibration-curves" src="_images/calibration-curves.png" /></p>
 <p>Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de <strong>Brier score</strong> y <strong>Log Loss</strong>. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.</p>
-<p>El <strong>Brier Score</strong> es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la <a class="reference external" href="http://xn--calibracin-obb.Se">calibración.Se</a> define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:</p>
+<p>El <strong>Brier Score</strong> es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la calibración. Se define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Brier Score} = \frac{1}{N} \sum_{i=1}^{N} (p_i - y_i)^2
@@ -671,11 +671,14 @@ document.write(`
 <li><p>( N ) es el número de muestras.</p></li>
 <li><p>( p_i ) es la probabilidad predicha para la muestra ( i ).</p></li>
 <li><p>( y_i ) es la etiqueta verdadera para la muestra ( i ) (1 si es positiva y 0 si es negativa).</p></li>
+</ul>
+<p>Interpretación:</p>
+<ul class="simple">
 <li><p><strong>Un Brier Score de 0</strong> indica una predicción perfecta, donde las probabilidades predichas coinciden exactamente con las clases reales.</p></li>
 <li><p><strong>Un Brier Score de 1</strong> es el peor resultado posible, ya que indica una discrepancia completa entre las probabilidades predichas y las etiquetas reales.</p></li>
 <li><p>En general, <strong>cuanto menor sea el Brier Score, mejor calibrado estará el clasificador</strong>.</p></li>
 </ul>
-<p>El <strong>Log Loss</strong>, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el <strong>Log Loss</strong> se enfoca en penalizar fuertemente las predicciones con <strong>alta confianza pero incorrectas</strong>. Se define como:</p>
+<p>El <strong>Log Loss</strong>, también conocido como entropía cruzada, es otra métrica importante para evaluar la calibración. Mientras que el Brier Score mide el error cuadrático entre las probabilidades y las etiquetas, el <strong>Log Loss</strong> se enfoca en penalizar fuertemente las predicciones con <strong>alta confianza pero incorrectas</strong>, mientras más cercana sea la probabilidad predicha a 0 o 1 para la clase correcta, menor será el log loss. Se define como:</p>
 <div class="math notranslate nohighlight">
 \[
 \text{Log Loss} = - \frac{1}{N} \sum_{i=1}^{N} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]
@@ -685,6 +688,9 @@ document.write(`
 <li><p>( N ) es el número total de muestras.</p></li>
 <li><p>( y_i ) es la etiqueta verdadera para la muestra ( i ), 1 para la clase positiva y 0 para la clase negativa.</p></li>
 <li><p>( p_i ) es la probabilidad predicha de la clase positiva para la muestra ( i ).</p></li>
+</ul>
+<p>Interpretación:</p>
+<ul class="simple">
 <li><p>El <strong>Log Loss es siempre positivo</strong>, y <strong>cuanto menor sea, mejor calibrado está el modelo</strong>.</p></li>
 <li><p>El <strong>Log Loss castiga fuertemente</strong> las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.</p></li>
 </ul>
