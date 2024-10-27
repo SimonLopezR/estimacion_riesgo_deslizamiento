@@ -113,7 +113,7 @@ En el desarrollo de nuestros modelos de clasificación binaria para la identific
 
 ![metrics-classification](./resources/matriz_confusion_ejemplo.png)
 
-Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos negativos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.
+Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos positivos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.
 
 En este mismo orden de ideas, queremos entonces limitar el número de falsos positivos, por lo que entonces nos conviene maximizar la `precision` en la fase de entrenamiento
 
@@ -178,7 +178,15 @@ Este es el método que se utilizará en este proyecto para saber si un modelo de
 
 ### Métodos para calibrar clasificadores
 
+- Platt Scaling (Ajuste Sigmoidal)
 
+- Isotonic Regression (Regresión Isotónica)
+
+- Histogram Binning (Agrupación en histogramas)
+
+- Beta Calibration
+
+- 
 
 <br>
 

@@ -645,7 +645,7 @@ document.write(`
 <h3>Métrica de evaluación<a class="headerlink" href="#metrica-de-evaluacion" title="Link to this heading">#</a></h3>
 <p>En el desarrollo de nuestros modelos de clasificación binaria para la identificación de zonas propensas a deslizamientos de tierra, enfrentamos una decisión crucial en la selección de la métrica de rendimiento a optimizar. La esencia de nuestra clasificación distingue dos categorías claves: la clase positiva (1), que indica la presencia de un deslizamiento de tierra, y la clase negativa (0), que señala su ausencia.</p>
 <p><img alt="metrics-classification" src="_images/matriz_confusion_ejemplo.png" /></p>
-<p>Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos negativos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.</p>
+<p>Si vemos la anterior matriz de confusión, para nuestro análisis es vital priorizar la reducción de los falsos positivos (FP - false positives), es decir, las situaciones donde el modelo predice erróneamente que habrá deslizamiento de tierra cuando en realidad no ocurre. La ocurrencia de estos errores podría tener consecuencias significativas en términos de seguridad y preparación ante desastres naturales ya que en el contexto de este problema es costoso actuar sobre un falso positivo ya que se cuenta recursos limitados para manejar casos positivos, es decir, recursos limitados para manejar desastres de deslizamientos de tierra que hay que saber administrar.</p>
 <p>En este mismo orden de ideas, queremos entonces limitar el número de falsos positivos, por lo que entonces nos conviene maximizar la <code class="docutils literal notranslate"><span class="pre">precision</span></code> en la fase de entrenamiento</p>
 <p><strong>Precision</strong> mide cuántas de las muestras predichas como positivas son realmente positivas, es decir, precision intenta responder a la siguiente pregunta: ¿qué proporción de identificaciones positivas fue correcta?</p>
 <div class="math notranslate nohighlight">
@@ -698,6 +698,13 @@ document.write(`
 </section>
 <section id="metodos-para-calibrar-clasificadores">
 <h3>Métodos para calibrar clasificadores<a class="headerlink" href="#metodos-para-calibrar-clasificadores" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Platt Scaling (Ajuste Sigmoidal)</p></li>
+<li><p>Isotonic Regression (Regresión Isotónica)</p></li>
+<li><p>Histogram Binning (Agrupación en histogramas)</p></li>
+<li><p>Beta Calibration</p></li>
+<li></li>
+</ul>
 <br>
 </section>
 </section>
