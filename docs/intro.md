@@ -178,7 +178,15 @@ Este es el método que se utilizará en este proyecto para saber si un modelo de
 
 ### Métodos para calibrar clasificadores
 
+- Platt Scaling (Ajuste Sigmoidal)
 
+- Isotonic Regression (Regresión Isotónica)
+
+- Histogram Binning (Agrupación en histogramas)
+
+- Beta Calibration
+
+- 
 
 <br>
 
