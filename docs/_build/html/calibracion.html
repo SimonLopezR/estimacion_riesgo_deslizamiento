@@ -580,6 +580,19 @@ document.write(`
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Función para calcular el Expected Calibration Error (ECE)</span>
+<span class="k">def</span> <span class="nf">calculate_ece</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">fraction_of_positives</span><span class="p">,</span><span class="n">mean_predicted_value</span><span class="p">,</span><span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">bin_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    
+    <span class="n">ece</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">bin_sizes</span> <span class="o">/</span> <span class="n">total_samples</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean_predicted_value</span> <span class="o">-</span> <span class="n">fraction_of_positives</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ece</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="revision-de-modelos">
 <h2>Revisión de Modelos<a class="headerlink" href="#revision-de-modelos" title="Link to this heading">#</a></h2>
@@ -729,10 +742,10 @@ document.write(`
 <span class="n">y_pred_svc</span> <span class="o">=</span> <span class="n">model_svc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
 
 <span class="c1"># Obtener las curvas de calibración</span>
-<span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">mean_predicted_value_rf</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">mean_predicted_value_lr</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">mean_predicted_value_svc</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">mean_predicted_value_rf</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span> <span class="c1"># strategy{‘uniform’, ‘quantile’}</span>
+<span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">mean_predicted_value_lr</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">mean_predicted_value_svc</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Graficar todas las curvas</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf</span><span class="p">,</span> <span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">)</span>
@@ -755,7 +768,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" src="_images/e843f4aadaaf769913ce8f5640a138e381a03e889729bcdf4c4f5f50eeb57420.png" />
+<img alt="_images/37ae94c4e22ab95bd9548c3a56c7beab80f768c1d0e92c9f0aae67659f648d19.png" src="_images/37ae94c4e22ab95bd9548c3a56c7beab80f768c1d0e92c9f0aae67659f648d19.png" />
 </div>
 </div>
 <p>En la siguiente gráfica de ejemplo, podemos ver el eje X (Mean predicted value) representa las probabilidades predichas por cada uno de los modelos, va de 0 a 1, indicando la confianza con la que los modelos estiman la existencia de deslizamientos de tierra (clase positiva). Respecto al eje Y (Fraction of positives) muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.
@@ -777,11 +790,18 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 <span class="n">logloss_svc</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
 <span class="n">brier_svc</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
 
+<span class="c1"># Calcular ECE para cada caso</span>
+<span class="n">ece_rf</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf</span><span class="p">,</span><span class="n">mean_predicted_value_rf</span><span class="p">)</span>
+<span class="n">ece_xgb</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb</span><span class="p">,</span><span class="n">mean_predicted_value_xgb</span><span class="p">)</span>
+<span class="n">ece_lr</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr</span><span class="p">,</span><span class="n">mean_predicted_value_lr</span><span class="p">)</span>
+<span class="n">ece_svc</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc</span><span class="p">,</span><span class="n">mean_predicted_value_svc</span><span class="p">)</span>
 
 <span class="c1"># Agregar resultados a la lista</span>
 <span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Support Vector Classifer&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf</span><span class="p">,</span><span class="n">ece_xgb</span><span class="p">,</span><span class="n">ece_lr</span><span class="p">,</span><span class="n">ece_svc</span><span class="p">],</span>
             <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf</span><span class="p">,</span><span class="n">brier_xgb</span><span class="p">,</span><span class="n">brier_lr</span><span class="p">,</span><span class="n">brier_svc</span><span class="p">],</span>
-            <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf</span><span class="p">,</span><span class="n">logloss_xgb</span><span class="p">,</span><span class="n">logloss_lr</span><span class="p">,</span><span class="n">logloss_svc</span><span class="p">]}</span>
+            <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf</span><span class="p">,</span><span class="n">logloss_xgb</span><span class="p">,</span><span class="n">logloss_lr</span><span class="p">,</span><span class="n">logloss_svc</span><span class="p">]</span>
+            <span class="p">}</span>
 <span class="n">indicators_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators</span><span class="p">)</span>
 <span class="n">indicators_df</span>
 </pre></div>
@@ -807,6 +827,7 @@ Todas las series serán comparadas con una línea que representa el caso de cali
     <tr style="text-align: right;">
       <th></th>
       <th>Classifier</th>
+      <th>ECE</th>
       <th>Brier Score</th>
       <th>Log Loss</th>
     </tr>
@@ -815,24 +836,28 @@ Todas las series serán comparadas con una línea que representa el caso de cali
     <tr>
       <th>0</th>
       <td>Random Forest Classifier</td>
+      <td>0.062717</td>
       <td>0.044810</td>
       <td>0.152377</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Gradient Boosting Classifier</td>
+      <td>0.036593</td>
       <td>0.038939</td>
       <td>0.150294</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Logistic Regressor</td>
+      <td>0.026542</td>
       <td>0.074663</td>
       <td>0.240863</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Support Vector Classifer</td>
+      <td>0.056126</td>
       <td>0.086991</td>
       <td>0.278628</td>
     </tr>
@@ -910,8 +935,22 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">logloss_rf_c</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
 <span class="n">brier_rf_c</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">calculate_ece_2</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)</span>
+    <span class="n">bin_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+    
+    <span class="n">ece</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">bin_sizes</span> <span class="o">/</span> <span class="n">total_samples</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean_predicted_value</span> <span class="o">-</span> <span class="n">fraction_of_positives</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">ece</span>
+
+<span class="c1"># Calcular ECE para cada caso</span>
+<span class="n">ece_rf_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
+<span class="n">ece_xgb_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">)</span>
+<span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">)</span>
+<span class="n">ece_svc_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">)</span>
 
 <span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c</span><span class="p">,</span><span class="n">ece_xgb_c</span><span class="p">,</span><span class="n">ece_lr_c</span><span class="p">,</span><span class="n">ece_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf_c</span><span class="p">,</span><span class="n">brier_xgb_c</span><span class="p">,</span><span class="n">brier_lr_c</span><span class="p">,</span><span class="n">brier_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf_c</span><span class="p">,</span><span class="n">logloss_xgb_c</span><span class="p">,</span><span class="n">logloss_lr_c</span><span class="p">,</span><span class="n">logloss_svc_c</span><span class="p">]}</span>
 <span class="n">indicators_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators</span><span class="p">)</span>
@@ -939,6 +978,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr style="text-align: right;">
       <th></th>
       <th>Classifier</th>
+      <th>ECE</th>
       <th>Brier Score</th>
       <th>Log Loss</th>
     </tr>
@@ -947,24 +987,28 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>0</th>
       <td>Calibrated Random Forest Classifier</td>
+      <td>0.044703</td>
       <td>0.042006</td>
       <td>0.138325</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Calibrated Gradient Boosting Classifier</td>
+      <td>0.035087</td>
       <td>0.035628</td>
       <td>0.127129</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Calibrated Logistic Regressor</td>
+      <td>0.023561</td>
       <td>0.074414</td>
       <td>0.238043</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Calibrated Support Vector Classifer</td>
+      <td>0.052580</td>
       <td>0.086243</td>
       <td>0.275938</td>
     </tr>
@@ -975,10 +1019,10 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración</span>
-<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Graficar todas las curvas</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf_calibrated</span><span class="p">,</span> <span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">)</span>
@@ -1002,7 +1046,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/328e92f598bf35ab98fcebb38ce68a8fbcb4e998ef4704500fac99b66eefa0c4.png" src="_images/328e92f598bf35ab98fcebb38ce68a8fbcb4e998ef4704500fac99b66eefa0c4.png" />
+<img alt="_images/bfb824b5b0d107385e1b3333224b6f8ae3f1a1458a817d0a4f3377bceb5ae7ca.png" src="_images/bfb824b5b0d107385e1b3333224b6f8ae3f1a1458a817d0a4f3377bceb5ae7ca.png" />
 </div>
 </div>
 </section>
@@ -1064,7 +1108,14 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">brier_rf_c</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
 
 
+<span class="c1"># Calcular ECE para cada caso</span>
+<span class="n">ece_rf_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
+<span class="n">ece_xgb_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">)</span>
+<span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">)</span>
+<span class="n">ece_svc_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">)</span>
+
 <span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c</span><span class="p">,</span><span class="n">ece_xgb_c</span><span class="p">,</span><span class="n">ece_lr_c</span><span class="p">,</span><span class="n">ece_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf_c</span><span class="p">,</span><span class="n">brier_xgb_c</span><span class="p">,</span><span class="n">brier_lr_c</span><span class="p">,</span><span class="n">brier_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf_c</span><span class="p">,</span><span class="n">logloss_xgb_c</span><span class="p">,</span><span class="n">logloss_lr_c</span><span class="p">,</span><span class="n">logloss_svc_c</span><span class="p">]}</span>
 <span class="n">indicators_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators</span><span class="p">)</span>
@@ -1073,65 +1124,33 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">105</span><span class="p">],</span> <span class="n">line</span> <span class="mi">56</span>
+<span class="g g-Whitespace">     </span><span class="mi">52</span> <span class="n">brier_rf_c</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">55</span> <span class="c1"># Calcular ECE para cada caso</span>
+<span class="ne">---&gt; </span><span class="mi">56</span> <span class="n">ece_rf_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="n">ece_xgb_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">58</span> <span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">)</span>
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
+<span class="nn">Cell In[103], line 59,</span> in <span class="ni">calculate_ece_2</span><span class="nt">(y_true, y_prob, n_bins)</span>
+<span class="g g-Whitespace">     </span><span class="mi">56</span> <span class="n">bin_sizes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">y_prob</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">     </span><span class="mi">57</span> <span class="n">total_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_true</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">59</span> <span class="n">ece</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">bin_sizes</span> <span class="o">/</span> <span class="n">total_samples</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">mean_predicted_value</span> <span class="o">-</span> <span class="n">fraction_of_positives</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">60</span> <span class="k">return</span> <span class="n">ece</span>
 
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>Classifier</th>
-      <th>Brier Score</th>
-      <th>Log Loss</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Calibrated Random Forest Classifier</td>
-      <td>0.030431</td>
-      <td>0.089757</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>Calibrated Gradient Boosting Classifier</td>
-      <td>0.029407</td>
-      <td>0.091648</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>Calibrated Logistic Regressor</td>
-      <td>0.065768</td>
-      <td>0.200530</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>Calibrated Support Vector Classifer</td>
-      <td>0.073396</td>
-      <td>0.225455</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<span class="ne">ValueError</span>: operands could not be broadcast together with shapes (8,) (4,) 
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración</span>
-<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Graficar todas las curvas</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf_calibrated</span><span class="p">,</span> <span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">)</span>
@@ -1154,7 +1173,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9911fc0e019ea486818c0ace66886db63136cbddc8d876302777f944bfafe9bd.png" src="_images/9911fc0e019ea486818c0ace66886db63136cbddc8d876302777f944bfafe9bd.png" />
+<img alt="_images/650fb74941f8e2b556e0052103f8a1103d539af61895ab8a0afeaa63634cd147.png" src="_images/650fb74941f8e2b556e0052103f8a1103d539af61895ab8a0afeaa63634cd147.png" />
 </div>
 </div>
 </section>

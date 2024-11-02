@@ -394,7 +394,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-entrenamiento">Esquema de entrenamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-de-evaluacion">Métrica de evaluación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibradores-de-probabilidad">Calibradores de probabilidad</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-para-calibrar-clasificadores">Métodos para calibrar clasificadores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-para-evaluar-calibracion">Medidas para evaluar calibración</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-curves">Calibration curves</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score-y-log-loss">Brier score y Log Loss</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-calibration-error-ece">Expected Calibration Error (ECE)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-de-calibracion">Métodos de Calibración</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos"><strong>Tabla de contenidos</strong></a></li>
@@ -655,11 +661,26 @@ document.write(`
 <section id="calibradores-de-probabilidad">
 <h3>Calibradores de probabilidad<a class="headerlink" href="#calibradores-de-probabilidad" title="Link to this heading">#</a></h3>
 <p>Por último, se busca indagar si a cada clasificador le es necesario la implementación de la <strong>calibración de probabilidades</strong> o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación.</p>
-<p>Los clasificadores bien calibrados son aquellos en los que la salida del método <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta</p>
+<p>Para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta. Aterrizando un poco la idea, los clasificadores bien calibrados son aquellos en los que la salida del método <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de <code class="docutils literal notranslate"><span class="pre">predict_proba</span></code> cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta.</p>
+<p>Lo vemos expresado matemáticamente de esta manera:</p>
+<div class="math notranslate nohighlight">
+\[
+P(\hat{Y} = Y \mid \hat{P} = p) = p, \ \forall p \in [0, 1]
+\]</div>
+<p>Esta formula indica que  indica que un modelo de clasificación está bien calibrado cuando la probabilidad predicha
+<span class="math notranslate nohighlight">\( \hat{P} = p \)</span> corresponde exactamente con la probabilidad real de que la clase predicha <span class="math notranslate nohighlight">\( \hat{Y} \)</span> sea correcta (es decir, igual a 𝑌, la clase verdadera).</p>
+</section>
+<section id="medidas-para-evaluar-calibracion">
+<h3>Medidas para evaluar calibración<a class="headerlink" href="#medidas-para-evaluar-calibracion" title="Link to this heading">#</a></h3>
+<section id="calibration-curves">
+<h4>Calibration curves<a class="headerlink" href="#calibration-curves" title="Link to this heading">#</a></h4>
 <p>Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero, se utilizará las “<strong>Calibration curves</strong>” o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.</p>
 <p>En la siguiente gráfica de ejemplo, podemos ver el eje X (<code class="docutils literal notranslate"><span class="pre">Mean</span> <span class="pre">predicted</span> <span class="pre">value</span></code>) representa las probabilidades predichas por los modelos, va de 0 a 1, indicando la confianza con la que los modelos predicen la clase positiva. Respecto al eje Y (<code class="docutils literal notranslate"><span class="pre">Fraction</span> <span class="pre">of</span> <span class="pre">positives</span></code>)  muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.</p>
 <p>Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los eventos reales. Por ejemplo, una predicción de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente. Entonces si nos enfocamos por ejemplo en el modelo de regresión logística (curva azul), la curva azul está bastante cerca de la línea de calibración perfecta. Esto indica que las probabilidades predichas por la regresión logística están bastante bien calibradas. Para cualquier probabilidad predicha, la fracción de positivos observados es similar, lo que significa que este modelo tiene buenas predicciones calibradas.</p>
 <p><img alt="calibration-curves" src="_images/calibration-curves.png" /></p>
+</section>
+<section id="brier-score-y-log-loss">
+<h4>Brier score y Log Loss<a class="headerlink" href="#brier-score-y-log-loss" title="Link to this heading">#</a></h4>
 <p>Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de <strong>Brier score</strong> y <strong>Log Loss</strong>. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.</p>
 <p>El <strong>Brier Score</strong> es una métrica que mide la precisión de las probabilidades predichas por un clasificador. Evalúa cuán cercanas están las probabilidades predichas a las etiquetas verdaderas, lo que lo convierte en una herramienta útil para verificar la calibración. Se define como el error cuadrático medio entre las probabilidades predichas y las clases verdaderas. Matemáticamente, es:</p>
 <div class="math notranslate nohighlight">
@@ -694,10 +715,37 @@ document.write(`
 <li><p>El <strong>Log Loss es siempre positivo</strong>, y <strong>cuanto menor sea, mejor calibrado está el modelo</strong>.</p></li>
 <li><p>El <strong>Log Loss castiga fuertemente</strong> las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.</p></li>
 </ul>
-<p>Este es el método que se utilizará en este proyecto para saber si un modelo de clasificación está bien calibrado o no.</p>
 </section>
-<section id="metodos-para-calibrar-clasificadores">
-<h3>Métodos para calibrar clasificadores<a class="headerlink" href="#metodos-para-calibrar-clasificadores" title="Link to this heading">#</a></h3>
+<section id="expected-calibration-error-ece">
+<h4>Expected Calibration Error (ECE)<a class="headerlink" href="#expected-calibration-error-ece" title="Link to this heading">#</a></h4>
+<p>Por último, el Expected Calibration Error (ECE) es una métrica utilizada para evaluar la calibración de un modelo de clasificación, especialmente en modelos de aprendizaje automático probabilístico.  El ECE evalúa la diferencia promedio entre las probabilidades predichas y la frecuencia real de los eventos en una serie de intervalos (bins) de probabilidad.</p>
+<p>Un ECE bajo indica que el modelo está bien calibrado, es decir, las probabilidades predichas son confiables. Un valor alto de ECE sugiere que el modelo es “overconfident” (predice probabilidades más altas de las correctas) o “underconfident” (predice probabilidades más bajas).</p>
+<p>Para calcular el Expected Calibration Error (ECE), las predicciones de probabilidad se dividen en intervalos (o <em>bins</em>). Luego, se compara la precisión promedio de cada bin con la probabilidad promedio predicha de ese bin. La fórmula es:</p>
+<div class="math notranslate nohighlight">
+\[
+\text{ECE} = \sum_{i=1}^{B} \frac{|B_i|}{n} \cdot |\text{acc}(B_i) - \text{conf}(B_i)|
+\]</div>
+<p>donde:</p>
+<ul class="simple">
+<li><p>( B )  es el número de intervalos.</p></li>
+<li><p>( B_i ) es el conjunto de ejemplos en el bin ( i ).</p></li>
+<li><p>( |B_i| ) es el número de ejemplos en el bin ( i ).</p></li>
+<li><p>( n ) es el total de ejemplos.</p></li>
+<li><p>( acc(B_i) ) es la precisión de los ejemplos en el bin ( i ).</p></li>
+<li><p>( conf(B_i) ) es la confianza promedio (o probabilidad promedio predicha) en el bin ( i ).</p></li>
+</ul>
+<p>Se expresa entre 0 y 1 y se podría interpretar de esta manera:</p>
+<ul class="simple">
+<li><p>ECE entre 0 y 0.1 (0% a 10%): Generalmente se considera que el modelo está bien calibrado. Las predicciones de probabilidad son bastante confiables.</p></li>
+<li><p>ECE entre 0.1 y 0.3 (10% a 30%): El modelo tiene una calibración moderada. Puede ser necesario ajustar el modelo o aplicar técnicas de calibración.</p></li>
+<li><p>ECE por encima de 0.3 (30%): Se considera una mala calibración. Las probabilidades predichas no reflejan adecuadamente las verdaderas frecuencias de las clases, y el modelo puede requerir una reevaluación o recalibración significativa.</p></li>
+</ul>
+<p>Estos serán los métodos que se utilizarán en este proyecto para saber si un modelo de clasificación está bien calibrado o no.</p>
+</section>
+</section>
+<section id="metodos-de-calibracion">
+<h3>Métodos de Calibración<a class="headerlink" href="#metodos-de-calibracion" title="Link to this heading">#</a></h3>
+<p>Una vez se valide segun las metricas descritas anteriormente si el modelo necesita calibracion o no, se procederá a aplicar metodos de calibracion</p>
 <ul class="simple">
 <li><p>Platt Scaling (Ajuste Sigmoidal)</p></li>
 <li><p>Isotonic Regression (Regresión Isotónica)</p></li>
@@ -788,7 +836,13 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#esquema-de-entrenamiento">Esquema de entrenamiento</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metrica-de-evaluacion">Métrica de evaluación</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibradores-de-probabilidad">Calibradores de probabilidad</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-para-calibrar-clasificadores">Métodos para calibrar clasificadores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#medidas-para-evaluar-calibracion">Medidas para evaluar calibración</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-curves">Calibration curves</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#brier-score-y-log-loss">Brier score y Log Loss</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#expected-calibration-error-ece">Expected Calibration Error (ECE)</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metodos-de-calibracion">Métodos de Calibración</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tabla-de-contenidos"><strong>Tabla de contenidos</strong></a></li>

@@ -127,7 +127,20 @@ Precision se utiliza como métrica de rendimiento cuando el objetivo es limitar 
 
 Por último, se busca indagar si a cada clasificador le es necesario la implementación de la **calibración de probabilidades** o no, la calibración de probabilidades se utiliza para ajustar las probabilidades predichas por un modelo de clasificación para que reflejen mejor las probabilidades reales observadas. En un problema de clasificación binaria, como lo es el actual, el modelo no solo estima qué clase es la más probable, sino también asgina una probabilidad asociada a dicha estimación. 
 
-Los clasificadores bien calibrados son aquellos en los que la salida del método `predict_proba` se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de `predict_proba` cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta
+Para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta. Aterrizando un poco la idea, los clasificadores bien calibrados son aquellos en los que la salida del método `predict_proba` se puede interpretar directamente como un nivel de confianza. Por ejemplo, un clasificador bien calibrado (binario) debe clasificar las muestras de tal manera que, entre las muestras a las que asignó un valor de `predict_proba` cercano a, digamos 0.8, aproximadamente el 80% pertenezca efectivamente a la clase positiva, es decir, para que un clasificador probabilístico esté bien calibrado, la confianza asociada a cada predicción de clase debe reflejar la probabilidad real de que la etiqueta generada sea la correcta.
+
+Lo vemos expresado matemáticamente de esta manera: 
+
+$$
+P(\hat{Y} = Y \mid \hat{P} = p) = p, \ \forall p \in [0, 1]
+$$
+
+Esta formula indica que  indica que un modelo de clasificación está bien calibrado cuando la probabilidad predicha 
+$ \hat{P} = p $ corresponde exactamente con la probabilidad real de que la clase predicha $ \hat{Y} $ sea correcta (es decir, igual a 𝑌, la clase verdadera).
+
+### Medidas para evaluar calibración
+
+#### Calibration curves
 
 Existen diferentes métodos o herramientas por los cuales se puede probar si un clasificador está bien calibrado. Primero, se utilizará las "**Calibration curves**" o diagramas de fiabilidad, estos miden qué tan bien están calibradas las predicciones probabilísticas de un clasificador. Comparan las probabilidades predichas por un clasificador con las frecuencias observadas de los eventos reales.
 
@@ -137,6 +150,7 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 
 ![calibration-curves](./resources/calibration-curves.png)
 
+#### Brier score y Log Loss
 
 Por otro lado, otro método o herramienta para probar si un clasificador está bien calibrado, son los indicadores de **Brier score** y **Log Loss**. Cuando se trata de evaluar qué tan bien calibrado está un modelo, es importante utilizar métricas que cuantifiquen la calidad de las probabilidades predichas, ambas métricas penalizan las probabilidades incorrectas y ofrecen una medida de qué tan ajustadas están las probabilidades predichas con las clases reales.
 
@@ -174,9 +188,41 @@ Interpretación:
 - El **Log Loss es siempre positivo**, y **cuanto menor sea, mejor calibrado está el modelo**.
 - El **Log Loss castiga fuertemente** las predicciones que tienen alta confianza pero son incorrectas. Por ejemplo, si el clasificador predice una probabilidad de 0.99 para la clase positiva, pero la etiqueta real es 0, el error será considerablemente mayor que si la predicción fuera de 0.6.
 
-Este es el método que se utilizará en este proyecto para saber si un modelo de clasificación está bien calibrado o no.
+#### Expected Calibration Error (ECE)
 
-### Métodos para calibrar clasificadores
+Por último, el Expected Calibration Error (ECE) es una métrica utilizada para evaluar la calibración de un modelo de clasificación, especialmente en modelos de aprendizaje automático probabilístico.  El ECE evalúa la diferencia promedio entre las probabilidades predichas y la frecuencia real de los eventos en una serie de intervalos (bins) de probabilidad. 
+
+Un ECE bajo indica que el modelo está bien calibrado, es decir, las probabilidades predichas son confiables. Un valor alto de ECE sugiere que el modelo es "overconfident" (predice probabilidades más altas de las correctas) o "underconfident" (predice probabilidades más bajas). 
+
+Para calcular el Expected Calibration Error (ECE), las predicciones de probabilidad se dividen en intervalos (o *bins*). Luego, se compara la precisión promedio de cada bin con la probabilidad promedio predicha de ese bin. La fórmula es:
+
+$$
+\text{ECE} = \sum_{i=1}^{B} \frac{|B_i|}{n} \cdot |\text{acc}(B_i) - \text{conf}(B_i)|
+$$
+
+donde:
+
+- \( B )  es el número de intervalos.
+- \( B_i \) es el conjunto de ejemplos en el bin \( i \).
+- \( |B_i| \) es el número de ejemplos en el bin \( i \).
+- \( n \) es el total de ejemplos.
+- \( acc(B_i) \) es la precisión de los ejemplos en el bin \( i \).
+- \( conf(B_i) \) es la confianza promedio (o probabilidad promedio predicha) en el bin \( i \).
+
+
+Se expresa entre 0 y 1 y se podría interpretar de esta manera: 
+
+- ECE entre 0 y 0.1 (0% a 10%): Generalmente se considera que el modelo está bien calibrado. Las predicciones de probabilidad son bastante confiables. 
+
+- ECE entre 0.1 y 0.3 (10% a 30%): El modelo tiene una calibración moderada. Puede ser necesario ajustar el modelo o aplicar técnicas de calibración. 
+
+- ECE por encima de 0.3 (30%): Se considera una mala calibración. Las probabilidades predichas no reflejan adecuadamente las verdaderas frecuencias de las clases, y el modelo puede requerir una reevaluación o recalibración significativa.
+
+Estos serán los métodos que se utilizarán en este proyecto para saber si un modelo de clasificación está bien calibrado o no.
+
+### Métodos de Calibración
+
+Una vez se valide segun las metricas descritas anteriormente si el modelo necesita calibracion o no, se procederá a aplicar metodos de calibracion 
 
 - Platt Scaling (Ajuste Sigmoidal)
 
