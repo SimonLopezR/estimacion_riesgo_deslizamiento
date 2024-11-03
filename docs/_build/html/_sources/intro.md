@@ -222,7 +222,7 @@ Estos serán los métodos que se utilizarán en este proyecto para saber si un m
 
 ### Métodos de Calibración
 
-Una vez se valide segun las metricas descritas anteriormente si el modelo necesita calibracion o no, se procederá a aplicar metodos de calibracion 
+Una vez validadas las métricas previamente descritas, se determinará si el modelo requiere calibración. En caso de ser así, se aplicarán métodos de calibración en el post-procesamiento, lo cual significa que se ajusta un modelo de calibración a las salidas de un clasificador ya entrenado con el fin de mejorar la distribucion de las probabilidades de la clase positiva, esto es, la confianza de sus probabilidades. Estos métodos son ventajosos porque implican un menor costo computacional en comparación con los métodos de calibración aplicados durante el entrenamiento. Además, son independientes del modelo entrenado y de la complejidad del problema, ya que solo requieren las predicciones del modelo y la distribución real de etiquetas.
 
 - Platt Scaling (Ajuste Sigmoidal)
 
