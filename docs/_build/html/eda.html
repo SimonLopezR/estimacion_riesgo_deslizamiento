@@ -390,7 +390,10 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-utilizar-modelos-de-ml">¿Por qué utilizar Modelos de ML?</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -612,8 +615,8 @@ document.write(`
 </section>
 <section id="variables-numericas">
 <h2>Variables Numéricas<a class="headerlink" href="#variables-numericas" title="Link to this heading">#</a></h2>
-<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalance de datos en el aprendizaje automático ocurre cuando hay muchas más muestras de una clase que de otra. Por ejemplo, en este caso, si queremos detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo identificar los deslizamientos porque tiene menos ejemplos para aprender de ellos. Es importante revisar esto al explorar los datos para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalance, el modelo podría no funcionar correctamente.</p>
-<p>Para esto haremos una revisión simple de cuantos registros hay de cada clase</p>
+<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalanceo de clases ocurre cuando hay muchas más muestras de una clase que de otra. Por ejemplo en este caso, si nos interesa detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo de aprendizaje automático identificar los deslizamientos ya que tiene menos ejemplos para aprender de estas instancias. Por ende, es importante revisar esto al explorar los datos, para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalanceo, el modelo podría no estimar nuevos datos correctamente.</p>
+<p>Para esto haremos una revisión simple de cuantos registros hay para cada clase en la variable objetivo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grafica el histograma usando Seaborn.</span>
@@ -630,7 +633,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/798f16e56386fdca5cfd955beed5c75aa4460297792e225c40a5056e7229f991.png" src="_images/798f16e56386fdca5cfd955beed5c75aa4460297792e225c40a5056e7229f991.png" />
+<img alt="_images/c4ff3838b2a361cfdd481d7c5ee56640937c6ba52dcf23e0d8dce576ee4f8a07.png" src="_images/c4ff3838b2a361cfdd481d7c5ee56640937c6ba52dcf23e0d8dce576ee4f8a07.png" />
 </div>
 </div>
 <p>Donde 0 representa la clase negativa que es “No Deslizamiento de tierra” en punto geográfico
@@ -652,11 +655,40 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/098d436286066506bf59dbd4399d63507c022e59d069459a2a78237da345254e.png" src="_images/098d436286066506bf59dbd4399d63507c022e59d069459a2a78237da345254e.png" />
+<img alt="_images/b943593ab0e203ac01f050e16b37160ae1765db756c25ba7215523c03da99749.png" src="_images/b943593ab0e203ac01f050e16b37160ae1765db756c25ba7215523c03da99749.png" />
 </div>
 </div>
-<p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
-<p>También podremos pensar que al tratarse de variables que capturan data de manera acumulada, puede haber valor que da una variable que también lo de otra, podemos revisar las correlaciones entre las precipitaciones</p>
+<p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes en la tendencia de la variable objetivo (deslizamientos o no)</p>
+<p>También podremos pensar que al tratarse de variables que capturan data de manera acumulada, el valor o aporte que brinda una variable, tambien lo puede brindar en el mismo grado cualquier otra, pudiendo llegar a redundancias y posteriormente si se quiere evaluar modelos a “over-fitting”. Podemos revisar las correlaciones entre las variables de precipitaciones</p>
+<p>Realizaremos un boxplot para comparar la distribución de las variables de precipitación para cada valor de la variable objetivo</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configurar el tamaño de la figura y número de subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Crear un boxplot para cada columna en la lista</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columnas_a_graficar</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>  <span class="c1"># Crear una cuadrícula de 2 filas y 4 columnas</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribución de </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1"> por deslizamiento&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;deslizamiento&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el espacio entre los subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8958d0c602a637c3ce3f5d40c6e84267a2cdd2887b30b3e6211b484b776ef092.png" src="_images/8958d0c602a637c3ce3f5d40c6e84267a2cdd2887b30b3e6211b484b776ef092.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Distribución de la Variable 10d para Cada Valor de deslizamiento: Las variables de precipitaciones poseen una distribución similar entre ellas, esto es, que claramente su distribución es distinta entre los valores de no deslizamiento y sí deslizamiento = 1. Para no deslizamiento, los valores son considerablemente más bajos, con una mediana cercana a los 25. La mayor parte de los datos están concentrados entre 0 y aproximadamente 50, y existen varios valores atípicos alrededor superiores al rango intercuartílico. Para los sí deslizamiento, los valores de precipitación son mucho más altos en promedio. La mediana está se encuentra superior a lo no deslizamientos, y el rango de los datos se extiende mucho más, alcanzando hasta alrededor de 250.</p></li>
+<li><p>Variabilidad y Rango: Los datos de precipitaciones para deslizamiento = 1 muestran una variabilidad mucho mayor en comparación con deslizamiento = 0. Esto indica que cuando deslizamiento es igual a 1, las variables de precipitaciones tiende a tener valores más dispersos, y no está tan concentrada alrededor de un valor específico. Para deslizamiento = 0, la mayoría de los datos se encuentran en un rango más estrecho y con menor variabilidad, lo que sugiere que los eventos con deslizamiento = 0 están más limitados a valores bajos de precipitaciones.</p></li>
+<li><p>Relación entre precipitaciones y deslizamiento: Esto podría interpretarse como que la condición de deslizamiento = 1 está asociada con situaciones o eventos donde las precipitaciones de lluvia es significativamente mayor, lo cual podría ser relevante en un contexto de riesgo, alertas o indicadores.</p></li>
+</ul>
 </section>
 <section id="variables-categoricas">
 <h2>Variables categóricas<a class="headerlink" href="#variables-categoricas" title="Link to this heading">#</a></h2>
@@ -1381,7 +1413,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2d5a895e49ef9fb3270555fc4d67fdae015ec7ad2fbc334436d2a0b3d31f9f04.png" src="_images/2d5a895e49ef9fb3270555fc4d67fdae015ec7ad2fbc334436d2a0b3d31f9f04.png" />
+<img alt="_images/f6e5378481dbe1f6be7956a65d45caeb2c973d7efdf4a5dc61a1a9c09dcf2b17.png" src="_images/f6e5378481dbe1f6be7956a65d45caeb2c973d7efdf4a5dc61a1a9c09dcf2b17.png" />
 </div>
 </div>
 <p>Utilizaremos el método del codo (<code class="docutils literal notranslate"><span class="pre">Inercia</span></code>) y el <code class="docutils literal notranslate"><span class="pre">Coeficiente</span> <span class="pre">de</span> <span class="pre">Silueta</span></code> para identificar el número de clusters más optimo.</p>
@@ -1444,7 +1476,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>583.0</td>
       <td>746.0</td>
       <td>908.0</td>
-      <td>4</td>
+      <td>0</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1460,7 +1492,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>343.7</td>
       <td>452.1</td>
       <td>531.0</td>
-      <td>2</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1476,7 +1508,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>266.2</td>
       <td>331.3</td>
       <td>434.0</td>
-      <td>2</td>
+      <td>4</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1492,7 +1524,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>93.0</td>
       <td>198.0</td>
       <td>293.0</td>
-      <td>5</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1508,7 +1540,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
       <td>43.9</td>
       <td>175.5</td>
       <td>323.0</td>
-      <td>3</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -1604,169 +1636,169 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>1123.436993</td>
-      <td>1086.934937</td>
-      <td>107</td>
-      <td>988.844788</td>
-      <td>1585.298706</td>
-      <td>54.741749</td>
-      <td>52.195717</td>
-      <td>107</td>
-      <td>21.550568</td>
-      <td>98.122704</td>
-      <td>...</td>
-      <td>272.012150</td>
-      <td>268.40</td>
-      <td>107</td>
-      <td>43.0</td>
-      <td>547.4</td>
-      <td>399.548598</td>
-      <td>392.0</td>
-      <td>107</td>
-      <td>59.0</td>
-      <td>706.8</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1155.213916</td>
-      <td>1170.223389</td>
-      <td>35</td>
-      <td>975.132202</td>
-      <td>1712.018311</td>
-      <td>30.145108</td>
-      <td>28.641380</td>
-      <td>35</td>
-      <td>8.977777</td>
-      <td>55.786831</td>
-      <td>...</td>
-      <td>446.937143</td>
-      <td>408.00</td>
-      <td>35</td>
-      <td>215.0</td>
-      <td>731.5</td>
-      <td>634.228571</td>
-      <td>600.0</td>
-      <td>35</td>
-      <td>284.0</td>
-      <td>984.0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1072.415159</td>
-      <td>1066.576050</td>
-      <td>205</td>
-      <td>979.613403</td>
-      <td>1446.527344</td>
-      <td>32.567420</td>
-      <td>30.081882</td>
-      <td>205</td>
-      <td>1.330287</td>
-      <td>91.343422</td>
-      <td>...</td>
-      <td>487.003902</td>
-      <td>452.10</td>
-      <td>205</td>
-      <td>241.0</td>
-      <td>848.0</td>
-      <td>614.516585</td>
-      <td>536.0</td>
-      <td>205</td>
-      <td>358.0</td>
-      <td>972.0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1083.914403</td>
-      <td>1049.092590</td>
-      <td>184</td>
-      <td>972.612610</td>
-      <td>1500.505249</td>
-      <td>17.919165</td>
-      <td>14.661365</td>
-      <td>184</td>
-      <td>1.231035</td>
-      <td>55.065750</td>
-      <td>...</td>
-      <td>141.712500</td>
-      <td>115.50</td>
-      <td>184</td>
-      <td>0.0</td>
-      <td>483.2</td>
-      <td>251.201630</td>
-      <td>252.4</td>
-      <td>184</td>
-      <td>0.0</td>
-      <td>610.0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1081.198849</td>
-      <td>1063.869141</td>
-      <td>139</td>
+      <td>1081.343884</td>
+      <td>1068.523682</td>
+      <td>153</td>
       <td>985.792114</td>
       <td>1769.932861</td>
-      <td>43.343694</td>
-      <td>42.997940</td>
-      <td>139</td>
+      <td>42.480770</td>
+      <td>41.846062</td>
+      <td>153</td>
       <td>3.538649</td>
       <td>89.237999</td>
       <td>...</td>
-      <td>677.720863</td>
+      <td>672.419608</td>
       <td>735.00</td>
-      <td>139</td>
+      <td>153</td>
       <td>446.0</td>
       <td>753.0</td>
-      <td>834.755396</td>
-      <td>878.0</td>
-      <td>139</td>
+      <td>827.745098</td>
+      <td>878.00</td>
+      <td>153</td>
       <td>666.0</td>
       <td>918.0</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>1700.024138</td>
-      <td>1690.586792</td>
+      <th>1</th>
+      <td>1109.291123</td>
+      <td>1074.063721</td>
+      <td>221</td>
+      <td>979.047546</td>
+      <td>1500.505249</td>
+      <td>30.774787</td>
+      <td>26.067751</td>
+      <td>221</td>
+      <td>2.509326</td>
+      <td>84.404579</td>
+      <td>...</td>
+      <td>180.012217</td>
+      <td>185.60</td>
+      <td>221</td>
+      <td>0.0</td>
+      <td>484.8</td>
+      <td>293.068326</td>
+      <td>309.20</td>
+      <td>221</td>
+      <td>0.0</td>
+      <td>706.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1705.272693</td>
+      <td>1691.590942</td>
       <td>102</td>
-      <td>1305.648315</td>
+      <td>1398.259766</td>
       <td>2098.276855</td>
-      <td>34.291852</td>
-      <td>27.239475</td>
+      <td>35.632793</td>
+      <td>28.213477</td>
       <td>102</td>
       <td>1.930219</td>
       <td>101.956207</td>
       <td>...</td>
-      <td>246.438235</td>
+      <td>246.046078</td>
       <td>266.80</td>
       <td>102</td>
       <td>23.0</td>
       <td>521.4</td>
-      <td>383.480392</td>
-      <td>364.0</td>
+      <td>378.537255</td>
+      <td>364.00</td>
       <td>102</td>
       <td>103.0</td>
       <td>815.6</td>
     </tr>
     <tr>
+      <th>3</th>
+      <td>1046.853896</td>
+      <td>1039.669922</td>
+      <td>51</td>
+      <td>984.869446</td>
+      <td>1181.661743</td>
+      <td>13.690300</td>
+      <td>11.322103</td>
+      <td>51</td>
+      <td>3.015621</td>
+      <td>40.761745</td>
+      <td>...</td>
+      <td>212.407843</td>
+      <td>160.00</td>
+      <td>51</td>
+      <td>44.2</td>
+      <td>538.0</td>
+      <td>344.890196</td>
+      <td>345.80</td>
+      <td>51</td>
+      <td>93.4</td>
+      <td>722.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1087.131812</td>
+      <td>1075.588318</td>
+      <td>226</td>
+      <td>975.132202</td>
+      <td>1599.939087</td>
+      <td>36.449945</td>
+      <td>33.249146</td>
+      <td>226</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+      <td>...</td>
+      <td>468.573009</td>
+      <td>444.55</td>
+      <td>226</td>
+      <td>203.4</td>
+      <td>848.0</td>
+      <td>602.109735</td>
+      <td>536.00</td>
+      <td>226</td>
+      <td>284.0</td>
+      <td>984.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1014.184948</td>
+      <td>979.652466</td>
+      <td>48</td>
+      <td>972.612610</td>
+      <td>1300.178345</td>
+      <td>11.900871</td>
+      <td>9.840033</td>
+      <td>48</td>
+      <td>1.231035</td>
+      <td>41.481342</td>
+      <td>...</td>
+      <td>168.733333</td>
+      <td>128.75</td>
+      <td>48</td>
+      <td>17.4</td>
+      <td>533.0</td>
+      <td>297.070833</td>
+      <td>308.35</td>
+      <td>48</td>
+      <td>44.0</td>
+      <td>722.6</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>1079.530821</td>
-      <td>1065.690491</td>
-      <td>178</td>
+      <td>1097.128918</td>
+      <td>1079.523193</td>
+      <td>149</td>
       <td>978.607788</td>
       <td>1488.616699</td>
-      <td>18.491779</td>
-      <td>15.856652</td>
-      <td>178</td>
+      <td>21.862463</td>
+      <td>17.751278</td>
+      <td>149</td>
       <td>0.984309</td>
-      <td>63.939667</td>
+      <td>92.066528</td>
       <td>...</td>
-      <td>192.574719</td>
-      <td>157.15</td>
-      <td>178</td>
+      <td>212.671812</td>
+      <td>208.80</td>
+      <td>149</td>
       <td>24.7</td>
       <td>577.5</td>
-      <td>339.074719</td>
-      <td>336.9</td>
-      <td>178</td>
+      <td>367.104027</td>
+      <td>353.90</td>
+      <td>149</td>
       <td>62.7</td>
       <td>742.2</td>
     </tr>
@@ -1819,57 +1851,57 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>3.142056</td>
+      <td>6.282353</td>
+      <td>10.0</td>
+      <td>153</td>
       <td>0.0</td>
-      <td>107</td>
+      <td>29.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.927149</td>
+      <td>0.0</td>
+      <td>221</td>
       <td>0.0</td>
       <td>20.0</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>47.640000</td>
-      <td>42.0</td>
-      <td>35</td>
-      <td>29.0</td>
-      <td>108.0</td>
-    </tr>
-    <tr>
       <th>2</th>
-      <td>4.918537</td>
-      <td>1.2</td>
-      <td>205</td>
-      <td>0.0</td>
-      <td>24.4</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1.570652</td>
-      <td>0.0</td>
-      <td>184</td>
-      <td>0.0</td>
-      <td>23.6</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>6.706475</td>
-      <td>10.0</td>
-      <td>139</td>
-      <td>0.0</td>
-      <td>16.0</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>2.918627</td>
+      <td>3.359804</td>
       <td>0.0</td>
       <td>102</td>
       <td>0.0</td>
-      <td>29.2</td>
+      <td>47.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.392157</td>
+      <td>0.0</td>
+      <td>51</td>
+      <td>0.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12.016372</td>
+      <td>6.3</td>
+      <td>226</td>
+      <td>0.0</td>
+      <td>108.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.841667</td>
+      <td>0.0</td>
+      <td>48</td>
+      <td>0.0</td>
+      <td>19.8</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>0.960674</td>
+      <td>1.314765</td>
       <td>0.0</td>
-      <td>178</td>
+      <td>149</td>
       <td>0.0</td>
       <td>30.0</td>
     </tr>
@@ -1922,65 +1954,66 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
   <tbody>
     <tr>
       <th>0</th>
-      <td>54.741749</td>
-      <td>52.195717</td>
-      <td>107</td>
-      <td>21.550568</td>
-      <td>98.122704</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>30.145108</td>
-      <td>28.641380</td>
-      <td>35</td>
-      <td>8.977777</td>
-      <td>55.786831</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>32.567420</td>
-      <td>30.081882</td>
-      <td>205</td>
-      <td>1.330287</td>
-      <td>91.343422</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>17.919165</td>
-      <td>14.661365</td>
-      <td>184</td>
-      <td>1.231035</td>
-      <td>55.065750</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>43.343694</td>
-      <td>42.997940</td>
-      <td>139</td>
+      <td>42.480770</td>
+      <td>41.846062</td>
+      <td>153</td>
       <td>3.538649</td>
       <td>89.237999</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>34.291852</td>
-      <td>27.239475</td>
+      <th>1</th>
+      <td>30.774787</td>
+      <td>26.067751</td>
+      <td>221</td>
+      <td>2.509326</td>
+      <td>84.404579</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>35.632793</td>
+      <td>28.213477</td>
       <td>102</td>
       <td>1.930219</td>
       <td>101.956207</td>
     </tr>
     <tr>
+      <th>3</th>
+      <td>13.690300</td>
+      <td>11.322103</td>
+      <td>51</td>
+      <td>3.015621</td>
+      <td>40.761745</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36.449945</td>
+      <td>33.249146</td>
+      <td>226</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11.900871</td>
+      <td>9.840033</td>
+      <td>48</td>
+      <td>1.231035</td>
+      <td>41.481342</td>
+    </tr>
+    <tr>
       <th>6</th>
-      <td>18.491779</td>
-      <td>15.856652</td>
-      <td>178</td>
+      <td>21.862463</td>
+      <td>17.751278</td>
+      <td>149</td>
       <td>0.984309</td>
-      <td>63.939667</td>
+      <td>92.066528</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
 <p>el cluster 0,4 y 6 son los que representan agrupan esos registros que representan terrenos con menos porcentajes de pendientes.</p>
+<p>Vemos que el punto óptimo en nuestra implementación de <code class="docutils literal notranslate"><span class="pre">K-Means</span></code> son 7 agrupaciones, esto nos puede dar indicios de que nuestro conjunto de datos se segmenta en las 7 clases de la variable <code class="docutils literal notranslate"><span class="pre">Zonificacion</span></code>, la cual es un nivel de riesgo, es decir, un nombre de la clasificación de amenaza o riesgo del punto de movimiento en masa asignado por geólogos de la alcaldía de Cali basado en el historial de casos de deslizamientos de tierra en la ciudad</p>
 <p>Aunque sean bastantes cluster, se evidencia que la mayoría de cluster apuntan a 2 agrupamientos, es decir que nos tratan de decir que hay 2 clases de población dentro de nuestro conjunto de datos</p>
 </section>
 </section>
@@ -2043,7 +2076,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5aa47bb60623958bf67571884e7db1016d88d1f9c1d7d5453ad84f11b476a39a.png" src="_images/5aa47bb60623958bf67571884e7db1016d88d1f9c1d7d5453ad84f11b476a39a.png" />
+<img alt="_images/2cb7dec9419982cfc28516242ae6d3dfbc6366b1d0c01cb6402e6f8260fa1c8c.png" src="_images/2cb7dec9419982cfc28516242ae6d3dfbc6366b1d0c01cb6402e6f8260fa1c8c.png" />
 </div>
 </div>
 <p>El nodo raíz indica que la primera condición a evaluar es la <code class="docutils literal notranslate"><span class="pre">15d</span></code> (Precipitación de lluvia acumulada en 15 días en milímetros) del terreno. Si la varaible es menor o igual a 73.6, se avanza por la rama izquierda; de lo contrario, se avanza por la derecha.</p>
@@ -2054,7 +2087,7 @@ Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notrans
 </section>
 <section id="correlaciones-entre-variables-independientes">
 <h2>Correlaciones entre variables independientes<a class="headerlink" href="#correlaciones-entre-variables-independientes" title="Link to this heading">#</a></h2>
-<p>Queremos que exista la menor correlación lineal y no lineal entre las variables independientes, ya que queremos que cada variable aporte su valor único al modelo, y evitar redundancias</p>
+<p>El objetivo es que exista la menor correlación lineal y no lineal entre las variables independientes, ya que deseamos que cada variable aporte su valor independiente al modelo, y evitar redundancias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correlaciones entre variables independientes</span>
@@ -2077,7 +2110,7 @@ Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notrans
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d2ad28087fbb37a096a9f7a6c6f5a9e2a69f21a3535c32a410f95d5414881cf4.png" src="_images/d2ad28087fbb37a096a9f7a6c6f5a9e2a69f21a3535c32a410f95d5414881cf4.png" />
+<img alt="_images/e5bb09ad4f0fca1654cd82c4b7a5778c1c0592a7756e9e81d209db613da8d3bc.png" src="_images/e5bb09ad4f0fca1654cd82c4b7a5778c1c0592a7756e9e81d209db613da8d3bc.png" />
 </div>
 </div>
 <p>Observamos que existe una alta correlación lineal entre las variables númericas de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
@@ -2106,7 +2139,7 @@ Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notrans
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/4eedcf8b442770757c8a21682cfd139c246aa3f731c5466d335eaf844d7367e1.png" src="_images/4eedcf8b442770757c8a21682cfd139c246aa3f731c5466d335eaf844d7367e1.png" />
+<img alt="_images/22ed9a7e5c251b8831271216f2c07713333c54e1de0a8b3005be0f2e7c32eade.png" src="_images/22ed9a7e5c251b8831271216f2c07713333c54e1de0a8b3005be0f2e7c32eade.png" />
 </div>
 </div>
 <p>Al eliminar ciertas variables, el mapa de calor se torna menos rojo, es decir hay menos variables que nos aportan multicolinealidad. Este conjunto de variables se pueden evaluar para la selecicon de features a tomar en cuenta para cada modelo.</p>
@@ -2115,7 +2148,16 @@ Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notrans
 <section id="decisiones">
 <h2>Decisiones<a class="headerlink" href="#decisiones" title="Link to this heading">#</a></h2>
 <p>Del EDA podemos concluir que sería bueno eliminar ciertas variables numéricas debido a la alta redundancia entre las mismas, esta decisión dependerá del modelo a utilizar, ya que esto afecta de maneras diferentes cada modelo. En cuanto a las variables categóricas se decidirá trabajar con todas, se usará un codificador de etiquetas y no un one-hot encoder debido a la cantidad de clases que puede tomar una categoría.</p>
-<p>La data de entrenamiento puede variar dependiendo del modelo a usar y los rendimientos de este</p>
+<p>La data de entrenamiento puede variar dependiendo del modelo a usar y los rendimientos de este.</p>
+<section id="por-que-utilizar-modelos-de-ml">
+<h3>¿Por qué utilizar Modelos de ML?<a class="headerlink" href="#por-que-utilizar-modelos-de-ml" title="Link to this heading">#</a></h3>
+<p>Para determinar si es necesario un enfoque de Machine Learning y aplicar analítica predictiva o si solo es necesario un método de clasificación más sencillo, primero debemos comprender el problema en este caso, se quiere estimar la probabilidad de que un registro pertenezca a la clase “1” o “0”, lo cual se puede abordar como un problema de clasificación binaria. Sin embargo, lo que debes analizar es la complejidad del problema para decidir si un enfoque más simple es suficiente.</p>
+<p>Para esto, se procede en esta sección a <strong>evaluar la complejidad de las relaciones entre las variables</strong> donde se exploran las relaciones entre las variables mediante visualizaciones como gráficos de dispersión, histogramas o matrices de correlación. Podemos también indagar si las variables predictoras están fuertemente correlacionadas con la variable objetivo, es posible que un modelo simple de estadística (como una regresión logística) sea suficiente.</p>
+<p>También, para evaluar el por qué usar modelos de ML, en esta seccion de prueban modelos simples y técnicas de agrupamiento para medir que tanto valor aportan para nuestro objetivo de investigación, como una clusterizacion y la aplicación simple de un árbol de decisión.</p>
+<p>De la misma manera, se puede indagar en la implementación de varios modelos, así como hacemos en las otras secciones de esta página. En cada una de estas implementaciones, se evalúa el rendimiento de cada modelo para ver si un método inclinado por el aprendizaje de maquina puede resolver nuestro problema o no.</p>
+<p>Un punto muy a favor de porque usar modelos de ML en este estudio, es que capturan patrones complejos. Los modelos de ML pueden identificar relaciones no lineales y complejas entre la variable binaria deslizamiento y otras variables numéricas (como las de precipitaciones). Esto es difícil de lograr con técnicas básicas, que a menudo asumen una relación lineal. También nos ofrece grandes ventajas como Capacidad para Manejar Múltiples Variables, Flexibilidad y Escalabilidad, Reducción del Sesgo Humano.</p>
+<p>En resumen, los modelos de ML ofrecen una mayor precisión, adaptabilidad y eficiencia, lo que los hace ideales para clasificar deslizamiento en escenarios donde los patrones de los datos son complejos y cambiantes.</p>
+</section>
 </section>
 </section>
 
@@ -2192,7 +2234,10 @@ Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notrans
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-utilizar-modelos-de-ml">¿Por qué utilizar Modelos de ML?</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

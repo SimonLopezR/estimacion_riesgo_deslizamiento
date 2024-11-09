@@ -222,23 +222,40 @@ Estos serán los métodos que se utilizarán en este proyecto para saber si un m
 
 ### Métodos de Calibración
 
-Una vez validadas las métricas previamente descritas, se determinará si el modelo requiere calibración. En caso de ser así, se aplicarán métodos de calibración en el post-procesamiento, lo cual significa que se ajusta un modelo de calibración a las salidas de un clasificador ya entrenado con el fin de mejorar la distribucion de las probabilidades de la clase positiva, esto es, la confianza de sus probabilidades. Estos métodos son ventajosos porque implican un menor costo computacional en comparación con los métodos de calibración aplicados durante el entrenamiento. Además, son independientes del modelo entrenado y de la complejidad del problema, ya que solo requieren las predicciones del modelo y la distribución real de etiquetas.
+Una vez validadas las métricas previamente descritas, de acuerdo a estas se determinará si el modelo requiere calibración. En caso de ser así, se aplicarán métodos de calibración en el post-procesamiento, lo cual significa que se ajusta un modelo de calibración a las salidas de un clasificador ya entrenado con el fin de mejorar la distribucion de las probabilidades de la clase positiva, esto es, la confianza de sus probabilidades. Estos métodos son ventajosos porque implican un menor costo computacional en comparación con los métodos de calibración aplicados durante el entrenamiento. Además, son independientes del modelo entrenado y de la complejidad del problema, ya que solo requieren las predicciones del modelo y la distribución real de etiquetas.
+
+Estos métodos requieren utilizar las **puntuaciones** del clasificador entrenado junto con el conjunto de datos de calibración. Por puntuaciones se entiende que estas indican la confianza en sus predicciones de arroja cada clasificador, pero estas puntuaciones no necesariamente se interpretan como probabilidades válidas para interpretar (por ejemplo, en un SVM, estas puntuaciones pueden ser la distancia al hiperplano de decisión). 
+
+El objetivo de estos métodos es estimar o calibrar la probabilidad de la clase positiva (etiquetada en este caso como 1) a partir de las puntuaciones del clasificador entrenado y un conjunto de datos etiquetados que contenga ejemplos para calibrar las salidas del modelo (conjunto de datos de calibración) por medio de diferentes técnicas, como las siguientes que usaremos en este estudio:
+
 
 - Platt Scaling (Ajuste Sigmoidal o Logístico)
 
-El Platt Scaling es un método utilizado para calibrar las probabilidades de salida de un clasificador binario, especialmente aquellos que producen salidas no calibradas. Este método ajusta las probabilidades de predicción de un modelo ya entrenado mediante la utilización de una regresión logística.
+El Platt Scaling es un método utilizado para calibrar las probabilidades de salida de un clasificador binario, especialmente aquellos que producen salidas no calibradas. Este método ajusta las probabilidades de predicción de un modelo ya entrenado (puntuaciones) mediante la utilización de una regresión logística.
 
-Se utiliza las puntuaciones del clasificador en el conjunto de datos de calibración para ajustar un modelo de regresión logística. El objetivo de esta regresión logística es predecir la probabilidad de la clase positiva (generalmente etiquetada como 1) a partir de las puntuaciones del clasificador.
+El modelo de regresión logística es una forma de modelar la relación entre las puntuaciones del clasificador y la probabilidad de que una observación pertenezca a la clase positiva. La forma funcional de la regresión logística es:
 
+$$ P(y=1 \mid x) = \sigma(Ax + B) $$
 
 
 - Isotonic Regression (Regresión Isotónica)
 
-- Histogram Binning (Agrupación en histogramas)
 
 - Beta Calibration
 
-- 
+
+**Anotación:**
+Para la implementación del modelo regresión logística, este suele producir probabilidades calibradas de manera natural, ya que está diseñado para ajustar una probabilidad de pertenencia a la clase positiva basada en los datos de entrenamiento. La salida de un modelo de regresión logística ya se interpreta de por si como una probabilidad entre 0 y 1, ya que el modelo aplica una transformación sigmoide a su salida lineal.
+
+Sin embargo, en algunos casos, es posible que las probabilidades de un modelo de regresión logística no estén perfectamente calibradas. Esto puede suceder si:
+
+- Los datos están desbalanceados: Si tienes clases con distribuciones muy desiguales, la regresión logística puede producir probabilidades que no reflejan fielmente la distribución real de clases.
+
+- El modelo está regularizado: En algunos casos, el uso de regularización (como Ridge o Lasso) puede sesgar un poco las probabilidades, especialmente si la regularización es fuerte.
+
+- Distribución de datos en validación diferente a la de entrenamiento: Si la distribución de los datos en el conjunto de validación o prueba es distinta a la de entrenamiento, las probabilidades pueden perder calibración.
+
+Para verificar la calibración de la salida de un modelo de regresión logística, se evaluaran las métricas de calibración mencionadas anteriormente y se tomarán las decisiones pertinentes
 
 <br>
 

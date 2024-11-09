@@ -679,10 +679,10 @@ document.write(`
     <tr>
       <th>2</th>
       <td>Logistic Regressor</td>
-      <td>0.920000</td>
-      <td>0.900000</td>
-      <td>0.893204</td>
-      <td>0.906404</td>
+      <td>0.917526</td>
+      <td>0.884211</td>
+      <td>0.864078</td>
+      <td>0.890000</td>
     </tr>
     <tr>
       <th>3</th>
@@ -768,12 +768,41 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/37ae94c4e22ab95bd9548c3a56c7beab80f768c1d0e92c9f0aae67659f648d19.png" src="_images/37ae94c4e22ab95bd9548c3a56c7beab80f768c1d0e92c9f0aae67659f648d19.png" />
+<img alt="_images/1fc017cc5fe9fe94d06548f44a3ddf413117200ecc756f845e12a3a14495a89b.png" src="_images/1fc017cc5fe9fe94d06548f44a3ddf413117200ecc756f845e12a3a14495a89b.png" />
 </div>
 </div>
 <p>En la siguiente gráfica de ejemplo, podemos ver el eje X (Mean predicted value) representa las probabilidades predichas por cada uno de los modelos, va de 0 a 1, indicando la confianza con la que los modelos estiman la existencia de deslizamientos de tierra (clase positiva). Respecto al eje Y (Fraction of positives) muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.
 Todas las series serán comparadas con una línea que representa el caso de calibración perfecta. Si un modelo está perfectamente calibrado, los puntos de su curva se alinearán con esta diagonal, indicando que las probabilidades predichas coinciden con las frecuencias observadas de los deslizamientos de tierra reales. Por ejemplo, una predicción de deslizamiento de tierra de 0.6 significaría que en el 60% de los casos ese evento ocurre realmente.</p>
 <p>Dicho esto, y al ver la gráfica, el <code class="docutils literal notranslate"><span class="pre">Logistic</span> <span class="pre">Regressor</span></code> parece ser el mejor calibrado para estimar probabilidades, seguido por el <code class="docutils literal notranslate"><span class="pre">Support</span> <span class="pre">Vector</span> <span class="pre">Classifer</span></code>, que son los que más se ajustan a la línea diagonal ‘ideal’. El <code class="docutils literal notranslate"><span class="pre">Gradient</span> <span class="pre">Boosting</span> <span class="pre">Classifier</span></code> también se comporta razonablemente bien, mientras que el <code class="docutils literal notranslate"><span class="pre">Random</span> <span class="pre">Forest</span> <span class="pre">Classifier</span></code> es el que menos confiable es en cuanto a la calibración de probabilidades.</p>
+<p>Veamos su distribución</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
+<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_pred_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier&quot;</span><span class="p">:</span><span class="n">y_pred_svc</span><span class="p">}</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+
+<span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada columna y cada subplot</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histograma de </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad promedio predicha&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Conteo&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/3a9b34b1ca9b9fa319d0fa55f8a9b16a87270462f7266e9512516a0309b2d56a.png" src="_images/3a9b34b1ca9b9fa319d0fa55f8a9b16a87270462f7266e9512516a0309b2d56a.png" />
+</div>
+</div>
 <p>Ahora, calculemos los indicadores expuestos y explicados en la sección de <a class="reference internal" href="intro.html#calibradores-de-probabilidad"><span class="std std-ref">Calibradores de probabilidad</span></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -850,9 +879,9 @@ Todas las series serán comparadas con una línea que representa el caso de cali
     <tr>
       <th>2</th>
       <td>Logistic Regressor</td>
-      <td>0.026542</td>
-      <td>0.074663</td>
-      <td>0.240863</td>
+      <td>0.040503</td>
+      <td>0.077469</td>
+      <td>0.246279</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1017,9 +1046,9 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>2</th>
       <td>Calibrated Logistic Regressor</td>
-      <td>0.023561</td>
-      <td>0.074414</td>
-      <td>0.238043</td>
+      <td>0.032702</td>
+      <td>0.077264</td>
+      <td>0.243530</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1090,7 +1119,37 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1b00681f2072c7016db584ee432ae77687b1eaf5d4acb02f20ff96f6b9f98ab1.png" src="_images/1b00681f2072c7016db584ee432ae77687b1eaf5d4acb02f20ff96f6b9f98ab1.png" />
+<img alt="_images/0bae90b8bd24512fc1ab49051cf7bbe8c274fc9d11ebdd2572a1e4522aceb19d.png" src="_images/0bae90b8bd24512fc1ab49051cf7bbe8c274fc9d11ebdd2572a1e4522aceb19d.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
+<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf</span><span class="p">,</span> 
+             <span class="s2">&quot;Boosted Trees - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> 
+             <span class="s2">&quot;Logistic Regression - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_svc</span><span class="p">}</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+
+<span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada columna y cada subplot</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histograma de </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad promedio predicha&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Conteo&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/55b2c6b775064c39f55b37cf630755d9ed295963aef8563d6413426afb3b734d.png" src="_images/55b2c6b775064c39f55b37cf630755d9ed295963aef8563d6413426afb3b734d.png" />
 </div>
 </div>
 </section>
@@ -1210,9 +1269,9 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>2</th>
       <td>Calibrated Logistic Regressor</td>
-      <td>1.453516e-17</td>
-      <td>0.065768</td>
-      <td>0.200530</td>
+      <td>2.602085e-17</td>
+      <td>0.068924</td>
+      <td>0.208044</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1281,7 +1340,37 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e2ce9ef9a0ce3430fad399ecec2916609bc35206effeba8b008454d074c9fb98.png" src="_images/e2ce9ef9a0ce3430fad399ecec2916609bc35206effeba8b008454d074c9fb98.png" />
+<img alt="_images/6b4655599889211c88ae52957976e7d9e0e826f4e728fab08afaa0d1707a9903.png" src="_images/6b4655599889211c88ae52957976e7d9e0e826f4e728fab08afaa0d1707a9903.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
+<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">,</span> 
+             <span class="s2">&quot;Boosted Trees - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">,</span> 
+             <span class="s2">&quot;Logistic Regression - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">}</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+
+<span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada columna y cada subplot</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Histograma de </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Probabilidad promedio predicha&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Conteo&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/38849e2ffbef8751af9b38757d52230f3dbd0570c09a629c425fd9f0f1964fe7.png" src="_images/38849e2ffbef8751af9b38757d52230f3dbd0570c09a629c425fd9f0f1964fe7.png" />
 </div>
 </div>
 </section>
