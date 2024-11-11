@@ -8,7 +8,7 @@ Se emprende un análisis exhaustivo de un problema de clasificación, comenzando
 
 Una vez extraídas las principales características del conjunto de datos, se procederá a explorar el rendimiento de cuatro modelos de clasificación de gran relevancia: Support Vector Machines (SVM), Random Forest Classifier, Gradient Boosting Trees y Regresión Logística. Cada uno de estos modelos posee sus propias fortalezas y debilidades, y el objetivo es evaluarlos en un entorno controlado para determinar cuál de ellos se adapta mejor al problema en cuestión. A través de la comparación de métricas clave como la precisión, la sensibilidad, la especificidad y el AUC-ROC, se buscará identificar el modelo que ofrezca el mejor equilibrio entre sesgo y varianza.
 
-Además de evaluar el rendimiento base de estos modelos, un aspecto crucial del análisis será la calibración de probabilidades. Muchos modelos de clasificación, especialmente aquellos como SVM y Gradient Boosting Trees, pueden producir predicciones de probabilidad que no están perfectamente calibradas. Esto significa que la probabilidad predicha no siempre refleja adecuadamente la verdadera probabilidad de pertenencia a una clase. Por lo tanto, se examinará si los modelos necesitan un ajuste adicional a través de técnicas de calibración, como la regresión isotónica o el método de Platt, para mejorar la precisión de las probabilidades predichas.
+Además de evaluar el rendimiento base de estos modelos, un aspecto crucial del análisis será la calibración de probabilidades. La salida de un clasificador debe ser una probabilidad posteriormente calibrada para permitir el posprocesamiento (Platt, 1999). Muchos modelos de clasificación, especialmente aquellos como SVM y Gradient Boosting Trees, pueden producir predicciones de probabilidad que no están perfectamente calibradas. Esto significa que la probabilidad predicha no siempre refleja adecuadamente la verdadera probabilidad de pertenencia a una clase. Por lo tanto, se examinará si los modelos necesitan un ajuste adicional a través de técnicas de calibración, como la regresión isotónica o el método de Platt, para mejorar la precisión de las probabilidades predichas.
 
 Finalmente, el análisis concluirá con una comparación integral de los resultados obtenidos de los modelos, tanto antes como después de la calibración de probabilidades. El objetivo es identificar el modelo que no solo tenga un alto rendimiento en términos de precisión, sino que también ofrezca predicciones de probabilidad bien calibradas. Este enfoque detallado garantizará que el modelo seleccionado no solo sea el más preciso, sino también el más fiable para la toma de decisiones en la prediccion del riesgo de deslizamiento de tierra.
 
@@ -229,22 +229,68 @@ Estos métodos requieren utilizar las **puntuaciones** del clasificador entrenad
 El objetivo de estos métodos es estimar o calibrar la probabilidad de la clase positiva (etiquetada en este caso como 1) a partir de las puntuaciones del clasificador entrenado y un conjunto de datos etiquetados que contenga ejemplos para calibrar las salidas del modelo (conjunto de datos de calibración) por medio de diferentes técnicas, como las siguientes que usaremos en este estudio:
 
 
-- Platt Scaling (Ajuste Sigmoidal o Logístico)
+- **Platt Scaling (Ajuste Sigmoidal o Logístico)**
 
-El Platt Scaling es un método utilizado para calibrar las probabilidades de salida de un clasificador binario, especialmente aquellos que producen salidas no calibradas. Este método ajusta las probabilidades de predicción de un modelo ya entrenado (puntuaciones) mediante la utilización de una regresión logística.
+Platt (1999) propone un método  para calibrar las probabilidades de salida de un clasificador, especialmente aquellos que producen puntuaciones no calibradas, como los modelos de SVM. Este método ajusta las probabilidades de predicción de un modelo ya entrenado (puntuaciones) mediante la utilización de una regresión logística haciendo uso de una función sigmoidal.
 
 El modelo de regresión logística es una forma de modelar la relación entre las puntuaciones del clasificador y la probabilidad de que una observación pertenezca a la clase positiva. La forma funcional de la regresión logística es:
 
 $$ P(y=1 \mid x) = \sigma(Ax + B) $$
 
+donde: 
+- $\sigma(z) = \frac{1}{1 + e^{-z}}$ es la función sigmoide
 
-- Isotonic Regression (Regresión Isotónica)
+- $x$ son las puntuaciones del clasificador
+
+- $A$ y $B$ son los parámetros que se ajustan a partir de los datos.
+
+Para hacer el ajuste de las puntuaciones del modelo y convertirlas en probabilidades calibradas, se utilizan las puntuaciones  del clasificador como las variables independientes $x$ y las etiquetas reales del conjunto de calibración (0 o 1) como las variables dependiente $y$. El objetivo es encontrar los mejores parámetros $A$ y $B$ que minimicen la discrepancia entre las probabilidades predichas por el modelo de regresión logística y las verdaderas etiquetas de clase. La función de costo comúnmente utilizada es la log-verosimilitud, que se maximiza durante el entrenamiento de la regresión logística.
+
+La idea es que este proceso asegure que el modelo de regresión logística capte la relación entre las puntuaciones del clasificador y la probabilidad real de las clases.
 
 
-- Beta Calibration
+- **Isotonic Regression (Regresión Isotónica)**
 
+A diferencia del Platt Scaling que utiliza una regresión logística, la regresión isotonica es una técnica no paramétrica que busca una función de ajuste que mantenga el orden de las puntuaciones originales pero que se ajuste a una relación monótona creciente entre las puntuaciones del clasificador y las probabilidades observadas, es más general porque en este método no se hacen suposiciones sobre la forma de la función de mapeo, excepto que debe ser monótonamente creciente (isotónica).
 
-**Anotación:**
+En este método, una función constante por tramos no paramétrica se utiliza para aproximar la función que asigna las puntuaciones a los valores deseados, también, permite que las puntuaciones se "escalen" de forma no lineal para alinear mejor las predicciones con las probabilidades observadas.
+
+Esta relación monótona quiere decir que sus valores nunca disminuyen a medida que avanzas en el eje de las puntuaciones del clasificador, esta función puede tener una forma escalonada o de curva suave dependiendo de los datos, pero siempre sigue una tendencia ascendente. Es decir, para una instancia nueva de variables independientes $x$: 
+
+$$
+x_1 \leq x_2 \implies f(x_1) \leq f(x_2)
+$$
+
+Al ajustar los datos, el algoritmo ajusta una función monótona que se adapta a las puntuaciones manteniendo el orden relativo como se aclara anteriormente. Este ajuste se hace de tal forma que se minimicen los errores, respetando siempre la relación monótona. Esto es, dadas las puntuaciones $f_i$ de un modelo y los objetivos verdaderos $y_i$, el supuesto básico en la regresión isotónica es que
+
+$$
+y_i = m(f_i) + \epsilon_i
+$$
+
+donde $m$ es la función isotónica (monótonicamente creciente)
+
+Por ende, dado un conjunto de datos de entrenamiento $(f_i , y_i)$ lo que busca resolver la regresión isotónica es encontrar la función $\hat{m}$ tal que
+
+$$
+\hat{m} = \arg \min_{z} \sum (y_i - z(f_i))^2
+$$
+
+#### Comparativa de los métodos
+
+- Por un lado, Platt scaling es más eficaz cuando la distorsión en las probabilidades predichas tiene forma sigmoideal. La regresión isotónica es un método de calibración más potente que puede corregir cualquier distorsión monótona. Desafortunadamente, esta potencia adicional tiene un precio, ya que la regresión isotónica es más propensa al sobreajuste y, por lo tanto, tiene un peor rendimiento que el Platt scaling cuando los datos son escasos.
+
+- La Isotonic Regression no asume una forma específica (como la forma sigmoide en el Platt Scaling). En cambio, ajusta cualquier relación que mantenga el orden y minimice los errores, es decir, es no paramétrico.
+
+- Isotonic Regression puede ajustarse a formas complejas en los datos, siendo útil para clasificadores que generan distribuciones de puntuaciones no lineales y difíciles de modelar.
+
+- La Isotonic Regression es particularmente útil en casos donde la relación entre las puntuaciones y las probabilidades no es lineal y donde no se desea imponer una forma específica a la curva de calibración, permitiendo una mayor flexibilidad.
+
+- Como lo estipulan Niculescu-Mizil and Caruana (2005), cuando el conjunto de calibración es pequeño (menos de 200 a 1000 casos), el Platt scaling supera a la regresión isotónica. Esto sucede porque la regresión isotónica está menos restringida que el Platt scaling, por lo que es más fácil que se sobreajuste cuando el conjunto de calibración es pequeño. El método de Platt también tiene incorporado un cierto control de sobreajuste.
+ 
+
+```{note}
+**Posible Redundancia**
+
 Para la implementación del modelo regresión logística, este suele producir probabilidades calibradas de manera natural, ya que está diseñado para ajustar una probabilidad de pertenencia a la clase positiva basada en los datos de entrenamiento. La salida de un modelo de regresión logística ya se interpreta de por si como una probabilidad entre 0 y 1, ya que el modelo aplica una transformación sigmoide a su salida lineal.
 
 Sin embargo, en algunos casos, es posible que las probabilidades de un modelo de regresión logística no estén perfectamente calibradas. Esto puede suceder si:
@@ -256,6 +302,7 @@ Sin embargo, en algunos casos, es posible que las probabilidades de un modelo de
 - Distribución de datos en validación diferente a la de entrenamiento: Si la distribución de los datos en el conjunto de validación o prueba es distinta a la de entrenamiento, las probabilidades pueden perder calibración.
 
 Para verificar la calibración de la salida de un modelo de regresión logística, se evaluaran las métricas de calibración mencionadas anteriormente y se tomarán las decisiones pertinentes
+```
 
 <br>
 
