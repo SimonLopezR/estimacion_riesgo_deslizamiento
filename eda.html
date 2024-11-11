@@ -184,6 +184,8 @@
 <li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
 </ul>
 
     </div>
@@ -382,8 +384,16 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agrupaciones">Agrupaciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-utilizar-modelos-de-ml">¿Por qué utilizar Modelos de ML?</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -406,23 +416,21 @@ document.write(`
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">OrdinalEncoder</span>
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVC</span>  <span class="c1"># Para clasificación SVM</span>
-<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
-<span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
-<span class="kn">from</span> <span class="nn">sklearn.compose</span> <span class="kn">import</span> <span class="n">ColumnTransformer</span>
-<span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_score</span><span class="p">,</span><span class="n">GridSearchCV</span><span class="p">,</span><span class="n">ShuffleSplit</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">tree</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">ConfusionMatrixDisplay</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span><span class="p">,</span><span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">AgglomerativeClustering</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">plot_tree</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">silhouette_score</span>
+<span class="kn">import</span> <span class="nn">scipy.cluster.hierarchy</span> <span class="k">as</span> <span class="nn">sch</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">yellowbrick.cluster</span> <span class="kn">import</span> <span class="n">silhouette_visualizer</span>
 </pre></div>
 </div>
 </div>
@@ -607,11 +615,11 @@ document.write(`
 </section>
 <section id="variables-numericas">
 <h2>Variables Numéricas<a class="headerlink" href="#variables-numericas" title="Link to this heading">#</a></h2>
-<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalance de datos en el aprendizaje automático ocurre cuando hay muchas más muestras de una clase que de otra. Por ejemplo, en este caso, si queremos detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo identificar los deslizamientos porque tiene menos ejemplos para aprender de ellos. Es importante revisar esto al explorar los datos para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalance, el modelo podría no funcionar correctamente.</p>
-<p>Para esto haremos una revisión simple de cuantos registros hay de cada clase</p>
+<p>Primeramente, es común en problema de clasificación revisar si se trata de un problema de clases desbalanceadas o no. El desbalanceo de clases ocurre cuando hay muchas más muestras de una clase que de otra. Por ejemplo en este caso, si nos interesa detectar deslizamientos de tierra y la mayoría de los registros reportan un no deslizamiento, puede ser difícil para un modelo de aprendizaje automático identificar los deslizamientos ya que tiene menos ejemplos para aprender de estas instancias. Por ende, es importante revisar esto al explorar los datos, para asegurarse de que el modelo pueda hacer predicciones precisas y útiles. Sin abordar este desbalanceo, el modelo podría no estimar nuevos datos correctamente.</p>
+<p>Para esto haremos una revisión simple de cuantos registros hay para cada clase en la variable objetivo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grafica el histograma usando Seaborn</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Grafica el histograma usando Seaborn.</span>
 <span class="n">ax</span><span class="o">=</span><span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">)</span>
 
 <span class="c1"># Añade etiquetas y título</span>
@@ -625,7 +633,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/94979085bce621b53929b3a3ee3b1bf985180b87d09761c0f5f4fa42c55de650.png" src="_images/94979085bce621b53929b3a3ee3b1bf985180b87d09761c0f5f4fa42c55de650.png" />
+<img alt="_images/c4ff3838b2a361cfdd481d7c5ee56640937c6ba52dcf23e0d8dce576ee4f8a07.png" src="_images/c4ff3838b2a361cfdd481d7c5ee56640937c6ba52dcf23e0d8dce576ee4f8a07.png" />
 </div>
 </div>
 <p>Donde 0 representa la clase negativa que es “No Deslizamiento de tierra” en punto geográfico
@@ -647,11 +655,40 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c9665d6457ec7f4348ce6d065eb3e298bef93e3dd450df20362bef16a45323e7.png" src="_images/c9665d6457ec7f4348ce6d065eb3e298bef93e3dd450df20362bef16a45323e7.png" />
+<img alt="_images/b943593ab0e203ac01f050e16b37160ae1765db756c25ba7215523c03da99749.png" src="_images/b943593ab0e203ac01f050e16b37160ae1765db756c25ba7215523c03da99749.png" />
 </div>
 </div>
-<p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes para estimar si existe deslizamientos o no</p>
-<p>También podremos pensar que al tratarse de variables que capturan data de manera acumulada, puede haber valor que da una variable que también lo de otra, podemos revisar las correlaciones entre las precipitaciones</p>
+<p>En este caso vemos que para puntos donde ha habido deslizamientos de tierra, existe mayor cantidad de lluvia acumulada en mm en comparación con los que no han presentado deslizamientos. Esto nos sugiere que las variables de precipitación son importantes en la tendencia de la variable objetivo (deslizamientos o no)</p>
+<p>También podremos pensar que al tratarse de variables que capturan data de manera acumulada, el valor o aporte que brinda una variable, tambien lo puede brindar en el mismo grado cualquier otra, pudiendo llegar a redundancias y posteriormente si se quiere evaluar modelos a “over-fitting”. Podemos revisar las correlaciones entre las variables de precipitaciones</p>
+<p>Realizaremos un boxplot para comparar la distribución de las variables de precipitación para cada valor de la variable objetivo</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configurar el tamaño de la figura y número de subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+<span class="c1"># Crear un boxplot para cada columna en la lista</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columnas_a_graficar</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>  <span class="c1"># Crear una cuadrícula de 2 filas y 4 columnas</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">column</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Distribución de </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s1"> por deslizamiento&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;deslizamiento&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">column</span><span class="p">)</span>
+
+<span class="c1"># Ajustar el espacio entre los subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8958d0c602a637c3ce3f5d40c6e84267a2cdd2887b30b3e6211b484b776ef092.png" src="_images/8958d0c602a637c3ce3f5d40c6e84267a2cdd2887b30b3e6211b484b776ef092.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Distribución de la Variable 10d para Cada Valor de deslizamiento: Las variables de precipitaciones poseen una distribución similar entre ellas, esto es, que claramente su distribución es distinta entre los valores de no deslizamiento y sí deslizamiento = 1. Para no deslizamiento, los valores son considerablemente más bajos, con una mediana cercana a los 25. La mayor parte de los datos están concentrados entre 0 y aproximadamente 50, y existen varios valores atípicos alrededor superiores al rango intercuartílico. Para los sí deslizamiento, los valores de precipitación son mucho más altos en promedio. La mediana está se encuentra superior a lo no deslizamientos, y el rango de los datos se extiende mucho más, alcanzando hasta alrededor de 250.</p></li>
+<li><p>Variabilidad y Rango: Los datos de precipitaciones para deslizamiento = 1 muestran una variabilidad mucho mayor en comparación con deslizamiento = 0. Esto indica que cuando deslizamiento es igual a 1, las variables de precipitaciones tiende a tener valores más dispersos, y no está tan concentrada alrededor de un valor específico. Para deslizamiento = 0, la mayoría de los datos se encuentran en un rango más estrecho y con menor variabilidad, lo que sugiere que los eventos con deslizamiento = 0 están más limitados a valores bajos de precipitaciones.</p></li>
+<li><p>Relación entre precipitaciones y deslizamiento: Esto podría interpretarse como que la condición de deslizamiento = 1 está asociada con situaciones o eventos donde las precipitaciones de lluvia es significativamente mayor, lo cual podría ser relevante en un contexto de riesgo, alertas o indicadores.</p></li>
+</ul>
 </section>
 <section id="variables-categoricas">
 <h2>Variables categóricas<a class="headerlink" href="#variables-categoricas" title="Link to this heading">#</a></h2>
@@ -1067,9 +1104,990 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </ul>
 <p>Todo esto puede afectar en las métricas de evaluación, como la precisión, el recall, y la F1-score, ya que el rendimiento en estas categorías raras puede no estar bien representado</p>
 </section>
+<section id="agrupaciones">
+<h2>Agrupaciones<a class="headerlink" href="#agrupaciones" title="Link to this heading">#</a></h2>
+<p>Agrupar los datos por la variable objetivo es util para entender las diferencias entre grupos, identificar relaciones con las variables predictoras, evaluar distribuciones y tendencias y facilitar la creación de estrategias de modelado</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols_g</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span> <span class="s1">&#39;15d&#39;</span><span class="p">,</span> <span class="s1">&#39;30d&#39;</span><span class="p">,</span> <span class="s1">&#39;60d&#39;</span><span class="p">,</span> <span class="s1">&#39;deslizamientos&#39;</span><span class="p">]</span>
+<span class="n">df__</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">cols_g</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df__</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;deslizamientos&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">24h</th>
+      <th colspan="3" halign="left">15d</th>
+      <th colspan="3" halign="left">30d</th>
+      <th colspan="3" halign="left">60d</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+      <th>sum</th>
+      <th>mean</th>
+      <th>count</th>
+    </tr>
+    <tr>
+      <th>deslizamientos</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>353.0</td>
+      <td>0.882500</td>
+      <td>400</td>
+      <td>16423.0</td>
+      <td>41.057500</td>
+      <td>400</td>
+      <td>33964.8</td>
+      <td>84.912000</td>
+      <td>400</td>
+      <td>75263.5</td>
+      <td>188.158750</td>
+      <td>400</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4348.8</td>
+      <td>7.906909</td>
+      <td>550</td>
+      <td>102426.1</td>
+      <td>186.229273</td>
+      <td>550</td>
+      <td>177402.0</td>
+      <td>322.549091</td>
+      <td>550</td>
+      <td>249013.7</td>
+      <td>452.752182</td>
+      <td>550</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>La tabla muestra la acumulación de lluvia (en mm) en diferentes períodos de tiempo: 24 horas, 15 días, 30 días y 60 días, con las agrupaciones basadas en si hay deslizamientos de tierra (1) o no (0)</p>
+<p>Claramente, los días con deslizamientos (1) tienen una acumulación de lluvia significativamente mayor que los días sin deslizamientos (0) en todos los intervalos de tiempo.</p>
+<p>La diferencia es especialmente notable en los períodos de tiempo más largos (30 y 60 días), donde la acumulación de lluvia promedio en los días con deslizamientos es aproximadamente el doble o más que en los días sin deslizamientos, lo que sugiere que los deslizamientos están asociados a condiciones prolongadas de lluvia intensa.</p>
+<section id="analisis-cluster">
+<h3>Análisis Cluster<a class="headerlink" href="#analisis-cluster" title="Link to this heading">#</a></h3>
+<p>En este análisis, se implementará un análisis de clustering como parte del análisis exploratorio para las variables predictoras. El objetivo principal será identificar y entender los perfiles ocultos que existen en los datos de entrenamiento, con el fin de extraer conclusiones valiosas sobre la estructura subyacente de las muestras.</p>
+<p>Se utilizarán técnicas de clustering como K-Means para agrupar los datos en función de sus características, sin considerar la variable objetivo. Esto permitirá descubrir patrones, segmentaciones y grupos homogéneos que podrían ofrecer perspectivas adicionales, facilitando la comprensión del problema de clasificación y sugiriendo posibles mejoras en las estrategias de modelado predictivo.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a 10 dias</span>
+<span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
+<span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">independent_var</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">dependent_var</span><span class="p">]</span>
+<span class="c1"># Seleccionar columnas categoricas</span>
+<span class="n">VAR_categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">]</span>
+
+<span class="c1"># Seleccionar columnas numericas</span>
+<span class="n">VAR_numerical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]]</span>
+
+<span class="n">label_encoders</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">VAR_categorical_cols</span><span class="p">:</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+    <span class="n">label_encoders</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_scaled</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">StandardScaler</span><span class="p">()</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_scaled</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>zonificacion</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>tipo_geologia</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>-0.566235</td>
+      <td>-0.470035</td>
+      <td>1.215925</td>
+      <td>0.635991</td>
+      <td>0.385252</td>
+      <td>0.854159</td>
+      <td>2.144217</td>
+      <td>1.791373</td>
+      <td>2.273389</td>
+      <td>1.997366</td>
+      <td>1.824370</td>
+      <td>1.770709</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.105551</td>
+      <td>1.203249</td>
+      <td>0.118416</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.250162</td>
+      <td>0.327085</td>
+      <td>0.400193</td>
+      <td>0.834211</td>
+      <td>0.671545</td>
+      <td>0.499336</td>
+      <td>0.223749</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-0.527533</td>
+      <td>0.037522</td>
+      <td>0.667170</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.429474</td>
+      <td>0.450362</td>
+      <td>0.497575</td>
+      <td>0.852142</td>
+      <td>0.242164</td>
+      <td>-0.045285</td>
+      <td>-0.174275</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.312436</td>
+      <td>0.747974</td>
+      <td>-1.527849</td>
+      <td>-2.257647</td>
+      <td>0.385252</td>
+      <td>-0.467084</td>
+      <td>-0.593488</td>
+      <td>-0.545810</td>
+      <td>-0.680465</td>
+      <td>-0.717435</td>
+      <td>-0.646261</td>
+      <td>-0.752847</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>-0.793653</td>
+      <td>-0.507262</td>
+      <td>0.667170</td>
+      <td>0.635991</td>
+      <td>-0.395942</td>
+      <td>0.571035</td>
+      <td>-0.830436</td>
+      <td>-0.958990</td>
+      <td>-0.808812</td>
+      <td>-0.989469</td>
+      <td>-0.747701</td>
+      <td>-0.629747</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Escalamos el conjunto de datos para evitar el sesgo debido a escalas diferentes, mejorar la convergencia de K-Means y garantizar la consistencia en la métrica de distancia</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inercia para el Método del Codo</span>
+<span class="n">inertia</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># Coeficiente de Silueta</span>
+<span class="n">silhouette_scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">n_clusters_range</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)</span> <span class="c1"># de 2 a 10 cluster</span>
+<span class="n">clusters_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">n_clusters_range</span><span class="p">:</span>
+    <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="n">n</span><span class="p">,</span><span class="n">init</span><span class="o">=</span><span class="s1">&#39;k-means++&#39;</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+    <span class="n">inertia</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kmeans</span><span class="o">.</span><span class="n">inertia_</span><span class="p">)</span>
+    <span class="n">silhouette_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">silhouette_score</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">labels</span><span class="p">))</span>
+
+    <span class="c1"># Crear un DataFrame con los datos escalados y la columna &quot;clusters&quot;</span>
+    <span class="n">df_with_clusters</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_with_clusters</span><span class="p">[</span><span class="s1">&#39;clusters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
+
+    <span class="c1"># Guardar en el diccionario con la clave como el número de clusters</span>
+    <span class="n">clusters_dict</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;con_</span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">_clusters&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_with_clusters</span>
+
+<span class="c1"># Graficar ambos</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Número de Clusters&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Inercia&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_clusters_range</span><span class="p">,</span> <span class="n">inertia</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Inercia&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;tab:blue&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>  <span class="c1"># Crear un segundo eje que comparte el eje x</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Coeficiente de Silueta&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n_clusters_range</span><span class="p">,</span> <span class="n">silhouette_scores</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Coef. de Silueta&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s1">&#39;tab:red&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Método del Codo e Índice de Silueta&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f6e5378481dbe1f6be7956a65d45caeb2c973d7efdf4a5dc61a1a9c09dcf2b17.png" src="_images/f6e5378481dbe1f6be7956a65d45caeb2c973d7efdf4a5dc61a1a9c09dcf2b17.png" />
+</div>
+</div>
+<p>Utilizaremos el método del codo (<code class="docutils literal notranslate"><span class="pre">Inercia</span></code>) y el <code class="docutils literal notranslate"><span class="pre">Coeficiente</span> <span class="pre">de</span> <span class="pre">Silueta</span></code> para identificar el número de clusters más optimo.</p>
+<p>Este método evalúa la suma de los errores cuadrados dentro de cada cluster (inertia) para diferentes valores de n_clusters. A medida que aumenta el número de clusters, la inercia disminuye, pero llega un punto en el que la mejora se vuelve marginal. El “codo” en la gráfica es el punto donde el incremento de clusters deja de ofrecer una mejora significativa.</p>
+<p>El coeficiente de silueta mide la separación entre los clusters y qué tan bien están asignadas las muestras dentro de su propio cluster. Los valores del coeficiente de silueta están entre -1 y 1, donde un valor cercano a 1 indica que los puntos están bien agrupados.</p>
+<p>En este mismo orden de las ideas, tenemos que encontrar ese número que nos indique el codo en la serie de la inercia (línea azul) y el coeficiente de silueta más alto en la serie de silueta (línea roja). Vemos que el punto que cumple con esta condición es el 7</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado_cluster</span><span class="o">=</span><span class="n">clusters_dict</span><span class="p">[</span><span class="s1">&#39;con_7_clusters&#39;</span><span class="p">]</span>
+<span class="n">resultado_cluster</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>zonificacion</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>tipo_geologia</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+      <th>clusters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1030.110840</td>
+      <td>21.268663</td>
+      <td>6</td>
+      <td>25</td>
+      <td>9</td>
+      <td>14.0</td>
+      <td>197.0</td>
+      <td>210.0</td>
+      <td>366.0</td>
+      <td>583.0</td>
+      <td>746.0</td>
+      <td>908.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1176.433594</td>
+      <td>56.848099</td>
+      <td>4</td>
+      <td>25</td>
+      <td>7</td>
+      <td>7.6</td>
+      <td>83.5</td>
+      <td>110.0</td>
+      <td>213.5</td>
+      <td>343.7</td>
+      <td>452.1</td>
+      <td>531.0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1038.540527</td>
+      <td>32.060978</td>
+      <td>5</td>
+      <td>25</td>
+      <td>7</td>
+      <td>9.5</td>
+      <td>91.2</td>
+      <td>117.0</td>
+      <td>215.4</td>
+      <td>266.2</td>
+      <td>331.3</td>
+      <td>434.0</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1657.118408</td>
+      <td>47.167477</td>
+      <td>1</td>
+      <td>5</td>
+      <td>9</td>
+      <td>0.0</td>
+      <td>26.0</td>
+      <td>42.0</td>
+      <td>53.0</td>
+      <td>93.0</td>
+      <td>198.0</td>
+      <td>293.0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>980.576721</td>
+      <td>20.477095</td>
+      <td>5</td>
+      <td>25</td>
+      <td>7</td>
+      <td>11.0</td>
+      <td>11.2</td>
+      <td>12.3</td>
+      <td>39.4</td>
+      <td>43.9</td>
+      <td>175.5</td>
+      <td>323.0</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">funciones_agregacion</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span> <span class="s1">&#39;median&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">]</span>
+<span class="n">agg_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">col</span><span class="p">:</span> <span class="n">funciones_agregacion</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">resultado_cluster</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;clusters&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">col</span><span class="p">}</span>
+<span class="n">resultado</span> <span class="o">=</span> <span class="n">resultado_cluster</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;clusters&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span><span class="n">agg_dict</span><span class="p">)</span>
+<span class="n">resultado</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="5" halign="left">ELEVACION</th>
+      <th colspan="5" halign="left">PENDIENT</th>
+      <th>...</th>
+      <th colspan="5" halign="left">60d</th>
+      <th colspan="5" halign="left">90d</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>...</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1081.343884</td>
+      <td>1068.523682</td>
+      <td>153</td>
+      <td>985.792114</td>
+      <td>1769.932861</td>
+      <td>42.480770</td>
+      <td>41.846062</td>
+      <td>153</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+      <td>...</td>
+      <td>672.419608</td>
+      <td>735.00</td>
+      <td>153</td>
+      <td>446.0</td>
+      <td>753.0</td>
+      <td>827.745098</td>
+      <td>878.00</td>
+      <td>153</td>
+      <td>666.0</td>
+      <td>918.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1109.291123</td>
+      <td>1074.063721</td>
+      <td>221</td>
+      <td>979.047546</td>
+      <td>1500.505249</td>
+      <td>30.774787</td>
+      <td>26.067751</td>
+      <td>221</td>
+      <td>2.509326</td>
+      <td>84.404579</td>
+      <td>...</td>
+      <td>180.012217</td>
+      <td>185.60</td>
+      <td>221</td>
+      <td>0.0</td>
+      <td>484.8</td>
+      <td>293.068326</td>
+      <td>309.20</td>
+      <td>221</td>
+      <td>0.0</td>
+      <td>706.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1705.272693</td>
+      <td>1691.590942</td>
+      <td>102</td>
+      <td>1398.259766</td>
+      <td>2098.276855</td>
+      <td>35.632793</td>
+      <td>28.213477</td>
+      <td>102</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+      <td>...</td>
+      <td>246.046078</td>
+      <td>266.80</td>
+      <td>102</td>
+      <td>23.0</td>
+      <td>521.4</td>
+      <td>378.537255</td>
+      <td>364.00</td>
+      <td>102</td>
+      <td>103.0</td>
+      <td>815.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1046.853896</td>
+      <td>1039.669922</td>
+      <td>51</td>
+      <td>984.869446</td>
+      <td>1181.661743</td>
+      <td>13.690300</td>
+      <td>11.322103</td>
+      <td>51</td>
+      <td>3.015621</td>
+      <td>40.761745</td>
+      <td>...</td>
+      <td>212.407843</td>
+      <td>160.00</td>
+      <td>51</td>
+      <td>44.2</td>
+      <td>538.0</td>
+      <td>344.890196</td>
+      <td>345.80</td>
+      <td>51</td>
+      <td>93.4</td>
+      <td>722.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>1087.131812</td>
+      <td>1075.588318</td>
+      <td>226</td>
+      <td>975.132202</td>
+      <td>1599.939087</td>
+      <td>36.449945</td>
+      <td>33.249146</td>
+      <td>226</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+      <td>...</td>
+      <td>468.573009</td>
+      <td>444.55</td>
+      <td>226</td>
+      <td>203.4</td>
+      <td>848.0</td>
+      <td>602.109735</td>
+      <td>536.00</td>
+      <td>226</td>
+      <td>284.0</td>
+      <td>984.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>1014.184948</td>
+      <td>979.652466</td>
+      <td>48</td>
+      <td>972.612610</td>
+      <td>1300.178345</td>
+      <td>11.900871</td>
+      <td>9.840033</td>
+      <td>48</td>
+      <td>1.231035</td>
+      <td>41.481342</td>
+      <td>...</td>
+      <td>168.733333</td>
+      <td>128.75</td>
+      <td>48</td>
+      <td>17.4</td>
+      <td>533.0</td>
+      <td>297.070833</td>
+      <td>308.35</td>
+      <td>48</td>
+      <td>44.0</td>
+      <td>722.6</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1097.128918</td>
+      <td>1079.523193</td>
+      <td>149</td>
+      <td>978.607788</td>
+      <td>1488.616699</td>
+      <td>21.862463</td>
+      <td>17.751278</td>
+      <td>149</td>
+      <td>0.984309</td>
+      <td>92.066528</td>
+      <td>...</td>
+      <td>212.671812</td>
+      <td>208.80</td>
+      <td>149</td>
+      <td>24.7</td>
+      <td>577.5</td>
+      <td>367.104027</td>
+      <td>353.90</td>
+      <td>149</td>
+      <td>62.7</td>
+      <td>742.2</td>
+    </tr>
+  </tbody>
+</table>
+<p>7 rows × 60 columns</p>
+</div></div></div>
+</div>
+<p>Vemos el perfil de la variable de lluvia acumulada en las ultimas 24h</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6.282353</td>
+      <td>10.0</td>
+      <td>153</td>
+      <td>0.0</td>
+      <td>29.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.927149</td>
+      <td>0.0</td>
+      <td>221</td>
+      <td>0.0</td>
+      <td>20.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3.359804</td>
+      <td>0.0</td>
+      <td>102</td>
+      <td>0.0</td>
+      <td>47.6</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.392157</td>
+      <td>0.0</td>
+      <td>51</td>
+      <td>0.0</td>
+      <td>6.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12.016372</td>
+      <td>6.3</td>
+      <td>226</td>
+      <td>0.0</td>
+      <td>108.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.841667</td>
+      <td>0.0</td>
+      <td>48</td>
+      <td>0.0</td>
+      <td>19.8</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>1.314765</td>
+      <td>0.0</td>
+      <td>149</td>
+      <td>0.0</td>
+      <td>30.0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Observamos que para el cluster 0, 2, 4 y 5 podría representar aquel grupo con niveles de lluvias acumuladas más bajos, mientras que los cluster numero 1, 3 y 6 con los mayores niveles al observar sus medidas de agrupación.</p>
+<p>Ahora observemos la variable de <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resultado</span><span class="p">[</span><span class="s1">&#39;PENDIENT&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean</th>
+      <th>median</th>
+      <th>count</th>
+      <th>min</th>
+      <th>max</th>
+    </tr>
+    <tr>
+      <th>clusters</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>42.480770</td>
+      <td>41.846062</td>
+      <td>153</td>
+      <td>3.538649</td>
+      <td>89.237999</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30.774787</td>
+      <td>26.067751</td>
+      <td>221</td>
+      <td>2.509326</td>
+      <td>84.404579</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>35.632793</td>
+      <td>28.213477</td>
+      <td>102</td>
+      <td>1.930219</td>
+      <td>101.956207</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>13.690300</td>
+      <td>11.322103</td>
+      <td>51</td>
+      <td>3.015621</td>
+      <td>40.761745</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36.449945</td>
+      <td>33.249146</td>
+      <td>226</td>
+      <td>1.330287</td>
+      <td>94.294182</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>11.900871</td>
+      <td>9.840033</td>
+      <td>48</td>
+      <td>1.231035</td>
+      <td>41.481342</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>21.862463</td>
+      <td>17.751278</td>
+      <td>149</td>
+      <td>0.984309</td>
+      <td>92.066528</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>el cluster 0,4 y 6 son los que representan agrupan esos registros que representan terrenos con menos porcentajes de pendientes.</p>
+<p>Vemos que el punto óptimo en nuestra implementación de <code class="docutils literal notranslate"><span class="pre">K-Means</span></code> son 7 agrupaciones, esto nos puede dar indicios de que nuestro conjunto de datos se segmenta en las 7 clases de la variable <code class="docutils literal notranslate"><span class="pre">Zonificacion</span></code>, la cual es un nivel de riesgo, es decir, un nombre de la clasificación de amenaza o riesgo del punto de movimiento en masa asignado por geólogos de la alcaldía de Cali basado en el historial de casos de deslizamientos de tierra en la ciudad</p>
+<p>Aunque sean bastantes cluster, se evidencia que la mayoría de cluster apuntan a 2 agrupamientos, es decir que nos tratan de decir que hay 2 clases de población dentro de nuestro conjunto de datos</p>
+</section>
+</section>
+<section id="arbol-de-decision">
+<h2>Árbol de Decisión<a class="headerlink" href="#arbol-de-decision" title="Link to this heading">#</a></h2>
+<p>Entrenar un solo árbol de decisión en un EDA puede ser útil para identificar rápidamente qué variables tienen mayor relevancia en la predicción del objetivo.</p>
+<p>Los árboles de decisión dividen los datos en función de las características más informativas, esto te permite identificar qué variables son más útiles para predecir la variable dependiente. Tambien es nos ayuda en la interpretabilidad, ya que el árbol muestra claramente cómo se hace la toma de decisiones basadas en las características y qué variables se consideran importantes a cada paso y a la identificación de relaciones no lineales, porque pueden manejar relaciones no lineales entre variables, lo que te permite captar patrones que a veces no son evidentes con técnicas lineales.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">independent_var_erase</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;10d&#39;</span><span class="p">]</span> <span class="c1"># Eliminamos la variable de precipitacion acumulada a 10 dias</span>
+<span class="n">dependent_var</span><span class="o">=</span><span class="s1">&#39;deslizamientos&#39;</span>
+<span class="n">independent_var</span><span class="o">=</span><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">independent_var_erase</span> <span class="ow">and</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">X</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">independent_var</span><span class="p">]</span>
+<span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="n">dependent_var</span><span class="p">]</span>
+<span class="n">VAR_categorical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="s2">&quot;object&quot;</span><span class="p">]</span>
+<span class="n">VAR_numerical_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">cname</span> <span class="k">for</span> <span class="n">cname</span> <span class="ow">in</span> <span class="n">X</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">X</span><span class="p">[</span><span class="n">cname</span><span class="p">]</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;int64&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">]]</span>
+<span class="n">VAR_cols</span> <span class="o">=</span> <span class="n">VAR_categorical_cols</span> <span class="o">+</span> <span class="n">VAR_numerical_cols</span>
+<span class="n">label_encoders</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">feature</span> <span class="ow">in</span> <span class="n">VAR_categorical_cols</span><span class="p">:</span>
+    <span class="n">le</span> <span class="o">=</span> <span class="n">LabelEncoder</span><span class="p">()</span>
+    <span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">feature</span><span class="p">])</span>
+    <span class="n">label_encoders</span><span class="p">[</span><span class="n">feature</span><span class="p">]</span> <span class="o">=</span> <span class="n">le</span>
+
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tree</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="c1"># Hacer predicciones en el conjunto de prueba</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Medir el rendimiento (en clasificación, por ejemplo)</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Accuracy: </span><span class="si">{</span><span class="n">accuracy</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 0.8842105263157894
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>  <span class="c1"># Ajustar el tamaño de la figura</span>
+<span class="n">plot_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> 
+          <span class="n">filled</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+          <span class="n">feature_names</span><span class="o">=</span><span class="n">X</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> 
+          <span class="n">class_names</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+          <span class="n">rounded</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> 
+          <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Ajustar el tamaño de la letra</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2cb7dec9419982cfc28516242ae6d3dfbc6366b1d0c01cb6402e6f8260fa1c8c.png" src="_images/2cb7dec9419982cfc28516242ae6d3dfbc6366b1d0c01cb6402e6f8260fa1c8c.png" />
+</div>
+</div>
+<p>El nodo raíz indica que la primera condición a evaluar es la <code class="docutils literal notranslate"><span class="pre">15d</span></code> (Precipitación de lluvia acumulada en 15 días en milímetros) del terreno. Si la varaible es menor o igual a 73.6, se avanza por la rama izquierda; de lo contrario, se avanza por la derecha.</p>
+<p>Los nodos finales (hojas) muestran la clase predicha (0 o 1) y el número de muestras en cada hoja. También se indica el valor de las muestras clasificadas, con la mayoría en una clase reflejando el resultado esperado.
+Por ejemplo, un nodo puede indicar que, si <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code> es menor o igual a 48.463 y <code class="docutils literal notranslate"><span class="pre">7d</span></code> es menor o igual a 53.9, se clasifica como <code class="docutils literal notranslate"><span class="pre">deslizamiento</span></code> (y[1]).</p>
+<p>El <code class="docutils literal notranslate"><span class="pre">índice</span> <span class="pre">de</span> <span class="pre">Gini</span></code> se muestra en cada nodo, que mide la pureza de los nodos. Un valor de 0 indica pureza completa (todas las muestras de una clase) y valores cercanos a 1 indican mezcla de clases. Los nodos con menor índice de Gini se consideran mejores para la clasificación.</p>
+<p>Las variables más significativas como <code class="docutils literal notranslate"><span class="pre">15d</span></code>, <code class="docutils literal notranslate"><span class="pre">PENDIENT</span></code>, y <code class="docutils literal notranslate"><span class="pre">30d</span></code>, son cruciales para determinar la probabilidad de deslizamientos.</p>
+</section>
 <section id="correlaciones-entre-variables-independientes">
 <h2>Correlaciones entre variables independientes<a class="headerlink" href="#correlaciones-entre-variables-independientes" title="Link to this heading">#</a></h2>
-<p>Queremos que exista la menor correlación lineal y no lineal entre las variables independientes, ya que queremos que cada variable aporte su valor único al modelo, y evitar redundancias</p>
+<p>El objetivo es que exista la menor correlación lineal y no lineal entre las variables independientes, ya que deseamos que cada variable aporte su valor independiente al modelo, y evitar redundancias</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Correlaciones entre variables independientes</span>
@@ -1092,7 +2110,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" src="_images/8db8746769b2c10319e3043d2e564d09972d536838bfc0ff1cfe82c3b38567e9.png" />
+<img alt="_images/e5bb09ad4f0fca1654cd82c4b7a5778c1c0592a7756e9e81d209db613da8d3bc.png" src="_images/e5bb09ad4f0fca1654cd82c4b7a5778c1c0592a7756e9e81d209db613da8d3bc.png" />
 </div>
 </div>
 <p>Observamos que existe una alta correlación lineal entre las variables númericas de precipitación, dándonos a entender que no son del todo independientes y que a medida que suben los dias (10 dias, 15 dias, 30 dias y así sucesivamente) aumenta su dependencia.</p>
@@ -1121,7 +2139,7 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" src="_images/27dcb47fc2f8b2c23861545797a8b65260db70c40f7160bb9ed3d8198dc25bc9.png" />
+<img alt="_images/22ed9a7e5c251b8831271216f2c07713333c54e1de0a8b3005be0f2e7c32eade.png" src="_images/22ed9a7e5c251b8831271216f2c07713333c54e1de0a8b3005be0f2e7c32eade.png" />
 </div>
 </div>
 <p>Al eliminar ciertas variables, el mapa de calor se torna menos rojo, es decir hay menos variables que nos aportan multicolinealidad. Este conjunto de variables se pueden evaluar para la selecicon de features a tomar en cuenta para cada modelo.</p>
@@ -1130,7 +2148,16 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 <section id="decisiones">
 <h2>Decisiones<a class="headerlink" href="#decisiones" title="Link to this heading">#</a></h2>
 <p>Del EDA podemos concluir que sería bueno eliminar ciertas variables numéricas debido a la alta redundancia entre las mismas, esta decisión dependerá del modelo a utilizar, ya que esto afecta de maneras diferentes cada modelo. En cuanto a las variables categóricas se decidirá trabajar con todas, se usará un codificador de etiquetas y no un one-hot encoder debido a la cantidad de clases que puede tomar una categoría.</p>
-<p>La data de entrenamiento puede variar dependiendo del modelo a usar y los rendimientos de este</p>
+<p>La data de entrenamiento puede variar dependiendo del modelo a usar y los rendimientos de este.</p>
+<section id="por-que-utilizar-modelos-de-ml">
+<h3>¿Por qué utilizar Modelos de ML?<a class="headerlink" href="#por-que-utilizar-modelos-de-ml" title="Link to this heading">#</a></h3>
+<p>Para determinar si es necesario un enfoque de Machine Learning y aplicar analítica predictiva o si solo es necesario un método de clasificación más sencillo, primero debemos comprender el problema en este caso, se quiere estimar la probabilidad de que un registro pertenezca a la clase “1” o “0”, lo cual se puede abordar como un problema de clasificación binaria. Sin embargo, lo que debes analizar es la complejidad del problema para decidir si un enfoque más simple es suficiente.</p>
+<p>Para esto, se procede en esta sección a <strong>evaluar la complejidad de las relaciones entre las variables</strong> donde se exploran las relaciones entre las variables mediante visualizaciones como gráficos de dispersión, histogramas o matrices de correlación. Podemos también indagar si las variables predictoras están fuertemente correlacionadas con la variable objetivo, es posible que un modelo simple de estadística (como una regresión logística) sea suficiente.</p>
+<p>También, para evaluar el por qué usar modelos de ML, en esta seccion de prueban modelos simples y técnicas de agrupamiento para medir que tanto valor aportan para nuestro objetivo de investigación, como una clusterizacion y la aplicación simple de un árbol de decisión.</p>
+<p>De la misma manera, se puede indagar en la implementación de varios modelos, así como hacemos en las otras secciones de esta página. En cada una de estas implementaciones, se evalúa el rendimiento de cada modelo para ver si un método inclinado por el aprendizaje de maquina puede resolver nuestro problema o no.</p>
+<p>Un punto muy a favor de porque usar modelos de ML en este estudio, es que capturan patrones complejos. Los modelos de ML pueden identificar relaciones no lineales y complejas entre la variable binaria deslizamiento y otras variables numéricas (como las de precipitaciones). Esto es difícil de lograr con técnicas básicas, que a menudo asumen una relación lineal. También nos ofrece grandes ventajas como Capacidad para Manejar Múltiples Variables, Flexibilidad y Escalabilidad, Reducción del Sesgo Humano.</p>
+<p>En resumen, los modelos de ML ofrecen una mayor precisión, adaptabilidad y eficiencia, lo que los hace ideales para clasificar deslizamiento en escenarios donde los patrones de los datos son complejos y cambiantes.</p>
+</section>
 </section>
 </section>
 
@@ -1201,8 +2228,16 @@ y 1 representa la clase positiva que es “Deslizamiento de tierra”</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias-y-creacion-de-funciones">Importación de librerias y creación de funciones</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-numericas">Variables Numéricas</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variables-categoricas">Variables categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agrupaciones">Agrupaciones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-cluster">Análisis Cluster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#arbol-de-decision">Árbol de Decisión</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlaciones-entre-variables-independientes">Correlaciones entre variables independientes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#decisiones">Decisiones</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-utilizar-modelos-de-ml">¿Por qué utilizar Modelos de ML?</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
