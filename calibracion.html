@@ -385,7 +385,12 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-de-calibracion-para-los-clasificadores">Validación de calibración para los clasificadores</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-calibration">Beta Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparando-metodos">Comparando Métodos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores">Indicadores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagramas-de-fiabilidad">Diagramas de fiabilidad</a></li>
 </ul>
 </li>
 </ul>
@@ -418,6 +423,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">sklearn.calibration</span> <span class="kn">import</span> <span class="n">CalibratedClassifierCV</span><span class="p">,</span><span class="n">calibration_curve</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span><span class="n">confusion_matrix</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span><span class="n">precision_score</span><span class="p">,</span><span class="n">f1_score</span><span class="p">,</span><span class="n">log_loss</span><span class="p">,</span><span class="n">brier_score_loss</span>
+<span class="kn">from</span> <span class="nn">betacal</span> <span class="kn">import</span> <span class="n">BetaCalibration</span>
 </pre></div>
 </div>
 </div>
@@ -994,7 +1000,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">)</span>
 <span class="n">ece_svc_c</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">)</span>
 
-<span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
+<span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sigmoid Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
             <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c</span><span class="p">,</span><span class="n">ece_xgb_c</span><span class="p">,</span><span class="n">ece_lr_c</span><span class="p">,</span><span class="n">ece_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf_c</span><span class="p">,</span><span class="n">brier_xgb_c</span><span class="p">,</span><span class="n">brier_lr_c</span><span class="p">,</span><span class="n">brier_svc_c</span><span class="p">],</span>
             <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf_c</span><span class="p">,</span><span class="n">logloss_xgb_c</span><span class="p">,</span><span class="n">logloss_lr_c</span><span class="p">,</span><span class="n">logloss_svc_c</span><span class="p">]}</span>
@@ -1031,28 +1037,28 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
   <tbody>
     <tr>
       <th>0</th>
-      <td>Calibrated Random Forest Classifier</td>
+      <td>Sigmoid Calibrated Random Forest Classifier</td>
       <td>0.044703</td>
       <td>0.042006</td>
       <td>0.138325</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Calibrated Gradient Boosting Classifier</td>
+      <td>Sigmoid Calibrated Gradient Boosting Classifier</td>
       <td>0.035087</td>
       <td>0.035628</td>
       <td>0.127129</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Calibrated Logistic Regressor</td>
+      <td>Sigmoid Calibrated Logistic Regressor</td>
       <td>0.032702</td>
       <td>0.077264</td>
       <td>0.243530</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Calibrated Support Vector Classifer</td>
+      <td>Sigmoid Calibrated Support Vector Classifer</td>
       <td>0.052580</td>
       <td>0.086243</td>
       <td>0.275938</td>
@@ -1153,76 +1159,74 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 </section>
-<section id="isotonic-regression">
-<h3>Isotonic Regression<a class="headerlink" href="#isotonic-regression" title="Link to this heading">#</a></h3>
+<section id="beta-calibration">
+<h3>Beta Calibration<a class="headerlink" href="#beta-calibration" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calibrar el modelo lr</span>
-<span class="n">calibrated_mode_lr</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span><span class="n">model_lr</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;isotonic&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="s1">&#39;prefit&#39;</span><span class="p">)</span>
-<span class="n">calibrated_mode_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_valid_lr</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
+<span class="n">beta_calibrator_lr</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="s1">&#39;abm&#39;</span><span class="p">)</span>
+<span class="n">beta_calibrator_lr</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
 
 <span class="c1"># Predecir probabilidades calibradas para el modelo 1</span>
-<span class="n">y_prob_calibrated_lr_isotonic</span> <span class="o">=</span> <span class="n">calibrated_mode_lr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_lr</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_prob_calibrated_beta_lr</span> <span class="o">=</span> <span class="n">beta_calibrator_lr</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y_pred_lr</span><span class="p">)</span>
 
 <span class="c1"># Evaluar la calibración del modelo 1 usando el Brier score</span>
-<span class="n">logloss_lr_c_isotonic</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">)</span>
-<span class="n">brier_lr_c_isotonic</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">)</span>
+<span class="n">logloss_lr_c_beta</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">)</span>
+<span class="n">brier_lr_c_beta</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">)</span>
 
 
 <span class="c1"># ------------------------------------------------------------</span>
 
 <span class="c1"># Calibrar el modelo svc</span>
-<span class="n">calibrated_mode_svc</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span><span class="n">model_svc</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;isotonic&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="s1">&#39;prefit&#39;</span><span class="p">)</span>
-<span class="n">calibrated_mode_svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
+<span class="n">beta_calibrator_svc</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="s1">&#39;abm&#39;</span><span class="p">)</span>
+<span class="n">beta_calibrator_svc</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
 
 <span class="c1"># Predecir probabilidades calibradas para el modelo 1</span>
-<span class="n">y_prob_calibrated_svc_isotonic</span> <span class="o">=</span> <span class="n">calibrated_mode_svc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_prob_calibrated_beta_svc</span> <span class="o">=</span> <span class="n">beta_calibrator_svc</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y_pred_svc</span><span class="p">)</span>
 
 <span class="c1"># Evaluar la calibración del modelo 1 usando el Brier score</span>
-<span class="n">logloss_svc_c_isotonic</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">)</span>
-<span class="n">brier_svc_c_isotonic</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">)</span>
+<span class="n">logloss_svc_c_beta</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">)</span>
+<span class="n">brier_svc_c_beta</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">)</span>
 
 
 <span class="c1"># ------------------------------------------------------------</span>
 
 <span class="c1"># Calibrar el modelo xgb</span>
-<span class="n">calibrated_mode_xgb</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span><span class="n">model_xgb</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;isotonic&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="s1">&#39;prefit&#39;</span><span class="p">)</span>
-<span class="n">calibrated_mode_xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_valid_xgb</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
+<span class="n">beta_calibrator_xgb</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="s1">&#39;abm&#39;</span><span class="p">)</span>
+<span class="n">beta_calibrator_xgb</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
 
 <span class="c1"># Predecir probabilidades calibradas para el modelo 1</span>
-<span class="n">y_prob_calibrated_xgb_isotonic</span> <span class="o">=</span> <span class="n">calibrated_mode_xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_xgb</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_prob_calibrated_beta_xgb</span> <span class="o">=</span> <span class="n">beta_calibrator_xgb</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y_pred_xgb</span><span class="p">)</span>
 
 <span class="c1"># Evaluar la calibración del modelo 1 usando el Brier score</span>
-<span class="n">logloss_xgb_c_isotonic</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">)</span>
-<span class="n">brier_xgb_c_isotonic</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">)</span>
-
+<span class="n">logloss_xgb_c_beta</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">)</span>
+<span class="n">brier_xgb_c_beta</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">)</span>
 
 <span class="c1"># ------------------------------------------------------------</span>
 
 <span class="c1"># Calibrar el modelo rf</span>
-<span class="n">calibrated_mode_rf</span> <span class="o">=</span> <span class="n">CalibratedClassifierCV</span><span class="p">(</span><span class="n">model_rf</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;isotonic&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="s1">&#39;prefit&#39;</span><span class="p">)</span>
-<span class="n">calibrated_mode_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_valid_rf</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
+<span class="n">beta_calibrator_rf</span> <span class="o">=</span> <span class="n">BetaCalibration</span><span class="p">(</span><span class="n">parameters</span><span class="o">=</span><span class="s1">&#39;abm&#39;</span><span class="p">)</span>
+<span class="n">beta_calibrator_rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">y_valid</span><span class="p">)</span>  <span class="c1"># Solo ajusta la calibración</span>
 
 <span class="c1"># Predecir probabilidades calibradas para el modelo 1</span>
-<span class="n">y_prob_calibrated_rf_isotonic</span> <span class="o">=</span> <span class="n">calibrated_mode_rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_rf</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">y_prob_calibrated_beta_rf</span> <span class="o">=</span> <span class="n">beta_calibrator_rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y_pred_rf</span><span class="p">)</span>
 
 <span class="c1"># Evaluar la calibración del modelo 1 usando el Brier score</span>
-<span class="n">logloss_rf_c_isotonic</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">)</span>
-<span class="n">brier_rf_c_isotonic</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">)</span>
-
+<span class="n">logloss_rf_c_beta</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">)</span>
+<span class="n">brier_rf_c_beta</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">)</span>
 
 <span class="c1"># Calcular ECE para cada caso</span>
-<span class="n">ece_rf_c_isotonic</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">)</span>
-<span class="n">ece_xgb_c_isotonic</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">)</span>
-<span class="n">ece_lr_c_isotonic</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">)</span>
-<span class="n">ece_svc_c_isotonic</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">)</span>
+<span class="n">ece_rf_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">)</span>
+<span class="n">ece_xgb_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">)</span>
+<span class="n">ece_lr_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">)</span>
+<span class="n">ece_svc_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece_2</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">)</span>
 
-<span class="n">indicators_isotonic</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
-            <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c_isotonic</span><span class="p">,</span> <span class="n">ece_xgb_c_isotonic</span><span class="p">,</span> <span class="n">ece_lr_c_isotonic</span><span class="p">,</span> <span class="n">ece_svc_c_isotonic</span><span class="p">],</span>
-            <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf_c_isotonic</span> <span class="p">,</span><span class="n">brier_xgb_c_isotonic</span><span class="p">,</span> <span class="n">brier_lr_c_isotonic</span><span class="p">,</span><span class="n">brier_svc_c_isotonic</span><span class="p">],</span>
-            <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf_c_isotonic</span> <span class="p">,</span><span class="n">logloss_xgb_c_isotonic</span><span class="p">,</span> <span class="n">logloss_lr_c_isotonic</span><span class="p">,</span><span class="n">logloss_svc_c_isotonic</span><span class="p">]}</span>
-<span class="n">indicators_df_isotonic</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators_isotonic</span><span class="p">)</span>
-<span class="n">indicators_df_isotonic</span>
+<span class="n">indicators_beta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Beta Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c_beta</span><span class="p">,</span><span class="n">ece_xgb_c_beta</span><span class="p">,</span><span class="n">ece_lr_c_beta</span><span class="p">,</span><span class="n">ece_svc_c_beta</span><span class="p">],</span>
+            <span class="s1">&#39;Brier Score&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">brier_rf_c_beta</span><span class="p">,</span><span class="n">brier_xgb_c_beta</span><span class="p">,</span><span class="n">brier_lr_c_beta</span><span class="p">,</span><span class="n">brier_svc_c_beta</span><span class="p">],</span>
+            <span class="s1">&#39;Log Loss&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">logloss_rf_c_beta</span><span class="p">,</span><span class="n">logloss_xgb_c_beta</span><span class="p">,</span><span class="n">logloss_lr_c_beta</span><span class="p">,</span><span class="n">logloss_svc_c_beta</span><span class="p">]}</span>
+<span class="n">indicators_df_beta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">indicators_beta</span><span class="p">)</span>
+<span class="n">indicators_df_beta</span>
 </pre></div>
 </div>
 </div>
@@ -1254,31 +1258,31 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
   <tbody>
     <tr>
       <th>0</th>
-      <td>Calibrated Random Forest Classifier</td>
-      <td>0.000000e+00</td>
-      <td>0.030431</td>
-      <td>0.089757</td>
+      <td>Beta Calibrated Random Forest Classifier</td>
+      <td>0.042021</td>
+      <td>0.040729</td>
+      <td>0.124488</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Calibrated Gradient Boosting Classifier</td>
-      <td>8.180591e-18</td>
-      <td>0.029407</td>
-      <td>0.091648</td>
+      <td>Beta Calibrated Gradient Boosting Classifier</td>
+      <td>0.012824</td>
+      <td>0.035906</td>
+      <td>0.119648</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Calibrated Logistic Regressor</td>
-      <td>2.602085e-17</td>
-      <td>0.068924</td>
-      <td>0.208044</td>
+      <td>Beta Calibrated Logistic Regressor</td>
+      <td>0.028023</td>
+      <td>0.077160</td>
+      <td>0.240126</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Calibrated Support Vector Classifer</td>
-      <td>1.111684e-16</td>
-      <td>0.073396</td>
-      <td>0.225455</td>
+      <td>Beta Calibrated Support Vector Classifer</td>
+      <td>0.047474</td>
+      <td>0.086462</td>
+      <td>0.274729</td>
     </tr>
   </tbody>
 </table>
@@ -1287,16 +1291,17 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración para cada modelo</span>
-<span class="n">fraction_of_positives_rf_calibrated_isotonic</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_isotonic</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb_calibrated_isotonic</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_isotonic</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr_calibrated_isotonic</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_isotonic</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc_calibrated_isotonic</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_isotonic</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Crear una figura con cuatro subgráficos</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
-<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Curvas de Calibración - Isotonic Regression&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Curvas de Calibración - Beta Calibration&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+
 <span class="c1"># Configurar el gráfico para el Random Forest</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf_calibrated_isotonic</span><span class="p">,</span> <span class="n">fraction_of_positives_rf_calibrated_isotonic</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf_calibrated_beta</span><span class="p">,</span> <span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Random Forest Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_rf</span><span class="p">,</span> <span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Comparativa Random Forest&#39;</span><span class="p">)</span>
@@ -1305,7 +1310,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
 
 <span class="c1"># Configurar el gráfico para el Gradient Boosting</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_xgb_calibrated_isotonic</span><span class="p">,</span> <span class="n">fraction_of_positives_xgb_calibrated_isotonic</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Gradient Boosting Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_xgb</span><span class="p">,</span> <span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Comparativa Gradient Boosting&#39;</span><span class="p">)</span>
@@ -1314,7 +1319,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
 
 <span class="c1"># Configurar el gráfico para Logistic Regression</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_lr_calibrated_isotonic</span><span class="p">,</span> <span class="n">fraction_of_positives_lr_calibrated_isotonic</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_lr_calibrated_beta</span><span class="p">,</span> <span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Logistic Regressor&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_lr</span><span class="p">,</span> <span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Comparativa Logistic Regression&#39;</span><span class="p">)</span>
@@ -1323,7 +1328,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span> 
 
 <span class="c1"># Configurar el gráfico para Support Vector Classifier</span>
-<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_svc_calibrated_isotonic</span><span class="p">,</span> <span class="n">fraction_of_positives_svc_calibrated_isotonic</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Support Vector Classifier&#39;</span><span class="p">)</span>
+<span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_svc_calibrated_beta</span><span class="p">,</span> <span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Calibrated Support Vector Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mean_predicted_value_svc</span><span class="p">,</span> <span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Support Vector Classifier&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">)</span>
 <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Comparativa Support Vector Classifier&#39;</span><span class="p">)</span>
@@ -1340,16 +1345,16 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/6b4655599889211c88ae52957976e7d9e0e826f4e728fab08afaa0d1707a9903.png" src="_images/6b4655599889211c88ae52957976e7d9e0e826f4e728fab08afaa0d1707a9903.png" />
+<img alt="_images/40225f61d7056be8027ff9565df0908518a651840ca70773c9a469a5fd87bc08.png" src="_images/40225f61d7056be8027ff9565df0908518a651840ca70773c9a469a5fd87bc08.png" />
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
-<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf_isotonic</span><span class="p">,</span> 
-             <span class="s2">&quot;Boosted Trees - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_xgb_isotonic</span><span class="p">,</span> 
-             <span class="s2">&quot;Logistic Regression - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_lr_isotonic</span><span class="p">,</span>
-              <span class="s2">&quot;Support Vector Classifier - Isotonic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_svc_isotonic</span><span class="p">}</span>
+<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> 
+             <span class="s2">&quot;Boosted Trees - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> 
+             <span class="s2">&quot;Logistic Regression - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_svc</span><span class="p">}</span>
 <span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
 
 <span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
@@ -1370,9 +1375,21 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/38849e2ffbef8751af9b38757d52230f3dbd0570c09a629c425fd9f0f1964fe7.png" src="_images/38849e2ffbef8751af9b38757d52230f3dbd0570c09a629c425fd9f0f1964fe7.png" />
+<img alt="_images/6ca30d8a9b35e434c7243cc8d31c38959aa9e81bfa85516665e033c493f63237.png" src="_images/6ca30d8a9b35e434c7243cc8d31c38959aa9e81bfa85516665e033c493f63237.png" />
 </div>
 </div>
+</section>
+</section>
+<section id="comparando-metodos">
+<h2>Comparando Métodos<a class="headerlink" href="#comparando-metodos" title="Link to this heading">#</a></h2>
+<section id="indicadores">
+<h3>Indicadores<a class="headerlink" href="#indicadores" title="Link to this heading">#</a></h3>
+<p><img alt="sigmoid_indicators" src="_images/sigmoid_indicators.png" />
+<img alt="beta_indicators" src="_images/beta_indicators.png" /></p>
+</section>
+<section id="diagramas-de-fiabilidad">
+<h3>Diagramas de fiabilidad<a class="headerlink" href="#diagramas-de-fiabilidad" title="Link to this heading">#</a></h3>
+<p><img alt="compare" src="_images/compare_fiability_diagrams.png" /></p>
 </section>
 </section>
 </section>
@@ -1437,7 +1454,12 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validacion-de-calibracion-para-los-clasificadores">Validación de calibración para los clasificadores</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#isotonic-regression">Isotonic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-calibration">Beta Calibration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparando-metodos">Comparando Métodos</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#indicadores">Indicadores</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#diagramas-de-fiabilidad">Diagramas de fiabilidad</a></li>
 </ul>
 </li>
 </ul>
