@@ -1150,8 +1150,8 @@ Name: deslizamientos, dtype: int64
                                                   [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;,
                                                    &#39;24h&#39;, &#39;10d&#39;, &#39;30d&#39;,
                                                    &#39;90d&#39;])])),
-                (&#39;classifier&#39;, LogisticRegression(C=0.1, solver=&#39;saga&#39;))]) 
- mejor combinacion de parametros: {&#39;classifier__C&#39;: 0.1, &#39;classifier__penalty&#39;: &#39;l2&#39;, &#39;classifier__solver&#39;: &#39;saga&#39;}
+                (&#39;classifier&#39;, LogisticRegression(C=100, solver=&#39;liblinear&#39;))]) 
+ mejor combinacion de parametros: {&#39;classifier__C&#39;: 100, &#39;classifier__penalty&#39;: &#39;l2&#39;, &#39;classifier__solver&#39;: &#39;liblinear&#39;}
 </pre></div>
 </div>
 </div>
@@ -1209,58 +1209,58 @@ Name: deslizamientos, dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>5</th>
-      <td>1</td>
-      <td>0.1</td>
-      <td>saga</td>
-      <td>l2</td>
-      <td>0.911803</td>
-      <td>0.912315</td>
-    </tr>
-    <tr>
       <th>10</th>
-      <td>2</td>
+      <td>1</td>
       <td>100</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.917241</td>
-      <td>0.910643</td>
+      <td>0.920024</td>
+      <td>0.904239</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>3</td>
+      <td>2</td>
       <td>10</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.916924</td>
-      <td>0.909974</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>4</td>
-      <td>0.1</td>
-      <td>liblinear</td>
-      <td>l2</td>
-      <td>0.906081</td>
-      <td>0.909552</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>5</td>
-      <td>100</td>
-      <td>saga</td>
-      <td>l2</td>
-      <td>0.908717</td>
-      <td>0.908385</td>
+      <td>0.920020</td>
+      <td>0.903619</td>
     </tr>
     <tr>
       <th>9</th>
-      <td>6</td>
+      <td>3</td>
       <td>10</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.909010</td>
-      <td>0.908224</td>
+      <td>0.913606</td>
+      <td>0.900194</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>3</td>
+      <td>100</td>
+      <td>saga</td>
+      <td>l2</td>
+      <td>0.913606</td>
+      <td>0.900194</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>5</td>
+      <td>1</td>
+      <td>liblinear</td>
+      <td>l2</td>
+      <td>0.916315</td>
+      <td>0.899516</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>6</td>
+      <td>0.1</td>
+      <td>saga</td>
+      <td>l2</td>
+      <td>0.918342</td>
+      <td>0.898795</td>
     </tr>
     <tr>
       <th>7</th>
@@ -1268,17 +1268,17 @@ Name: deslizamientos, dtype: int64
       <td>1</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.909278</td>
-      <td>0.908196</td>
+      <td>0.913187</td>
+      <td>0.898787</td>
     </tr>
     <tr>
-      <th>6</th>
+      <th>4</th>
       <td>8</td>
-      <td>1</td>
+      <td>0.1</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.912703</td>
-      <td>0.906615</td>
+      <td>0.914526</td>
+      <td>0.895160</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1286,8 +1286,8 @@ Name: deslizamientos, dtype: int64
       <td>0.01</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.899071</td>
-      <td>0.897877</td>
+      <td>0.900917</td>
+      <td>0.891584</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1295,8 +1295,8 @@ Name: deslizamientos, dtype: int64
       <td>0.01</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.884312</td>
-      <td>0.892459</td>
+      <td>0.884931</td>
+      <td>0.880920</td>
     </tr>
   </tbody>
 </table>
@@ -1359,10 +1359,10 @@ Name: deslizamientos, dtype: int64
     <tr>
       <th>0</th>
       <td>Logistic Regressor</td>
-      <td>0.917526</td>
-      <td>0.864078</td>
+      <td>0.926316</td>
+      <td>0.854369</td>
       <td>0.884211</td>
-      <td>0.89</td>
+      <td>0.888889</td>
     </tr>
   </tbody>
 </table>
@@ -1385,7 +1385,7 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2eecb865e78d4123317b7f2ab8e3941ce956213d404677b9ce22e8dd0d4c94db.png" src="_images/2eecb865e78d4123317b7f2ab8e3941ce956213d404677b9ce22e8dd0d4c94db.png" />
+<img alt="_images/ee238dc2eafb5887adb2db10cff2c5c11649c73f24338e74dee414a51f651753.png" src="_images/ee238dc2eafb5887adb2db10cff2c5c11649c73f24338e74dee414a51f651753.png" />
 </div>
 </div>
 <p>Al mirar la matriz de confusión, nos damos cuenta de que el conteo más bajo es cuando el modelo predice que no habrá deslizamientos, pero en realidad si hubo deslizamiento. Este es el índice que precisamente debemos apuntar a minimizar, porque en la realidad del negocio el costo de actuar sobre un falso positivo es alto, es decir se tiene recursos limitados para manejar casos positivos y se quiere minimizar las consecuencias negativas de las predicciones incorrectas de la clase positiva (falsos positivos).</p>
@@ -1408,9 +1408,9 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9118029202261709
-Precision score en test: 0.9123152066013415
-Precision score en validation: 0.9175257731958762
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.920024474512147
+Precision score en test: 0.9042394270465346
+Precision score en validation: 0.9263157894736842
 </pre></div>
 </div>
 </div>
@@ -1437,10 +1437,10 @@ Precision score en validation: 0.9175257731958762
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/347701ac6e162c350ef23bfbf222bff24837a2a982e821d616dad77bcaefb45d.png" src="_images/347701ac6e162c350ef23bfbf222bff24837a2a982e821d616dad77bcaefb45d.png" />
+<img alt="_images/3fddac0a8bd3e0f4aac7886c145352c420650101c3543491de2a7f887d6df5cc.png" src="_images/3fddac0a8bd3e0f4aac7886c145352c420650101c3543491de2a7f887d6df5cc.png" />
 </div>
 </div>
-<p>Un AUC de 0.96 sugiere que el modelo tiene un rendimiento excelente. En el 97% de los casos, el modelo clasificará correctamente una observación positiva y una negativa.</p>
+<p>Un AUC de 0.96 sugiere que el modelo tiene un rendimiento excelente. En el 96% de los casos, el modelo clasificará correctamente una observación positiva y una negativa.</p>
 <p>La curva que se acerca mucho a la esquina superior izquierda también refuerza la idea de que el modelo tiene una alta sensibilidad y es muy bueno en la clasificación correcta de las instancias positivas.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1457,7 +1457,7 @@ Precision score en validation: 0.9175257731958762
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9cc82aecf9cd27dc62777841ea0628f1eb77f0bdc971df955dfdc1a03cf6a135.png" src="_images/9cc82aecf9cd27dc62777841ea0628f1eb77f0bdc971df955dfdc1a03cf6a135.png" />
+<img alt="_images/bc78b14e86cecef01e362c3fe97d93c757ee27017d0b68d37f76e3b73036a97d.png" src="_images/bc78b14e86cecef01e362c3fe97d93c757ee27017d0b68d37f76e3b73036a97d.png" />
 </div>
 </div>
 <p>En la parte izquierda de la gráfica (bajos valores de recall), la precisión es muy alta (cerca de 1). Esto indica que cuando el modelo clasifica una instancia como positiva, la probabilidad de que sea correcta es alta, aunque no detecta muchas de las verdaderas instancias positivas (bajo recall). A medida que el recall aumenta, la precisión empieza a disminuir. Esto es común, ya que al aumentar el número de verdaderos positivos identificados (mayor recall), el modelo también puede empezar a identificar más falsos positivos, lo que reduce la precisión.</p>
