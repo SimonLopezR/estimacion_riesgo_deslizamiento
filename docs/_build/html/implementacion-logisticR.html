@@ -541,7 +541,7 @@ Variables independientes:  [&#39;Nomenclatura_del_Suelo&#39;, &#39;tipo_geologia
 <p>Este objeto nos servirá para codificar valores nuevos que entren al modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1052,59 +1052,59 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>385</th>
-      <td>1109.965332</td>
-      <td>42.944015</td>
+      <th>860</th>
+      <td>1908.621826</td>
+      <td>33.349747</td>
+      <td>20</td>
+      <td>9</td>
+      <td>5.0</td>
+      <td>91.0</td>
+      <td>182.0</td>
+      <td>364.0</td>
+    </tr>
+    <tr>
+      <th>931</th>
+      <td>1012.722534</td>
+      <td>58.263329</td>
+      <td>25</td>
+      <td>9</td>
+      <td>0.0</td>
+      <td>207.0</td>
+      <td>566.0</td>
+      <td>878.0</td>
+    </tr>
+    <tr>
+      <th>516</th>
+      <td>997.682312</td>
+      <td>10.481087</td>
+      <td>20</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>28.0</td>
+      <td>204.0</td>
+    </tr>
+    <tr>
+      <th>784</th>
+      <td>1083.413696</td>
+      <td>39.863770</td>
       <td>25</td>
       <td>7</td>
-      <td>7.6</td>
-      <td>110.0</td>
-      <td>343.7</td>
-      <td>531.0</td>
+      <td>13.0</td>
+      <td>143.0</td>
+      <td>365.0</td>
+      <td>642.0</td>
     </tr>
     <tr>
-      <th>568</th>
-      <td>1099.497681</td>
-      <td>63.939667</td>
-      <td>8</td>
-      <td>8</td>
-      <td>1.0</td>
-      <td>4.4</td>
-      <td>31.4</td>
-      <td>310.6</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>1096.610596</td>
-      <td>52.120461</td>
+      <th>274</th>
+      <td>1013.982971</td>
+      <td>37.013683</td>
       <td>25</td>
       <td>9</td>
-      <td>4.0</td>
-      <td>173.0</td>
-      <td>458.0</td>
-      <td>698.0</td>
-    </tr>
-    <tr>
-      <th>745</th>
-      <td>1080.625122</td>
-      <td>46.239780</td>
-      <td>25</td>
-      <td>9</td>
-      <td>0.0</td>
-      <td>172.0</td>
-      <td>471.0</td>
-      <td>859.0</td>
-    </tr>
-    <tr>
-      <th>701</th>
-      <td>1644.266846</td>
-      <td>22.834097</td>
-      <td>20</td>
-      <td>10</td>
-      <td>0.0</td>
-      <td>31.4</td>
-      <td>98.4</td>
-      <td>222.8</td>
+      <td>0.4</td>
+      <td>112.0</td>
+      <td>316.2</td>
+      <td>530.0</td>
     </tr>
   </tbody>
 </table>
@@ -1117,11 +1117,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>385    1
-568    0
-50     1
-745    1
-701    0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>860    1
+931    1
+516    0
+784    1
+274    1
 Name: deslizamientos, dtype: int64
 </pre></div>
 </div>
@@ -1214,8 +1214,8 @@ Name: deslizamientos, dtype: int64
       <td>100</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.920024</td>
-      <td>0.904239</td>
+      <td>0.919069</td>
+      <td>0.901822</td>
     </tr>
     <tr>
       <th>8</th>
@@ -1223,35 +1223,35 @@ Name: deslizamientos, dtype: int64
       <td>10</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.920020</td>
-      <td>0.903619</td>
-    </tr>
-    <tr>
-      <th>9</th>
-      <td>3</td>
-      <td>10</td>
-      <td>saga</td>
-      <td>l2</td>
-      <td>0.913606</td>
-      <td>0.900194</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>3</td>
-      <td>100</td>
-      <td>saga</td>
-      <td>l2</td>
-      <td>0.913606</td>
-      <td>0.900194</td>
+      <td>0.917563</td>
+      <td>0.901088</td>
     </tr>
     <tr>
       <th>6</th>
-      <td>5</td>
+      <td>3</td>
       <td>1</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.916315</td>
-      <td>0.899516</td>
+      <td>0.908985</td>
+      <td>0.894156</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>4</td>
+      <td>10</td>
+      <td>saga</td>
+      <td>l2</td>
+      <td>0.905530</td>
+      <td>0.887461</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>4</td>
+      <td>100</td>
+      <td>saga</td>
+      <td>l2</td>
+      <td>0.906038</td>
+      <td>0.887461</td>
     </tr>
     <tr>
       <th>5</th>
@@ -1259,8 +1259,8 @@ Name: deslizamientos, dtype: int64
       <td>0.1</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.918342</td>
-      <td>0.898795</td>
+      <td>0.904803</td>
+      <td>0.887363</td>
     </tr>
     <tr>
       <th>7</th>
@@ -1268,8 +1268,8 @@ Name: deslizamientos, dtype: int64
       <td>1</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.913187</td>
-      <td>0.898787</td>
+      <td>0.905157</td>
+      <td>0.885357</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1277,8 +1277,8 @@ Name: deslizamientos, dtype: int64
       <td>0.1</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.914526</td>
-      <td>0.895160</td>
+      <td>0.898470</td>
+      <td>0.881932</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1286,8 +1286,8 @@ Name: deslizamientos, dtype: int64
       <td>0.01</td>
       <td>saga</td>
       <td>l2</td>
-      <td>0.900917</td>
-      <td>0.891584</td>
+      <td>0.866652</td>
+      <td>0.842488</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1295,8 +1295,8 @@ Name: deslizamientos, dtype: int64
       <td>0.01</td>
       <td>liblinear</td>
       <td>l2</td>
-      <td>0.884931</td>
-      <td>0.880920</td>
+      <td>0.854739</td>
+      <td>0.834013</td>
     </tr>
   </tbody>
 </table>
@@ -1359,10 +1359,10 @@ Name: deslizamientos, dtype: int64
     <tr>
       <th>0</th>
       <td>Logistic Regressor</td>
-      <td>0.926316</td>
-      <td>0.854369</td>
-      <td>0.884211</td>
-      <td>0.888889</td>
+      <td>0.929688</td>
+      <td>0.88806</td>
+      <td>0.898947</td>
+      <td>0.908397</td>
     </tr>
   </tbody>
 </table>
@@ -1385,7 +1385,7 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/ee238dc2eafb5887adb2db10cff2c5c11649c73f24338e74dee414a51f651753.png" src="_images/ee238dc2eafb5887adb2db10cff2c5c11649c73f24338e74dee414a51f651753.png" />
+<img alt="_images/9c3cc254e9e4f41536e9385904a4fec27e859d4da43a3012a968eac7d8ce6fb8.png" src="_images/9c3cc254e9e4f41536e9385904a4fec27e859d4da43a3012a968eac7d8ce6fb8.png" />
 </div>
 </div>
 <p>Al mirar la matriz de confusión, nos damos cuenta de que el conteo más bajo es cuando el modelo predice que no habrá deslizamientos, pero en realidad si hubo deslizamiento. Este es el índice que precisamente debemos apuntar a minimizar, porque en la realidad del negocio el costo de actuar sobre un falso positivo es alto, es decir se tiene recursos limitados para manejar casos positivos y se quiere minimizar las consecuencias negativas de las predicciones incorrectas de la clase positiva (falsos positivos).</p>
@@ -1408,9 +1408,9 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.920024474512147
-Precision score en test: 0.9042394270465346
-Precision score en validation: 0.9263157894736842
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9190689579763422
+Precision score en test: 0.9018218081948512
+Precision score en validation: 0.9296875
 </pre></div>
 </div>
 </div>
@@ -1437,7 +1437,7 @@ Precision score en validation: 0.9263157894736842
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/3fddac0a8bd3e0f4aac7886c145352c420650101c3543491de2a7f887d6df5cc.png" src="_images/3fddac0a8bd3e0f4aac7886c145352c420650101c3543491de2a7f887d6df5cc.png" />
+<img alt="_images/e99a27b54e01733ae30d0caed6ccc3407f040cc6453438049c70e5a54557fabf.png" src="_images/e99a27b54e01733ae30d0caed6ccc3407f040cc6453438049c70e5a54557fabf.png" />
 </div>
 </div>
 <p>Un AUC de 0.96 sugiere que el modelo tiene un rendimiento excelente. En el 96% de los casos, el modelo clasificará correctamente una observación positiva y una negativa.</p>
@@ -1457,7 +1457,7 @@ Precision score en validation: 0.9263157894736842
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/bc78b14e86cecef01e362c3fe97d93c757ee27017d0b68d37f76e3b73036a97d.png" src="_images/bc78b14e86cecef01e362c3fe97d93c757ee27017d0b68d37f76e3b73036a97d.png" />
+<img alt="_images/74636bad0e779aec9467502327838cdee793aff33ed2269847b24b7220db6a07.png" src="_images/74636bad0e779aec9467502327838cdee793aff33ed2269847b24b7220db6a07.png" />
 </div>
 </div>
 <p>En la parte izquierda de la gráfica (bajos valores de recall), la precisión es muy alta (cerca de 1). Esto indica que cuando el modelo clasifica una instancia como positiva, la probabilidad de que sea correcta es alta, aunque no detecta muchas de las verdaderas instancias positivas (bajo recall). A medida que el recall aumenta, la precisión empieza a disminuir. Esto es común, ya que al aumentar el número de verdaderos positivos identificados (mayor recall), el modelo también puede empezar a identificar más falsos positivos, lo que reduce la precisión.</p>

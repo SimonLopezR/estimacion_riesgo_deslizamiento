@@ -545,7 +545,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 <p>Este objeto nos servirá para codificar valores nuevos que entren al modelo</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_valid</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_valid</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">random_state</span><span class="o">=</span><span class="mi">23</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -593,7 +593,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>#sk-container-id-1 {
+<div class="output text_html"><style>#sk-container-id-2 {
   /* Definition of color scheme common for light and dark mode */
   --sklearn-color-text: black;
   --sklearn-color-line: gray;
@@ -623,15 +623,15 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   }
 }
 
-#sk-container-id-1 {
+#sk-container-id-2 {
   color: var(--sklearn-color-text);
 }
 
-#sk-container-id-1 pre {
+#sk-container-id-2 pre {
   padding: 0;
 }
 
-#sk-container-id-1 input.sk-hidden--visually {
+#sk-container-id-2 input.sk-hidden--visually {
   border: 0;
   clip: rect(1px 1px 1px 1px);
   clip: rect(1px, 1px, 1px, 1px);
@@ -643,7 +643,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   width: 1px;
 }
 
-#sk-container-id-1 div.sk-dashed-wrapped {
+#sk-container-id-2 div.sk-dashed-wrapped {
   border: 1px dashed var(--sklearn-color-line);
   margin: 0 0.4em 0.5em 0.4em;
   box-sizing: border-box;
@@ -651,7 +651,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   background-color: var(--sklearn-color-background);
 }
 
-#sk-container-id-1 div.sk-container {
+#sk-container-id-2 div.sk-container {
   /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
      but bootstrap.min.css set `[hidden] { display: none !important; }`
      so we also need the `!important` here to be able to override the
@@ -661,7 +661,7 @@ Variables independientes:  [&#39;zonificacion&#39;, &#39;Nomenclatura_del_Suelo&
   position: relative;
 }
 
-#sk-container-id-1 div.sk-text-repr-fallback {
+#sk-container-id-2 div.sk-text-repr-fallback {
   display: none;
 }
 
@@ -677,14 +677,14 @@ div.sk-item {
 
 /* Parallel-specific style estimator block */
 
-#sk-container-id-1 div.sk-parallel-item::after {
+#sk-container-id-2 div.sk-parallel-item::after {
   content: "";
   width: 100%;
   border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
   flex-grow: 1;
 }
 
-#sk-container-id-1 div.sk-parallel {
+#sk-container-id-2 div.sk-parallel {
   display: flex;
   align-items: stretch;
   justify-content: center;
@@ -692,28 +692,28 @@ div.sk-item {
   position: relative;
 }
 
-#sk-container-id-1 div.sk-parallel-item {
+#sk-container-id-2 div.sk-parallel-item {
   display: flex;
   flex-direction: column;
 }
 
-#sk-container-id-1 div.sk-parallel-item:first-child::after {
+#sk-container-id-2 div.sk-parallel-item:first-child::after {
   align-self: flex-end;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:last-child::after {
+#sk-container-id-2 div.sk-parallel-item:last-child::after {
   align-self: flex-start;
   width: 50%;
 }
 
-#sk-container-id-1 div.sk-parallel-item:only-child::after {
+#sk-container-id-2 div.sk-parallel-item:only-child::after {
   width: 0;
 }
 
 /* Serial-specific style estimator block */
 
-#sk-container-id-1 div.sk-serial {
+#sk-container-id-2 div.sk-serial {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -731,14 +731,14 @@ clickable and can be expanded/collapsed.
 
 /* Pipeline and ColumnTransformer style (default) */
 
-#sk-container-id-1 div.sk-toggleable {
+#sk-container-id-2 div.sk-toggleable {
   /* Default theme specific background. It is overwritten whether we have a
   specific estimator or a Pipeline/ColumnTransformer */
   background-color: var(--sklearn-color-background);
 }
 
 /* Toggleable label */
-#sk-container-id-1 label.sk-toggleable__label {
+#sk-container-id-2 label.sk-toggleable__label {
   cursor: pointer;
   display: block;
   width: 100%;
@@ -748,7 +748,7 @@ clickable and can be expanded/collapsed.
   text-align: center;
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+#sk-container-id-2 label.sk-toggleable__label-arrow:before {
   /* Arrow on the left of the label */
   content: "▸";
   float: left;
@@ -756,13 +756,13 @@ clickable and can be expanded/collapsed.
   color: var(--sklearn-color-icon);
 }
 
-#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+#sk-container-id-2 label.sk-toggleable__label-arrow:hover:before {
   color: var(--sklearn-color-text);
 }
 
 /* Toggleable content - dropdown */
 
-#sk-container-id-1 div.sk-toggleable__content {
+#sk-container-id-2 div.sk-toggleable__content {
   max-height: 0;
   max-width: 0;
   overflow: hidden;
@@ -771,12 +771,12 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted {
+#sk-container-id-2 div.sk-toggleable__content.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content pre {
+#sk-container-id-2 div.sk-toggleable__content pre {
   margin: 0.2em;
   border-radius: 0.25em;
   color: var(--sklearn-color-text);
@@ -784,79 +784,79 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+#sk-container-id-2 div.sk-toggleable__content.fitted pre {
   /* unfitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+#sk-container-id-2 input.sk-toggleable__control:checked~div.sk-toggleable__content {
   /* Expand drop-down */
   max-height: 200px;
   max-width: 100%;
   overflow: auto;
 }
 
-#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+#sk-container-id-2 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
   content: "▾";
 }
 
 /* Pipeline/ColumnTransformer-specific style */
 
-#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator-specific style */
 
 /* Colorize estimator box */
-#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+#sk-container-id-2 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
-#sk-container-id-1 div.sk-label label.sk-toggleable__label,
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-2 div.sk-label label.sk-toggleable__label,
+#sk-container-id-2 div.sk-label label {
   /* The background is the default theme color */
   color: var(--sklearn-color-text-on-default-background);
 }
 
 /* On hover, darken the color of the background */
-#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+#sk-container-id-2 div.sk-label:hover label.sk-toggleable__label {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
 /* Label box, darken color on hover, fitted */
-#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+#sk-container-id-2 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
   color: var(--sklearn-color-text);
   background-color: var(--sklearn-color-fitted-level-2);
 }
 
 /* Estimator label */
 
-#sk-container-id-1 div.sk-label label {
+#sk-container-id-2 div.sk-label label {
   font-family: monospace;
   font-weight: bold;
   display: inline-block;
   line-height: 1.2em;
 }
 
-#sk-container-id-1 div.sk-label-container {
+#sk-container-id-2 div.sk-label-container {
   text-align: center;
 }
 
 /* Estimator-specific */
-#sk-container-id-1 div.sk-estimator {
+#sk-container-id-2 div.sk-estimator {
   font-family: monospace;
   border: 1px dotted var(--sklearn-color-border-box);
   border-radius: 0.25em;
@@ -866,18 +866,18 @@ clickable and can be expanded/collapsed.
   background-color: var(--sklearn-color-unfitted-level-0);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted {
+#sk-container-id-2 div.sk-estimator.fitted {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-0);
 }
 
 /* on hover */
-#sk-container-id-1 div.sk-estimator:hover {
+#sk-container-id-2 div.sk-estimator:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-2);
 }
 
-#sk-container-id-1 div.sk-estimator.fitted:hover {
+#sk-container-id-2 div.sk-estimator.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-2);
 }
@@ -964,7 +964,7 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 
 /* "?"-specific style due to the `<a>` HTML tag */
 
-#sk-container-id-1 a.estimator_doc_link {
+#sk-container-id-2 a.estimator_doc_link {
   float: right;
   font-size: 1rem;
   line-height: 1em;
@@ -979,40 +979,40 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   border: var(--sklearn-color-unfitted-level-1) 1pt solid;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted {
+#sk-container-id-2 a.estimator_doc_link.fitted {
   /* fitted */
   border: var(--sklearn-color-fitted-level-1) 1pt solid;
   color: var(--sklearn-color-fitted-level-1);
 }
 
 /* On hover */
-#sk-container-id-1 a.estimator_doc_link:hover {
+#sk-container-id-2 a.estimator_doc_link:hover {
   /* unfitted */
   background-color: var(--sklearn-color-unfitted-level-3);
   color: var(--sklearn-color-background);
   text-decoration: none;
 }
 
-#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+#sk-container-id-2 a.estimator_doc_link.fitted:hover {
   /* fitted */
   background-color: var(--sklearn-color-fitted-level-3);
 }
-</style><div id="sk-container-id-1" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+</style><div id="sk-container-id-2" class="sk-top-container"><div class="sk-text-repr-fallback"><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
                                                    &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
                                                    &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox" ><label for="sk-estimator-id-1" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
+                (&#x27;classifier&#x27;, SVC())])</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br />On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-8" type="checkbox" ><label for="sk-estimator-id-8" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;&nbsp;Pipeline<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.pipeline.Pipeline.html">?<span>Documentation for Pipeline</span></a><span class="sk-estimator-doc-link ">i<span>Not fitted</span></span></label><div class="sk-toggleable__content "><pre>Pipeline(steps=[(&#x27;preprocessor&#x27;,
                  ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                                    transformers=[(&#x27;num&#x27;, StandardScaler(),
                                                   [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;,
                                                    &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;,
                                                    &#x27;60d&#x27;, &#x27;90d&#x27;])])),
-                (&#x27;classifier&#x27;, SVC())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-2" type="checkbox" ><label for="sk-estimator-id-2" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
+                (&#x27;classifier&#x27;, SVC())])</pre></div> </div></div><div class="sk-serial"><div class="sk-item sk-dashed-wrapped"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-9" type="checkbox" ><label for="sk-estimator-id-9" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;preprocessor: ColumnTransformer<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.compose.ColumnTransformer.html">?<span>Documentation for preprocessor: ColumnTransformer</span></a></label><div class="sk-toggleable__content "><pre>ColumnTransformer(remainder=&#x27;passthrough&#x27;,
                   transformers=[(&#x27;num&#x27;, StandardScaler(),
                                  [&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;,
-                                  &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-3" type="checkbox" ><label for="sk-estimator-id-3" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-4" type="checkbox" ><label for="sk-estimator-id-4" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-5" type="checkbox" ><label for="sk-estimator-id-5" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-6" type="checkbox" ><label for="sk-estimator-id-6" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-7" type="checkbox" ><label for="sk-estimator-id-7" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;SVC<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></label><div class="sk-toggleable__content "><pre>SVC()</pre></div> </div></div></div></div></div></div></div></div>
+                                  &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;])])</pre></div> </div></div><div class="sk-parallel"><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-10" type="checkbox" ><label for="sk-estimator-id-10" class="sk-toggleable__label  sk-toggleable__label-arrow ">num</label><div class="sk-toggleable__content "><pre>[&#x27;ELEVACION&#x27;, &#x27;PENDIENT&#x27;, &#x27;24h&#x27;, &#x27;7d&#x27;, &#x27;15d&#x27;, &#x27;30d&#x27;, &#x27;60d&#x27;, &#x27;90d&#x27;]</pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-11" type="checkbox" ><label for="sk-estimator-id-11" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;StandardScaler<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.preprocessing.StandardScaler.html">?<span>Documentation for StandardScaler</span></a></label><div class="sk-toggleable__content "><pre>StandardScaler()</pre></div> </div></div></div></div></div><div class="sk-parallel-item"><div class="sk-item"><div class="sk-label-container"><div class="sk-label  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-12" type="checkbox" ><label for="sk-estimator-id-12" class="sk-toggleable__label  sk-toggleable__label-arrow ">remainder</label><div class="sk-toggleable__content "><pre></pre></div> </div></div><div class="sk-serial"><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-13" type="checkbox" ><label for="sk-estimator-id-13" class="sk-toggleable__label  sk-toggleable__label-arrow ">passthrough</label><div class="sk-toggleable__content "><pre>passthrough</pre></div> </div></div></div></div></div></div></div><div class="sk-item"><div class="sk-estimator  sk-toggleable"><input class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-14" type="checkbox" ><label for="sk-estimator-id-14" class="sk-toggleable__label  sk-toggleable__label-arrow ">&nbsp;SVC<a class="sk-estimator-doc-link " rel="noreferrer" target="_blank" href="https://scikit-learn.org/1.4/modules/generated/sklearn.svm.SVC.html">?<span>Documentation for SVC</span></a></label><div class="sk-toggleable__content "><pre>SVC()</pre></div> </div></div></div></div></div></div></div></div>
 </div>
 <p>Esto quiere decir que nuestro pipeline encapsula un proceso en el que las columnas numéricas pasan por un proceso de estandarización antes de pasar al modelo</p>
 <div class="cell docutils container">
@@ -1055,74 +1055,74 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
   </thead>
   <tbody>
     <tr>
-      <th>385</th>
-      <td>1109.965332</td>
-      <td>42.944015</td>
+      <th>860</th>
+      <td>1908.621826</td>
+      <td>33.349747</td>
+      <td>0</td>
+      <td>20</td>
+      <td>9</td>
+      <td>5.0</td>
+      <td>74.0</td>
+      <td>102.0</td>
+      <td>182.0</td>
+      <td>272.0</td>
+      <td>364.0</td>
+    </tr>
+    <tr>
+      <th>931</th>
+      <td>1012.722534</td>
+      <td>58.263329</td>
+      <td>5</td>
+      <td>25</td>
+      <td>9</td>
+      <td>0.0</td>
+      <td>182.0</td>
+      <td>244.0</td>
+      <td>566.0</td>
+      <td>735.0</td>
+      <td>878.0</td>
+    </tr>
+    <tr>
+      <th>516</th>
+      <td>997.682312</td>
+      <td>10.481087</td>
+      <td>1</td>
+      <td>20</td>
+      <td>1</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>28.0</td>
+      <td>95.0</td>
+      <td>204.0</td>
+    </tr>
+    <tr>
+      <th>784</th>
+      <td>1083.413696</td>
+      <td>39.863770</td>
       <td>4</td>
       <td>25</td>
       <td>7</td>
-      <td>7.6</td>
-      <td>83.5</td>
-      <td>213.5</td>
-      <td>343.7</td>
-      <td>452.1</td>
-      <td>531.0</td>
+      <td>13.0</td>
+      <td>124.0</td>
+      <td>263.0</td>
+      <td>365.0</td>
+      <td>453.0</td>
+      <td>642.0</td>
     </tr>
     <tr>
-      <th>568</th>
-      <td>1099.497681</td>
-      <td>63.939667</td>
-      <td>1</td>
-      <td>8</td>
-      <td>8</td>
-      <td>1.0</td>
-      <td>4.4</td>
-      <td>4.6</td>
-      <td>31.4</td>
-      <td>294.2</td>
-      <td>310.6</td>
-    </tr>
-    <tr>
-      <th>50</th>
-      <td>1096.610596</td>
-      <td>52.120461</td>
+      <th>274</th>
+      <td>1013.982971</td>
+      <td>37.013683</td>
       <td>4</td>
       <td>25</td>
       <td>9</td>
-      <td>4.0</td>
-      <td>171.0</td>
-      <td>315.0</td>
-      <td>458.0</td>
-      <td>540.0</td>
-      <td>698.0</td>
-    </tr>
-    <tr>
-      <th>745</th>
-      <td>1080.625122</td>
-      <td>46.239780</td>
-      <td>5</td>
-      <td>25</td>
-      <td>9</td>
-      <td>0.0</td>
-      <td>18.0</td>
-      <td>225.0</td>
-      <td>471.0</td>
-      <td>753.0</td>
-      <td>859.0</td>
-    </tr>
-    <tr>
-      <th>701</th>
-      <td>1644.266846</td>
-      <td>22.834097</td>
-      <td>5</td>
-      <td>20</td>
-      <td>10</td>
-      <td>0.0</td>
-      <td>0.2</td>
-      <td>32.8</td>
-      <td>98.4</td>
-      <td>181.0</td>
-      <td>222.8</td>
+      <td>0.4</td>
+      <td>69.2</td>
+      <td>194.8</td>
+      <td>316.2</td>
+      <td>381.4</td>
+      <td>530.0</td>
     </tr>
   </tbody>
 </table>
@@ -1135,11 +1135,11 @@ div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>385    1
-568    0
-50     1
-745    1
-701    0
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>860    1
+931    1
+516    0
+784    1
+274    1
 Name: deslizamientos, dtype: int64
 </pre></div>
 </div>
@@ -1168,8 +1168,9 @@ Name: deslizamientos, dtype: int64
                                                   [&#39;ELEVACION&#39;, &#39;PENDIENT&#39;,
                                                    &#39;24h&#39;, &#39;7d&#39;, &#39;15d&#39;, &#39;30d&#39;,
                                                    &#39;60d&#39;, &#39;90d&#39;])])),
-                (&#39;classifier&#39;, SVC(C=0.1, gamma=0.1, probability=True))]) 
- mejor combinacion de parametros: {&#39;classifier__C&#39;: 0.1, &#39;classifier__gamma&#39;: 0.1, &#39;classifier__kernel&#39;: &#39;rbf&#39;, &#39;classifier__probability&#39;: True}
+                (&#39;classifier&#39;,
+                 SVC(C=0.1, gamma=0.01, kernel=&#39;poly&#39;, probability=True))]) 
+ mejor combinacion de parametros: {&#39;classifier__C&#39;: 0.1, &#39;classifier__gamma&#39;: 0.01, &#39;classifier__kernel&#39;: &#39;poly&#39;, &#39;classifier__probability&#39;: True}
 </pre></div>
 </div>
 </div>
@@ -1229,104 +1230,104 @@ Name: deslizamientos, dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>4</th>
-      <td>1</td>
-      <td>0.1</td>
-      <td>rbf</td>
-      <td>0.1</td>
-      <td>True</td>
-      <td>0.950292</td>
-      <td>0.941953</td>
-    </tr>
-    <tr>
-      <th>35</th>
-      <td>2</td>
-      <td>10</td>
-      <td>poly</td>
-      <td>0.001</td>
-      <td>True</td>
-      <td>0.929856</td>
-      <td>0.933243</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>3</td>
-      <td>10</td>
-      <td>rbf</td>
-      <td>0.1</td>
-      <td>True</td>
-      <td>0.991448</td>
-      <td>0.931614</td>
-    </tr>
-    <tr>
       <th>47</th>
-      <td>4</td>
+      <td>1</td>
       <td>100</td>
       <td>poly</td>
       <td>0.001</td>
       <td>True</td>
-      <td>0.937086</td>
-      <td>0.928350</td>
+      <td>0.950508</td>
+      <td>0.936691</td>
     </tr>
     <tr>
       <th>8</th>
-      <td>4</td>
+      <td>1</td>
       <td>0.1</td>
       <td>poly</td>
       <td>0.01</td>
       <td>True</td>
-      <td>0.937062</td>
-      <td>0.928350</td>
-    </tr>
-    <tr>
-      <th>40</th>
-      <td>6</td>
-      <td>100</td>
-      <td>rbf</td>
-      <td>0.1</td>
-      <td>True</td>
-      <td>1.000000</td>
-      <td>0.926453</td>
+      <td>0.950508</td>
+      <td>0.936691</td>
     </tr>
     <tr>
       <th>20</th>
-      <td>7</td>
+      <td>3</td>
       <td>1</td>
       <td>poly</td>
       <td>0.01</td>
       <td>True</td>
-      <td>0.938602</td>
-      <td>0.923962</td>
+      <td>0.945408</td>
+      <td>0.924273</td>
     </tr>
     <tr>
-      <th>19</th>
-      <td>8</td>
-      <td>1</td>
-      <td>rbf</td>
-      <td>0.01</td>
-      <td>True</td>
-      <td>0.928581</td>
-      <td>0.923375</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>9</td>
-      <td>1</td>
-      <td>rbf</td>
-      <td>0.1</td>
-      <td>True</td>
-      <td>0.959679</td>
-      <td>0.921941</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>10</td>
+      <th>46</th>
+      <td>4</td>
       <td>100</td>
       <td>rbf</td>
+      <td>0.001</td>
+      <td>True</td>
+      <td>0.940190</td>
+      <td>0.922066</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>5</td>
+      <td>10</td>
+      <td>poly</td>
       <td>0.01</td>
       <td>True</td>
-      <td>0.967749</td>
-      <td>0.920695</td>
+      <td>0.954938</td>
+      <td>0.920113</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>6</td>
+      <td>0.1</td>
+      <td>linear</td>
+      <td>0.001</td>
+      <td>True</td>
+      <td>0.929723</td>
+      <td>0.913982</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>0.1</td>
+      <td>linear</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0.929723</td>
+      <td>0.913982</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>0.1</td>
+      <td>linear</td>
+      <td>0.01</td>
+      <td>True</td>
+      <td>0.929723</td>
+      <td>0.913982</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>6</td>
+      <td>0.1</td>
+      <td>linear</td>
+      <td>0.1</td>
+      <td>True</td>
+      <td>0.929723</td>
+      <td>0.913982</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>10</td>
+      <td>1</td>
+      <td>linear</td>
+      <td>1</td>
+      <td>True</td>
+      <td>0.926457</td>
+      <td>0.911819</td>
     </tr>
   </tbody>
 </table>
@@ -1388,10 +1389,10 @@ Name: deslizamientos, dtype: int64
     <tr>
       <th>0</th>
       <td>Support Vector Classifer</td>
-      <td>0.913978</td>
-      <td>0.825243</td>
-      <td>0.863158</td>
-      <td>0.867347</td>
+      <td>0.935484</td>
+      <td>0.865672</td>
+      <td>0.890526</td>
+      <td>0.899225</td>
     </tr>
   </tbody>
 </table>
@@ -1415,36 +1416,10 @@ Name: deslizamientos, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5adcaf851aa152701815c363c7b771bb0b4ae268325df5a05cfd8b45d17504b7.png" src="_images/5adcaf851aa152701815c363c7b771bb0b4ae268325df5a05cfd8b45d17504b7.png" />
+<img alt="_images/d33b5aa09ce9533cf7bb8986c6bfde1f2c31966671a1ede9edae8c6c291f55c4.png" src="_images/d33b5aa09ce9533cf7bb8986c6bfde1f2c31966671a1ede9edae8c6c291f55c4.png" />
 </div>
 </div>
 <p>Al mirar la matriz de confusión, nos damos cuenta de que el conteo más bajo es cuando el modelo predice que no habrá deslizamientos, pero en realidad si hubo deslizamiento. Este es el índice que precisamente debemos apuntar a minimizar, porque en la realidad del negocio el costo de actuar sobre un falso positivo es alto, es decir se tiene recursos limitados para manejar casos positivos y se quiere minimizar las consecuencias negativas de las predicciones incorrectas de la clase positiva (falsos positivos).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">train_performance</span><span class="o">=</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">df_sorted</span><span class="p">[</span><span class="s1">&#39;Model Ranking&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Rendimiento promedio - Train&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-<span class="n">trest_performance</span><span class="o">=</span><span class="n">df_sorted</span><span class="p">[</span><span class="n">df_sorted</span><span class="p">[</span><span class="s1">&#39;Model Ranking&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">][</span><span class="s1">&#39;Rendimiento promedio - Test&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-<span class="n">valid_performance</span><span class="o">=</span><span class="n">df_reporte_svc</span><span class="p">[</span><span class="s1">&#39;Precision&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Como conclusión tenemos un modelo de clasificación Random Forest con estos puntajes de rendimiento para la medida de Precision</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en training: </span><span class="si">{</span><span class="n">train_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en test: </span><span class="si">{</span><span class="n">trest_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Precision score en validation: </span><span class="si">{</span><span class="n">valid_performance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Precision score en training: 0.9502919162166089
-Precision score en test: 0.9419530258075437
-Precision score en validation: 0.9139784946236559
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="explicabilidad-del-modelo">
 <h3>Explicabilidad del modelo<a class="headerlink" href="#explicabilidad-del-modelo" title="Link to this heading">#</a></h3>
@@ -1472,7 +1447,7 @@ Precision score en validation: 0.9139784946236559
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/b6fd46a1a524c2dcb6f476eede28c575fc058453cb3d1af92ff6c70f6e3ee367.png" src="_images/b6fd46a1a524c2dcb6f476eede28c575fc058453cb3d1af92ff6c70f6e3ee367.png" />
+<img alt="_images/ca0d6649ff62c1cbda8106fd727f031b290d950a590b1f57262b355b2f02a4d2.png" src="_images/ca0d6649ff62c1cbda8106fd727f031b290d950a590b1f57262b355b2f02a4d2.png" />
 </div>
 </div>
 <p>Podemos observar que se encuentran las características del modelo (features) como <code class="docutils literal notranslate"><span class="pre">Nomenclatura_del_Suelo</span></code>, <code class="docutils literal notranslate"><span class="pre">tipo_geologia</span></code>, <code class="docutils literal notranslate"><span class="pre">7d</span></code>, etc. Están ordenadas de mayor a menor importancia según el resultado del Permutation Importance.</p>
