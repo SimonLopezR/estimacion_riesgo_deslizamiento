@@ -249,43 +249,23 @@ Para hacer el ajuste de las puntuaciones del modelo y convertirlas en probabilid
 La idea es que este proceso asegure que el modelo de regresión logística capte la relación entre las puntuaciones del clasificador y la probabilidad real de las clases.
 
 
-- **Isotonic Regression (Regresión Isotónica)**
+- **Calibración Beta**
 
-A diferencia del Platt Scaling que utiliza una regresión logística, la regresión isotonica es una técnica no paramétrica que busca una función de ajuste que mantenga el orden de las puntuaciones originales pero que se ajuste a una relación monótona creciente entre las puntuaciones del clasificador y las probabilidades observadas, es más general porque en este método no se hacen suposiciones sobre la forma de la función de mapeo, excepto que debe ser monótonamente creciente (isotónica).
+Kull et al. (2017) proponen un método para calibrar las probabilidades de salida de un clasificador basado en la distribución beta, especialmente útil para clasificadores cuyos puntajes no están calibrados, como Naive Bayes, Adaboost (Boosted Trees) o SVM. Este método ajusta las probabilidades de predicción mediante una familia paramétrica más rica que la calibración logística, capturando patrones no lineales o asimétricos en las distribuciones de puntajes.
 
-En este método, una función constante por tramos no paramétrica se utiliza para aproximar la función que asigna las puntuaciones a los valores deseados, también, permite que las puntuaciones se "escalen" de forma no lineal para alinear mejor las predicciones con las probabilidades observadas.
-
-Esta relación monótona quiere decir que sus valores nunca disminuyen a medida que avanzas en el eje de las puntuaciones del clasificador, esta función puede tener una forma escalonada o de curva suave dependiendo de los datos, pero siempre sigue una tendencia ascendente. Es decir, para una instancia nueva de variables independientes $x$: 
+La calibración beta utiliza la siguiente función para modelar la relación entre los puntajes de salida s  y las probabilidades calibradas:
 
 $$
-x_1 \leq x_2 \implies f(x_1) \leq f(x_2)
+\mu_{\text{beta}}(s; a, b, c) = \frac{1}{1 + \frac{1}{e^{c} s^{a} (1-s)^{b}}}
 $$
 
-Al ajustar los datos, el algoritmo ajusta una función monótona que se adapta a las puntuaciones manteniendo el orden relativo como se aclara anteriormente. Este ajuste se hace de tal forma que se minimicen los errores, respetando siempre la relación monótona. Esto es, dadas las puntuaciones $f_i$ de un modelo y los objetivos verdaderos $y_i$, el supuesto básico en la regresión isotónica es que
+Donde
+a, b ≥0 : son los parámetros de forma y c controla el desplazamiento (pendiente)
 
-$$
-y_i = m(f_i) + \epsilon_i
-$$
+Esta función se basa en el cociente de dos distribuciones beta, lo que permite ajustar probabilidades dentro del rango [0, 1]. El ajuste de a, b y c se realiza minimizando la pérdida logarítmica (log-loss) mediante métodos de optimización basados en gradientes.
 
-donde $m$ es la función isotónica (monótonicamente creciente)
+Para ajustar las probabilidades del modelo, se toman los puntajes del clasificador s como entrada, los parámetros a, b y c se optimizan utilizando un conjunto de datos de calibración con etiquetas reales y , por último, se asegura que la función sea monótona, corrigiendo cualquier parámetro negativo si fuera necesario.
 
-Por ende, dado un conjunto de datos de entrenamiento $(f_i , y_i)$ lo que busca resolver la regresión isotónica es encontrar la función $\hat{m}$ tal que
-
-$$
-\hat{m} = \arg \min_{z} \sum (y_i - z(f_i))^2
-$$
-
-#### Comparativa de los métodos
-
-- Por un lado, Platt scaling es más eficaz cuando la distorsión en las probabilidades predichas tiene forma sigmoideal. La regresión isotónica es un método de calibración más potente que puede corregir cualquier distorsión monótona. Desafortunadamente, esta potencia adicional tiene un precio, ya que la regresión isotónica es más propensa al sobreajuste y, por lo tanto, tiene un peor rendimiento que el Platt scaling cuando los datos son escasos.
-
-- La Isotonic Regression no asume una forma específica (como la forma sigmoide en el Platt Scaling). En cambio, ajusta cualquier relación que mantenga el orden y minimice los errores, es decir, es no paramétrico.
-
-- Isotonic Regression puede ajustarse a formas complejas en los datos, siendo útil para clasificadores que generan distribuciones de puntuaciones no lineales y difíciles de modelar.
-
-- La Isotonic Regression es particularmente útil en casos donde la relación entre las puntuaciones y las probabilidades no es lineal y donde no se desea imponer una forma específica a la curva de calibración, permitiendo una mayor flexibilidad.
-
-- Como lo estipulan Niculescu-Mizil and Caruana (2005), cuando el conjunto de calibración es pequeño (menos de 200 a 1000 casos), el Platt scaling supera a la regresión isotónica. Esto sucede porque la regresión isotónica está menos restringida que el Platt scaling, por lo que es más fácil que se sobreajuste cuando el conjunto de calibración es pequeño. El método de Platt también tiene incorporado un cierto control de sobreajuste.
  
 
 ```{note}
