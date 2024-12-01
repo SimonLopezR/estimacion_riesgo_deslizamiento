@@ -1,0 +1,548 @@
+Fecha evento,Longitud,Latitud,Elevacion,Pendiente,Direccion,Barrio,Cobertura del suelo,Zonificacion,Unidad Geologica del Suelo,P_24_Horas,P_7_Dias,P_15_Dias,P_30_Dias,P_60_Dias,P_90_Dias
+10/6/2020,-76.56652,3.45609,1071.533325,18.85442352,Puente Azul,Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,5.4,62.8,68.2,88.4,87.2,110
+10/23/2020,-76.556192,3.421738,1066.793579,54.22733688,C 5C Oeste No 47-12,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,52.0,64.0,121.0,200.0,227
+10/23/2020,-76.556109,3.421841,1064.98291,55.21465302,C 5A Oeste No 44-42,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,52.0,64.0,121.0,200.0,227
+11/10/2020,-76.582461,3.411307,1098.431641,55.25925827,Sector Quebrada Filadelfia,Andes Bajo,Pasto cultivado,Riesgo bajo,Lateritas Formacion Volcanica,0.0,1.0,44.0,133.0,217.0,310
+11/10/2020,-76.613217,3.447359,1618.704102,91.37473297,V�a que de Pichinde conduce a Lomas de la Cajita,Pichinde,Bosque mixto abierto alto de tierra firme,Amenaza alta,Formacion Volcanica,0.0,13.0,40.0,107.0,208.0,287
+11/26/2020,-76.550649,3.488369,1250.349609,27.43324471,Entrada a Montecitos por Arrayanes,Montebello,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,0.0,0.0,54.0,90.0,191.0,317
+11/26/2020,-76.548203,3.488954,1296.32373,40.94035721,Avenida 47 Oeste con 9 A,Montebello,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.0,0.0,54.0,90.0,191.0,317
+11/12/2020,-76.59536,3.43244,1596.688965,68.89835358,Corregimiento de los Andes -Sector Valcanes,El Cabuyal,Bosque mixto abierto alto de tierra firme,Amenaza baja,Formacion Volcanica,0.0,13.0,50.0,117.0,202.0,275
+11/13/2020,-76.59566,3.43217,1600.984985,44.27614212,Corregimiento de los Andes -Sector Valcanes,El Cabuyal,Bosque mixto abierto alto de tierra firme,Amenaza baja,Formacion Volcanica,10.0,23.0,50.0,113.0,212.0,285
+11/27/2020,-76.59388,3.43307,1585.298706,98.12270355,Corregimiento de los Andes -Sector Valcanes,El Cabuyal,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,26.0,53.0,93.0,198.0,293
+11/27/2020,-76.59696,3.43136,1657.118408,47.16747665,Corregimiento de los Andes -San Rafael,El Cabuyal,Bosque mixto abierto alto de tierra firme,Amenaza baja,Formacion Volcanica,0.0,26.0,53.0,93.0,198.0,293
+11/27/2020,-76.59591,3.43068,1606.524536,34.39270782,Corregimiento de los Andes -Sector Valcanes,El Cabuyal,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,26.0,53.0,93.0,198.0,293
+11/27/2020,-76.59535,3.43227,1589.673096,47.11315918,Corregimiento de los Andes -Sector Valcanes,El Cabuyal,Bosque mixto abierto alto de tierra firme,Amenaza baja,Formacion Volcanica,0.0,26.0,53.0,93.0,198.0,293
+1/13/2021,-76.5563,3.4282,1074.7229,61.95690536,No aplica,Belen- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,47.0,81.0,158.0,276.0,371
+1/11/2021,-76.567125,3.454949,1115.547119,69.79600525,Avenida 8 Bis Oeste con Calle 24,Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,2.0,2.0,58.4,155.2,244
+1/23/2021,-76.54105,3.459758,1190.52356,84.40457916,Sector La Mina,Altos de Normancia,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,0.0,1.6,2.4,100.4,137.8,180
+2/4/2021,-76.54561,3.46163,1230.651978,75.04990387,Sector La Mina,,Áreas naturales desnudas,Amenaza muy alta,Formacion Guachinte,0.0,0.2,6.2,42.4,102.0,140
+2/8/2021,-76.5552,3.4211,1023.285339,16.9596653,C 3Oeste # 45-82,Siloe,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,20.0,20.0,59.0,84.0,203.0,321
+2/16/2021,-76.564012,3.381758,1104.275879,64.85591888,C 4 D Oeste No 82 D,La Choclona,Otras superficies artificiales sin construcción,Riesgo bajo,Lateritas Formacion Volcanica,0.0,32.8,91.6,110.2,186.6,368
+2/16/2021,-76.558543,3.386969,1002.814087,37.51337433,Hospital Departamental Mario Correa Rengifo,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.0,32.8,91.6,110.2,186.6,368
+2/18/2021,-76.567986,3.423241,1163.04895,17.59150505,K 46 Bis No 29 - 116 Oeste,Las Parecelas,Vegetación secundaria o transición,Riesgo alto,Lateritas Formacion Volcanica,0.0,53.0,149.0,174.0,332.0,399
+2/22/2021,-76.5711,3.446,1095.70752,13.08166885,Pilas de Cabuyal,Pilas de Cabuyal,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,12.2,14.4,100.4,101.4,110.4,177
+2/22/2021,-76.567247,3.455046,1111.140137,59.7939949,Av 8 Oeste No 24 � 24,Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,12.2,14.4,100.4,101.4,110.4,177
+2/27/2021,-76.563261,3.423066,1105.901855,43.08423614,K 46 A No 19A -170,Lleras Camargo,Vegetación secundaria o transición,Riesgo medio,Formacion Volcanica,5.0,85.0,186.0,282.0,343.0,455
+2/28/2021,-76.563763,3.384495,1165.661255,34.96780777,Sector Los Tanques No3,Alto N�poles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,15.2,52.4,104.4,188.0,204.1,382
+3/2/2021,-76.6212,3.4242,1783.404297,35.72048569,Finca VillaLuz,Los andes alto,Bosque mixto abierto alto de tierra firme,Amenaza alta,Lateritas Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.6275,3.4231,1908.621826,33.3497467,Km 7 v�a Cristo Rey,Pueblo Nuevo,Pasto cultivado arbolado,Amenaza alta,Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.622,3.4262,1762.922119,8.18291378,Km 7 v�a Cristo Rey,Pueblo Nuevo,Bosque mixto denso alto de tierra firme,Riesgo medio,Lateritas Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.6169,3.4453,1634.224243,20.92413712,Cabecera - La Cajita,Pichinde,Otros cultivos arbustivos plantados abiertos,Riesgo medio,Lateritas Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.5949,3.3795,1466.376099,78.8526001,Sector Media Torta,El rosario,Zonas urbanas discontinuas,Amenaza media,Lateritas Formacion Volcanica,16.0,235.0,344.0,510.0,670.0,843
+3/2/2021,-76.6274,3.4227,1921.237183,58.98408127,Cabecera,Pueblo Nuevo,Pasto cultivado arbolado,Amenaza alta,Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.6215,3.4258,1765.991699,41.07585907,Cabecera principal,Los andes alto,Bosque mixto denso alto de tierra firme,Riesgo medio,Lateritas Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.6214,3.4257,1769.028564,15.463274,Cabecera principal - el monasterio,Los andes alto,Bosque mixto denso alto de tierra firme,Riesgo medio,Lateritas Formacion Volcanica,5.0,74.0,102.0,182.0,272.0,364
+3/2/2021,-76.568996,3.394932,1137.388184,30.3143158,Casa 64 Callejon Los Mangos,Parcelacion La Trinidad,Zonas urbanas discontinuas,Amenaza media,Lateritas Formacion Volcanica,9.4,105.0,110.2,169.6,238.2,327
+3/3/2021,-76.55851,3.37987,1082.543579,49.40452957,Carrera 93 C con calle 2B oeste 87,Alto Chorros,Otras superficies artificiales sin construcción,Riesgo alto,Lateritas Formacion Volcanica,0.8,103.8,122.1,213.7,272.4,399
+3/3/2021,-76.56268,3.38144,1111.325317,79.10561371,Calle 4 B oeste No. 82 B - 27,La Choclona,Otras superficies artificiales sin construcción,Riesgo alto,Lateritas Formacion Volcanica,0.8,103.8,122.1,213.7,272.4,399
+3/3/2021,-76.56271,3.38148,1108.620361,80.41010284,Calle 4B oeste No. 82B 27,La Choclona,Otras superficies artificiales sin construcción,Riesgo alto,Lateritas Formacion Volcanica,0.8,103.8,122.1,213.7,272.4,399
+3/4/2021,-76.56612,3.427137,1265.445801,33.95742416,K 40B Oeste #5-30,Belen - Siloe,Vegetación secundaria o transición,Amenaza alta,Lateritas Formacion Volcanica,0.0,142.0,195.0,344.0,441.0,543
+3/5/2021,-76.56028,3.39125,1041.69458,24.33342171,Calle 4A oeste No 73 - 40,Alto Chorros,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,0.0,101.3,121.1,213.7,268.7,390
+3/6/2021,-76.59685,3.37507,1564.537109,44.81676102,Km 12 subiendo tienda tres palmas,Crucero,Zonas urbanas discontinuas,Amenaza alta,Formacion Guachinte,0.0,139.0,316.0,510.0,607.0,855
+3/7/2021,-76.621632,3.424643,1782.700317,16.08185196,Finca El Colorado,Andes Bajo,Bosque mixto denso alto de tierra firme,Amenaza alta,Lateritas Formacion Volcanica,8.0,43.0,99.0,188.0,269.0,335
+3/7/2021,-76.62922,3.42578,1939.212646,76.11689758,Finca El Arbolito,Pueblo Nuevo,Bosque mixto denso alto de tierra firme,Amenaza media,Formacion Volcanica,8.0,43.0,99.0,188.0,269.0,335
+3/7/2021,-76.62221,3.42715,1764.959473,63.82538986,Finca El Eden,Andes Bajo,Misceláneo de pastos y cultivos,Riesgo medio,Lateritas Formacion Volcanica,8.0,43.0,99.0,188.0,269.0,335
+3/7/2021,-76.62789,3.42573,1861.872803,34.82201386,Finca El Porvenir,Pueblo Nuevo,Bosque mixto denso alto de tierra firme,Riesgo bajo,Formacion Volcanica,8.0,43.0,99.0,188.0,269.0,335
+3/11/2021,-76.5658,3.4215,1089.849487,29.20875931,C 25 b Oeste,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.561343,3.385521,1086.55542,89.61319733,K 80 A 20 - 04,Alto N�poles - Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,9.5,91.2,215.4,266.2,331.3,434
+3/11/2021,-76.560752,3.388402,1038.540527,32.06097794,Manzana 2 casa 26,Alto Chorros - Sector las minas,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,9.5,91.2,215.4,266.2,331.3,434
+3/11/2021,-76.562065,3.392538,1100.754395,38.08086014,C 4E Oeste Casa 18,Alto Chorros - Sector las minas,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,9.5,91.2,215.4,266.2,331.3,434
+3/11/2021,-76.55613,3.42716,1054.006714,22.41356659,K 40 B Oeste # 5 - 36,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.556042,3.426866,1050.929321,3.863270521,K 40 B Oeste # 5 - 30,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.555967,3.426856,1051.03772,5.150170803,K 40 B Oeste # 5 - 24,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.555956,3.426847,1051.061279,8.331033707,K 40 B Oeste # 5 - 06,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55583,3.42704,1059.852905,87.4641037,K 40 B Oeste # 5 - 18,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55597,3.42689,1050.93457,5.422102451,K 40 B Oeste # 5 - 06,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55741,3.42006,1059.396851,66.27121735,K 49 B # 6 c Bis 43 Oeste,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55743,3.42,1058.370361,70.90901947,C 6 Oeste # 49 B 40,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.556589,3.420964,1066.859985,80.13278961,K 6 Oeste # 24 A 120,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55634,3.42127,1062.793457,53.33143234,C 6 # 24 A - 107,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55612,3.42122,1047.137817,76.9421463,C 6 C Oeste # 46 - 12,Tierra Blanca - sector La Mina,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.56789,3.42076,1166.217407,43.55548096,C 6 F Oeste K 49 # 128,Siloe,Vegetación secundaria o transición,Amenaza baja,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55668,3.42003,1029.464233,66.02786255,C 6 C Oeste # 49 A 40,Siloe - sector La Mina,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.564133,3.383117,1122.612671,30.63601875,C 4 A Oeste #82-23,La choclona,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,9.5,91.2,215.4,266.2,331.3,434
+3/11/2021,-76.549196,3.501623,1447.260254,24.25785446,Sector San Isidro / Casa 34, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.0,88.0,163.0,234.0,265.0,349
+3/12/2021,-76.6223,3.3792,1769.932861,66.06144714,Via Dosquebradas,Cabecera Principal,Misceláneo de cultivos y espacios naturales,Amenaza alta,Formacion Volcanica,0.0,168.0,413.0,536.0,665.0,875
+3/12/2021,-76.5934,3.4266,1534.2229,41.36561966,Sector Mu�eco,Cabuyal,Bosque mixto denso alto de tierra firme,Riesgo bajo,Lateritas Formacion Volcanica,4.0,127.0,201.0,288.0,346.0,451
+3/12/2021,-76.566777,3.455475,1086.17334,44.99789429,Av 8b Oeste 23 - 29,Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.4,27.8,99.6,177.6,212.6,271
+3/12/2021,-76.569367,3.455431,1092.497437,25.2849369,C 25 Oeste 8 - 66,Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.4,27.8,99.6,177.6,212.6,271
+3/12/2021,-76.567336,3.456162,1075.591187,12.37002563,C 25 Oeste 8a (recorrido sobre la v�a),Alto Aguacatal,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.4,27.8,99.6,177.6,212.6,271
+3/12/2021,-76.556301,3.421098,1055.131226,64.33078003,K 47 Oeste # 5C - 10,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.556884,3.421349,1096.610596,52.12046051,,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.55711,3.421186,1093.686646,34.86095047,K 48 # 66 - 30,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.558706,3.421795,1116.57373,60.08447266,K 49 Oeste # 08 - 14,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.555836,3.419515,1001.267517,11.59708405,K 43 # 5C - 08,Siloe,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.556333,3.422922,1105.579712,55.01734161,K 43 # 5e - 20,Siloe - La Estrella,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.55625,3.422521,1084.723267,43.7893486,C 5C Oeste # 1B - 47,Siloe - Guayabales,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.563022,3.42503,1161.665771,46.74979401,C 5 Oeste # 43 - 40,Siloe - Guayabales,Vegetación secundaria o transición,Amenaza alta,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.556696,3.4162,979.6915283,13.00464821,K 43 # 5c - 15,Siloe - Guayabales,Zonas urbanas continuas,Riesgo bajo,Cono aluvial rio Melendez,19.8,93.2,197.8,214.6,278.6,421
+3/12/2021,-76.553639,3.424835,993.5454712,35.23296738,K 40 A Oeste # 1B 47,Siloe - La Nave,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.553762,3.425655,1009.395874,45.6824913,C 39 con 2,Siloe - La Nave,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.558554,3.376238,1106.703003,30.33026505,Calle 3 bis # 13-19,Sal�n azul,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.560995,3.394559,1023.537598,3.384290457,Calle 3B oeste # 80-18, ,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.559823,3.38495,1051.437866,19.0603981,Carrera 82 #2c oeste � 125,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.559641,3.383967,1057.827637,22.81803513,Calle 3 oeste # 80b-10,Sal�n azul,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.560106,3.382522,1072.048584,1.33028698,Calle 3 B oeste # 80-22,Sal�n azul,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.561116,3.379377,1142.194702,47.66550064,Calle 3 c oeste # 80-28, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.561116,3.379377,1142.194702,47.66550064,Calle 3 c oeste # 80-22,Sal�n azul,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,20.1,111.3,216.2,266.7,351.0,454
+3/12/2021,-76.568392,3.423381,1172.414429,33.99778748,Parte Alta,Las Parcelas,Otras asociaciones de cultivos,Riesgo medio,Lateritas Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.56639,3.42279,1140.016602,55.25978851,Carrera 46 oeste No. 28 - 70,Las Parcelas,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/12/2021,-76.56816,3.42355,1169.499756,13.22610474,Carrera 46 Bis oeste No. 29 - 116,Las Parcelas,Otras asociaciones de cultivos,Riesgo alto,Lateritas Formacion Volcanica,4.0,171.0,315.0,458.0,540.0,698
+3/13/2021,-76.55856,3.42086,1090.969482,46.87727356,Calle 8 oeste No 49 - 55,Siloe Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,2.0,173.0,296.0,432.0,542.0,700
+3/13/2021,-76.55913,3.41933,1041.329834,73.14862061,Calle 8 oeste No 49 B 127,Siloe Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,2.0,173.0,296.0,432.0,542.0,700
+3/13/2021,-76.55917,3.42083,1076.303345,77.22999573,Calle 8 oeste No 49 B 36,Siloe Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,2.0,173.0,296.0,432.0,542.0,700
+3/13/2021,-76.56647,3.41713,1074.040771,41.56373978,Carrera 54 oeste No 12 D Bis 10,Brisas de Mayo,Otras superficies artificiales sin construcción,Riesgo bajo,Lateritas Formacion Volcanica,0.6,93.8,197.0,212.2,279.2,422
+3/11/2021,-76.55646,3.419958,1013.302124,45.19960022,C 6 Oeste #49-20,Los Pomos- Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.554422,3.42169,1020.784607,24.60658455,C 6A Oeste #49A-20,Los Pomos- Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.55644,3.41988,1010.774109,32.02667618,C 6A #49A-24,Los Pomos- Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.563766,3.418421,1027.529541,59.76563263,C 12A #52C-18,Brisas de Mayo- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,8.6,73.4,197.2,214.6,259.2,401
+3/11/2021,-76.556168,3.420709,1034.310181,42.63407516,C 6C Oeste #46-30,La Mina- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/11/2021,-76.555826,3.42136,1026.248413,42.90730667,C 4D #44-46,La Mina- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,167.0,313.0,456.0,536.0,694
+3/15/2021,-76.5659,3.41407,1016.936218,32.45767975,Calle 20 Oeste #50-60,Lleras Camargo,Pasto cultivado arbolado,Amenaza media,Lateritas Formacion Volcanica,10.8,92.6,184.2,253.8,285.8,432
+3/15/2021,-76.56627,3.42033,1096.768433,39.72915268,Cra 53 #13-26 Oeste,Brisas de Mayo,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.564901,3.421549,1073.70874,6.012948036,Calle 25 46A-10,La Arboleda,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.56567,3.42142,1085.466919,27.24614334,Calle 25 C # 49,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.565188,3.421594,1078.655396,54.74237823,Calle 25 a Oeste # 49-12,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.56551,3.42102,1075.41626,30.25352287,Cra 49B Oeste #25-70,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.56542,3.420878,1072.900391,13.32625198,Calle 25E oeste #49-66,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.56597,3.421546,1093.471436,44.93917084,Calle 25e oeste 49,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.565965,3.420571,1087.004517,21.07169342,Carrera 53 oeste # 13-30,Sector Pascualito - Brisas de Mayo,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.560278,3.379739,1136.967163,23.96552658,Calle b2 oeste #90-210,Alto Jordan,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.6,105.4,207.6,269.0,346.8,442
+3/15/2021,-76.56526,3.42191,1088.007324,34.29117203,Calle 25 oeste #49A 0,La Arboleda,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/15/2021,-76.56603,3.42059,1088.730469,30.30698204,Carrera 53 Oeste #13-58,La Arboleda - Brisas de Mayo,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,104.0,260.0,446.0,553.0,711
+3/16/2021,-76.56145,3.39145,1094.002075,62.83970642,C 43 Oeste # 73 - 06,Altos los Chorros,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/16/2021,-76.5618,3.39139,1118.279175,63.00100327,Manzana 3 Casa 134,Altos los Chorros - La Cruz,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/16/2021,-76.56195,3.39065,1086.769653,41.24207687,Sector la Cruz,Altos los Chorros - La Cruz,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/16/2021,-76.56166,3.39116,1102.080322,47.23944855,Manzana 2,Altos los Chorros,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/16/2021,-76.56206,3.39041,1076.748779,57.82915878,Manzana 2 Casa 26,Altos los Chorros,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/16/2021,-76.56099,3.38704,1064.599976,60.08757401,Manzana 5 Casa 6,Altos los Chorros - Las Minas,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,24.4,114.8,165.2,262.6,371.2,449
+3/18/2021,-76.56381,3.4207,1061.796265,49.51077652,Calle 20 oeste #50-58,La Sultana,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.56276,3.42461,1138.220215,56.01879501,Carrera 49 # 19-52,Los Pomos - Siloe,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.56052,3.42319,1144.681641,32.94062424,Calle 11 oeste # 46-48,Lleras Camargo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.56023,3.42071,1051.40625,68.58155823,Calle 8 oeste Carrera 50A,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.55561,3.42668,1048.251831,83.09061432,Carrera 40 B No 5 - 40 oeste,Siloe San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.55624,3.42578,1086.830078,53.13663864,Carrera 40 B Bis oeste No 5 - 90,Silo� Casa Piedra,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.55621,3.42559,1096.231323,44.03482056,Carrera 40B No 5 - 40,Siloe San Francisco,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/18/2021,-76.554965,3.42639,1036.858398,65.21977997,Carrera 40 Bis oeste No 5 - 90,Silo� Casa Piedra,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,56.0,233.0,428.0,592.0,750
+3/19/2021,-76.53902,3.45453,1018.187073,5.040855885,Avenida 9N No 5 - 21,Barrio Juananbu,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,23.6,67.8,130.4,162.2,203.4,311
+3/20/2021,-76.55678,3.37452,1061.743042,52.19571686,C 2B Bis Oeste # 94B - 58,Alto Jordan,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,7.4,42.4,183.0,304.1,386.8,463
+3/20/2021,-76.556746,3.374762,1070.924927,45.23475647,C 22 Oeste Bis # 13 - 30,Alto Jordan,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,7.4,42.4,183.0,304.1,386.8,463
+3/20/2021,-76.5538,3.4217,998.8415527,7.654489517,Calle 22 oeste # 49bis - 22,Siloe - Sultana,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,4.0,64.0,367.0,562.0,606.0,764
+3/20/2021,-76.56625,3.42033,1096.00354,31.32217407,Carrera 53 oeste No 13 - 26,Brisas de Mayo Pascualito,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,4.0,64.0,367.0,562.0,606.0,764
+3/20/2021,-76.56436,3.42013,1039.853149,44.37932968,calle 13 oeste No 52 B 15,Brisas de Mayo,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,4.0,64.0,367.0,562.0,606.0,764
+3/22/2021,-76.56,3.4203,1030.11084,21.26866341,Carrerra 50A #9-08,Lleras Carmargo,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.560006,3.420457,1033.892578,25.81089783,Calle 8 Oeste #50A -42,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.560361,3.419147,1002.263184,41.84606171,Calle 9 Oeste #50-87,El Cortijo - Sector Los Buidos,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.564124,3.423916,1135.829224,48.38480759,K 46 Oeste # 20B - 14,Siloe - La Sultanita,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.5643,3.4237,1124.440186,76.45881653,K 46 # 20c - 02 Oeste,Siloe - La Sultana,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.563998,3.423804,1129.608521,23.7950592,K 46 Bis # 20B - 10,Siloe - La Sultanita,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.563916,3.423876,1130.067871,40.12782669,K 46 # 20B -10,Siloe - La Sultanita,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.56561,3.42286,1121.603394,24.34382629,K 46 # 22 - 16,Siloe - La Sultana,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.5564,3.428493,1076.811646,17.26451111,C 7 Oeste 40B-12,San Francisco- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/23/2021,-76.557233,3.417652,988.3206787,30.53203964,Carrera 50 Oeste # 6B-61,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.5573,3.419184,1027.704834,60.61834717,Calle 6 C Oeste # 50-19,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.556767,3.418631,1002.699341,34.96457291,Calle 6B Oeste # 50-48,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.557106,3.418991,1011.954834,39.04415894,Calle 6B Oeste # 50-30,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.557377,3.418881,1021.169434,62.76224518,Calle 6B Oeste # 50-40,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.557632,3.418244,1006.680603,53.83190155,Carrera 51 Oeste # 6A-45,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,76.556028,3.416647,979.6134033,5.064775467,Carrera 51 6B bis # 10 Oeste,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo bajo,Cono aluvial rio Melendez,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.557975,3.418447,1030.654663,66.0162735,Carrera 51 # 6b Bis -35 Oeste,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.557938,3.418435,1027.893188,64.39844513,Carrera 51 # 6b Bis -31 Oeste,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.557814,3.418393,1019.130005,51.09760284,Calle 6 Oeste bis # 51-02,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.557657,3.417722,991.6612549,27.29080963,Carrera 51 # 6A-37 Oeste,Sector Los Pomos - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.560529,3.416638,982.6674805,12.69762897,K 52 Oeste No. 9 - 17,Brisas de Mayo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.560538,3.416696,983.1633911,13.13038445,K52 No. 9 - 17,Brisas de Mayo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.560358,3.416676,982.0982666,4.903091908,K 52 Oeste No. 9 - 21,Lleras Camargo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.563322,3.418546,1004.18335,21.6445694,C 19 Oeste No 51 D 23,Lleras Camargo - La Panelera,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.564239,3.419334,1032.367554,38.94662094,C 12 A Oeste No. 52 C 11,Lleras Camargo - La Panelera,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.565484,3.420624,1073.799316,21.78953934,C 25 C No. 49 Oeste 17,Arboleda parte baja,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.562462,3.4177,1000.702759,10.08987522,C 15 K 53 No. 52B 10,Brisas de Mayo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.5573,3.4258,1109.522949,13.98766136,Calle 6 oeste # 40C-24,Siloe - Betania,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5578,3.4236,1137.671021,49.05119324,Cra 42 # 71-19,Siloe - La Estrella,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5584,3.4223,1136.962646,48.10389709,Calle 8 oeste # 43-09,Siloe - La Estrella,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5561,3.425,1102.062256,31.51209068,Cra 42c # 5b-15,Siloe - San Francisco,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5565,3.4261,1093.687866,56.70278549,Cra 40# 5B-45,Siloe - Colonia,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5569,3.4245,1111.972778,15.04483128,Calle 6 oeste # 42-40,Siloe - Andes,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.553445,3.423443,990.2617798,12.735116,Calle 1a oeste # 42-51,Siloe - Nave,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.564,3.4233,1115.841187,13.69638252,K 46 Oeste # 20c-02,La Sultanita,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5633,3.4226,1087.091919,19.2490387,C 18 Oeste # 49b-02,La Sultana,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5651,3.422,1086.399536,16.06889915,K 49 Oeste # 23-11,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5636,3.4219,1082.276611,54.72680283,C 22 Oeste # 49b-25,La Sultana,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.563731,3.384621,1168.460327,34.30477524,K 83D Oeste Casa 63,Alto N�poles - Tanque 3,Zonas urbanas continuas,Amenaza alta,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.563572,3.384635,1161.213745,54.44300842,Tanque 3,Alto N�poles - Tanque 3,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.564178,3.384217,1176.374268,56.9627533,K 83D Oeste Casa 65,Alto N�poles - Tanque 3,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.56418,3.384216,1176.433594,56.84809875,K 83D Oeste Casa 68,Alto N�poles - Tanque 3,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.564181,3.384205,1176.099365,57.07576752,K 83D Oeste sin #,Alto N�poles - Tanque 3,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.56234,3.385995,1112.034912,41.48883438,C 38 79 - 11 casa 302,Alto N�poles - Sector Tamayo,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.561095,3.385445,1081.522339,13.61056805,C 3 Oeste 80B - 22,Alto N�poles - Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.563156,3.391781,1109.965332,42.9440155,Manzana 5 alfrente de la casa 204,Las Veraneras,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.562844,3.394577,1036.462402,9.237675667,K 70 Oeste 4D - 24,Las Veraneras,Bosque mixto denso bajo de tierra firme,Amenaza media,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.562252,3.387848,1076.783447,23.86061287,Manzana 5 Casa 255,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.562394,3.387569,1088.281738,64.5229187,"Manzana 2, casa 7",Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.563193,3.388184,1100.818359,18.8816433,C 4D Oeste 71 - 05,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.562944,3.388068,1092.714355,33.55766678,C 4B Oeste 71 - 12,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.561839,3.387879,1079.963379,43.09729004,C 4B Oeste 71 - 07,Las Veraneras,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.56386,3.39283,1080.574585,41.82442856,C 4B Oeste 73A - 05,Las Veraneras,Bosque mixto denso bajo de tierra firme,Amenaza alta,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.56287,3.393298,1050.011597,19.03824043,Manzana 2 casa 8,Las minas,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.562398,3.392002,1099.222412,36.79383087,sin nomenclatura,Alto de la Cruz,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.6,83.5,213.5,343.7,452.1,531
+3/23/2021,-76.564001,3.422783,1106.866943,15.82140446,K 46A Oeste # 46a-32,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.562407,3.4236,1108.013672,3.538648605,K 44 # 18 - 2E Oeste,Lleras Camargo - Sector Los Pozos,Vegetación secundaria o transición,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.55867,3.419246,1048.901489,74.6686554,C 7 Oeste # 49 - 98,Tierra Blanca - sector La Ca�ada,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5582,3.4195,1066.464478,21.97598839,C 70 # 49b-65,Tierra Blanca - sector La Ca�ada,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.5583,3.4196,1069.145996,6.517336845,C 70 # 49b-63,Tierra Blanca - sector La Ca�ada,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.562077,3.423266,1113.838623,36.54125977,C 11 # 43-48,Lleras Camargo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.560693,3.425139,1208.947266,22.18996239,K 45 # 15 - 36,Lleras Camargo - Los pozoz,Vegetación secundaria o transición,Amenaza alta,Lateritas Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.56172,3.426197,1206.173462,37.61865997,K 44 # 19 - 52,Lleras Camargo - Los pozoz,Vegetación secundaria o transición,Amenaza media,Lateritas Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.563134,3.420978,1066.44043,17.88010406,C 18 w Oeste,Lleras Camargo - Los pozoz,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+44278,-76.559559,3.418759,1021.843628,36.09079742,C 18 Oeste # 50A - 10,Lleras Camargo - Los Chorros,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.56508,3.41564,1037.846802,14.3763504,Carrera 54 D Diagonal 45 A20,Pueblo Joven,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56559,3.41679,1043.213867,28.31174469,Diagonal 45 oeste No 54 - 08,Pueblo Joven,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56461,3.41672,1020.868958,55.93296051,Carrera 54 A oeste No 47 - 29,Pueblo Joven,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.565153,3.420605,1071.051514,16.48756409,Calle 25 C oeste No 49 - 17,La Arboleda Brisas de Mayo,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,10.0,193.0,311.0,583.0,735.0,918
+3/23/2021,-76.56456,3.41653,1022.830017,47.4755249,Carrera 54 Aoeste No. 14 A - 26,Pueblo Joven,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56531,3.41578,1041.295288,18.44807434,Carrera 54 E oeste No. 45 A 17,Pueblo Joven,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56536,3.41573,1041.403198,13.70827961,Carrera 54 E oeste No. 45 A 11,Pueblo Joven,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.5672,3.40951,991.5223389,9.668688774,Calle 17 oeste No 55 - 16,Bella Suiza,Bosque mixto denso bajo de tierra firme,Amenaza baja,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56676,3.40971,990.1463623,4.896905422,Calle 17 B oeste No 55 - 72,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56739,3.40958,991.1411133,2.978758097,Calle 17 B oeste No 55 - 56,Bella Suiza,Bosque mixto denso bajo de tierra firme,Amenaza baja,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56722,3.40947,991.8106689,5.573441982,Calle 17 B oeste No. 55 - 48,Bella Suiza,Bosque mixto denso bajo de tierra firme,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56724,3.40978,989.6017456,18.54602623,Calle 17 B oeste No 55 - 66,Bella Suiza,Zonas urbanas discontinuas,Amenaza baja,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56702,3.40998,988.4727783,6.417994499,Calle 17 B oeste No 55 - 24,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/23/2021,-76.56688,3.40973,989.9190674,11.59294796,Calle 17 B oeste No 55 - 32,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,1.2,100.8,205.0,315.2,386.6,530
+3/22/2021,-76.555807,3.427046,1062.033203,76.37886047,C 6 Oeste # 39A -56,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555398,3.426863,1053.134277,68.53347015,C 6 Oeste #39A- 55,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555482,3.426767,1048.873657,88.78195953,C 6 Oeste # 39A-52,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555467,3.426752,1046.840332,89.23799896,C 6 A #39A-46,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555874,3.427027,1055.716187,65.0245285,C 6 # 39A- 65,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555853,3.427452,1066.209351,55.48162079,C 6 Oeste,Belen - Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555706,3.425663,1068.914063,40.61170197,K 40 Oeste #5-25,Belen - Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555739,3.425372,1074.044434,47.1623497,C 5B Oeste #40C-30,Los Balsos- Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.555744,3.425488,1072.87854,45.95119095,K 40C #5- 30 Oeste,Los Balsos- Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.556422,3.428065,1085.084961,58.29159546,K 40 B Oeste #7- 50,San Francisco- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.557357,3.42821,1111.244873,61.164814,K 40B Oeste #7-64,San Francisco- Siloe,Vegetación secundaria o transición,Amenaza alta,Formacion Guachinte,14.0,197.0,366.0,583.0,746.0,908
+3/22/2021,-76.556389,3.428031,1082.825317,72.88136291,K 40B Oeste,San Francisco- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/24/2021,-76.564031,3.419567,1030.766602,8.802410126,C 13 Oeste No. 53 - 13,Brisas de Mayo - Sector Pascualito,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5644,3.41988,1038.181641,23.54843712,C 52 B K 13 Oeste,Brisas de Mayo- sector Pascualito,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5537,3.4205,985.7921143,22.61143303,Calle 5 oeste # 43-80,Siloe - Guayabales,Zonas urbanas continuas,Riesgo bajo,Cono aluvial rio Melendez,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.556,3.4263,1058.767822,58.13680649,Cra 42 oeste # 5a-46,Siloe Guayabales,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5553,3.4217,1035.321289,39.94425201,Calle 5a oeste # 45-42,Siloe - Guayabales,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5558,3.4221,1050.234009,38.97969055,Calle 5 oeste # 44-58,Siloe - Guayabales,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.554,3.4202,992.0523682,7.066198826,Cale 5c oeste # 43-47,Siloe - Guayabales,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5554,3.4216,1028.809448,28.11426735,Calle 5 # 44b oeste,Siloe - Guayabales,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5655,3.423,1119.420654,14.5745039,K 46A Oeste # 22-69,La Sultana,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.560883,3.418993,1005.689575,7.860470295,K 50 E # 9 - 56,Lleras Camargo,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.562801,3.423021,1099.144043,32.94013596,C 19A # 46A-31,Lleras Camargo - Egipto,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.560522,3.423884,1168.942139,31.05699348,C 12 # 46 - 35,Lleras Camargo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.563192,3.422841,1095.604126,55.06616974,K 46 # 19A - 21,Lleras Camargo - Egipto,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.560453,3.420126,1039.797974,62.4753952,K 50A Oeste # 9 - 26,Lleras Camargo - Los Chorritos,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.629612,3.422877,1980.429199,94.63062286,C 46 Oeste #19 - 09,Lleras Camargo - Egipto,Pasto cultivado arbolado,Riesgo bajo,Formacion Volcanica,0.0,115.0,254.0,361.0,487.0,596
+3/24/2021,-76.563222,3.418576,1005.251648,27.42802048,C 18A Oeste # 50E -24,Lleras Camargo,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5617,3.42248,1104.730347,44.53593826,K 48 Oeste # 14-21,Lleras Camargo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.560401,3.421047,1073.489014,37.33312225,C 9 Oeste # 49b - 28,Lleras Camargo - Los Chorritos,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55782,3.4196,1073.932739,75.06591797,Calle 6 D oeste No 49 - 87,Pomos Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55745,3.41955,1046.072998,58.7633934,Calle 6 Bis oeste No 49 B - 36,Pomos Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.5571,3.4199,1043.582886,42.15626144,Calle 6 C bis oeste No. 49 B - 09,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55708,3.41997,1044.863525,35.90003967,Carrera 49 B No 6 C bis 28,Siloe Mirador,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55788,3.41807,1013.982971,37.01368332,Calle 6 D oeste No 49 B 81,Pomos Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.4,69.2,194.8,316.2,381.4,530
+3/24/2021,-76.55771,3.41915,1049.551514,74.08016205,Calle 6 G oeste No 49 B - 91,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55719,3.41878,1009.557617,61.09376144,Calle 6 B bis oeste No 51 - 29,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55789,3.41929,1063.869141,42.99794006,Calle 6 B oeste No 51 A 46,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55726,3.41879,1012.722534,58.26332855,Calle 6 B oeste No 50 - 21,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55715,3.41897,1013.021484,29.17407036,Calle 6 B oeste No 51 - 17,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55815,3.41771,1015.472412,52.4895134,Calle 6 B oeste No 50 - 16,Pomos Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.4,69.2,194.8,316.2,381.4,530
+3/24/2021,-76.55696,3.41943,1020.119873,31.09327126,Calle 6 B oeste No 49 B - 35,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55783,3.41933,1063.224121,59.17889404,Calle 6 G No 50 - 61,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55801,3.41948,1069.822876,44.59360123,Calle 6 D oeste No 49 B - 66,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55662,3.41627,980.206604,13.10472775,Calle 6 C Bis oeste No. 49 B - 13,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Cono aluvial rio Melendez,0.4,69.2,194.8,316.2,381.4,530
+3/24/2021,-76.55775,3.41922,1055.200195,64.47943878,Calle 6 D oeste No 49 B 95,Siloe Mirador,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55763,3.41943,1053.985962,74.60374451,Calle 6 D oeste no 49 B 93,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55744,3.41908,1031.316406,60.17660904,Calle 6 C oeste No 50 A 42,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/24/2021,-76.55757,3.41932,1046.636963,56.50341034,Calle 6 C oeste No 50 - 40,Pomos Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,182.0,244.0,566.0,735.0,878
+3/25/2021,-76.5589,3.421944,1118.503662,69.27466583,K 49 Oeste No. 8 B 10,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.558213,3.411827,980.6251831,6.794887066,K 48 No. 8 - 20 Oeste,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Depositos aluviales,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.559224,3.418177,1007.224121,50.94915771,C 7 Oeste No 49 B 118,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.559099,3.419218,1034.776123,55.10509491,C 7 Oeste No 49 B 110,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.5579,3.4232,1151.145508,35.04502869,Cra 43 oeste # 7-18,Siloe - La Estrella,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.5577,3.4305,1145.863403,6.560159683,Cra 42c # 6g bis -25,Siloe - La Estrella,Bosque mixto fragmentado con vegetación natural,Amenaza muy alta,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.562129,3.418579,1027.185913,48.76873398,K 51 Oeste # 13 - 15,Lleras Camargo - Sede Comunal,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.565606,3.416915,1045.055176,31.10210037,K 53 G Oeste # 12B - 20,Brisas de Mayo - La platanera,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.560143,3.417758,994.1222534,7.852998257,C 51 Oeste # 6H - 44,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.55901,3.427446,1163.776733,27.58082199,K 44A # 8B - 25,Tierra Blanca,Bosque mixto fragmentado con vegetación natural,Amenaza alta,Lateritas Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.56613,3.417637,1076.51062,44.28264618,C 12D Bis Oeste # 53FBis - 08,Brisas de Mayo,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.565126,3.417551,1059.12146,30.08188248,K 53F Oeste # 12A - 16,Brisas de Mayo,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.56507,3.416517,1032.943481,29.89033318,K 53F Oeste # 12A - 18,Brisas de Mayo,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/25/2021,-76.556838,3.421021,1082.17334,50.38904953,C 6F Oeste # 48 - 128,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,168.0,239.0,571.0,735.0,845
+3/25/2021,-76.565848,3.416897,1050.124146,38.61997604,K 54 Oeste # 12B - 44,Brisas de Mayo,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,1.0,70.2,209.0,336.2,382.4,485
+3/22/2021,-76.555474,3.428241,1117.476807,52.74344635,Sin direccion,Belen - Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/26/2021,-76.561329,3.385462,1086.295898,85.57128906,C 3A Oeste 80 - 20,Alto N�poles - Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.561184,3.385448,1080.486328,10.88285065,C 3A Oeste 80b - 34,Alto N�poles - Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.561134,3.385398,1081.535278,13.47407627,C 3 Oeste 80b - 30 (piso 2),Alto N�poles - Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.558806,3.38634,1010.28833,25.96040344,Recorrido desde el muro de Hospital Mario Correa HASTA LA QUEBRADA EL hOSPITAL,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.559045,3.386284,1014.625183,32.79048538,K 79 2AW,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.561977,3.392628,1100.170776,28.63066483,C 4 D Oeste 70A - 19,La Cruz,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.562925,3.39357,1046.111572,15.88568878,K 66B Oeste 3G - 05,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.56263,3.393094,1060.205566,74.8911972,K 66B Oeste 3G - 11,Las Veraneras,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.3,84.9,173.1,368.4,446.1,536
+3/26/2021,-76.548095,3.431595,998.480835,25.55153656,C 3A 36B - 00,San Fernando Viejo,Otras superficies artificiales sin construcción,Riesgo medio,Formacion Volcanica,1.0,65.8,86.6,190.8,291.2,300
+3/26/2021,-76.563185,3.423019,1105.771851,37.35000229,K 46 Oeste # 19A - 3,Lleras Camargo - Egipto,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,5.0,163.0,242.0,551.0,740.0,848
+3/26/2021,-76.5772,3.3829,1221.65979,16.74973679,Crucero Buitrera,Buitrera,Zonas urbanas discontinuas,Riesgo bajo,Lateritas Formacion Volcanica,18.0,82.0,109.0,522.0,743.0,896
+3/22/2021,-76.556395,3.426214,1084.155151,69.54338837,C 5C Oeste # 40B- 35,San Francisco- Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,14.0,197.0,366.0,583.0,746.0,908
+3/27/2021,-76.555468,3.420608,1016.143372,14.09152603,Carrera 46 # 5 - 22,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,13.0,172.0,238.0,551.0,753.0,861
+3/27/2021,-76.557007,3.423818,1110.098755,26.96436882,Carrera,43 Oeste # 6c - 14,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,13.0,172.0,238.0,551.0,753.0,861
+3/28/2021,-76.560066,3.419228,1017.70459,77.31534576,C 9 Oeste 50A - 85,Tierra Blanca - Sector los Bohios,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,42.0,236.0,521.0,753.0,859
+3/28/2021,-76.560158,3.419412,1009.120605,24.5102787,C 9 Oeste 50A - 63,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,42.0,236.0,521.0,753.0,859
+3/28/2021,-76.556386,3.428558,1077.052734,17.83647156,K 40B Oeste 7 - 64,San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,42.0,236.0,521.0,753.0,859
+3/28/2021,-76.558468,3.421763,1119.235596,38.73345566,K 49 Oeste 8-20,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,42.0,236.0,521.0,753.0,859
+3/30/2021,-76.5645,3.3724,1109.409546,91.34342194,"Kilometro 4,5",Girasoles,Zonas urbanas discontinuas,Riesgo alto,Formacion Guachinte,0.0,41.0,116.0,364.0,800.0,972
+3/30/2021,-76.5967,3.3394,1269.807129,24.17505646,Rincon de Chorro de Plata, ,Arbustal y matorral denso bajo de tierra firme,Amenaza media,Formacion Guachinte,0.0,13.4,105.5,299.9,577.5,698
+3/30/2021,-76.555686,3.421499,1028.278442,24.84938049,Cra 45 B # 4-18,Siloe - La Mina,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.56575,3.42138,1086.126587,35.5473938,C 25C Oeste # 49 - 59 Apto 1,Siloe - Brisas de Mayo - Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.56584,3.42146,1089.767456,19.65428352,C 25C Oeste # 49 - 59 Apto 3,Siloe - Brisas de Mayo - Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.56582,3.42154,1091.372681,32.30137253,C 25C Oeste # 49 - 59 Apto 2,Siloe - Brisas de Mayo - Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.56566,3.42139,1084.345215,32.86863709,C 25 B Oeste # 49 - 34,Siloe - Brisas de Mayo - Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.56802,3.42347,1167.901245,23.53801918,K 46 Oeste Casa Q 21,Siloe - Alto la Sultana,Otras asociaciones de cultivos,Riesgo alto,Lateritas Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.55825,3.42082,1080.625122,46.23978043,K 49B # 7 Oeste 04,Siloe - Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.558521,3.419265,1060.701904,54.16854477,C 6H Oeste 50 - 38,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.559213,3.419073,1031.717896,67.46238709,C 7 49B - 105,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/30/2021,-76.558898,3.418757,1032.912598,51.46683502,C 7 49 - 118,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,18.0,225.0,471.0,753.0,859
+3/31/2021,-76.55378,3.421292,990.3879395,26.0959053,Cra 45 B # 3-76,Siloe - La Mina,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+3/31/2021,-76.556327,3.425802,1090.469116,65.82198334,Cra 40b oeste # 5-90,Siloe - Case Piedra,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+3/31/2021,-76.557258,3.425549,1107.623291,28.28303146,Calle 6 oeste # 40D-70,Siloe - Betania,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+3/31/2021,-76.557457,3.425113,1115.382935,18.26127052,Calle 6 # 40 oeste -29,Siloe - Betania,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+3/31/2021,-76.556509,3.425877,1102.711304,56.35150909,Calle 5 oeste # 40B-36,Siloe - Case Piedra,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+3/31/2021,-76.5656,3.4213,1081.917603,10.08415031,C 25 A Oeste # 49b - 29,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,0.0,18.0,211.0,430.0,753.0,859
+4/1/2021,-76.5648,3.4199,1058.672974,56.15089798,C 12 E OESTE # 52B-05,BRISAS DE MAYOR,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,18.0,220.0,431.0,753.0,859
+4/2/2021,-76.567693,3.409198,992.2848511,9.005477905,K 55A Oeste No 17c - 38,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,4.8,10.4,181.0,318.4,410.8,480
+4/2/2021,-76.567698,3.409203,992.3388062,8.923909187,K 55A Oeste No 17c - 36,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,4.8,10.4,181.0,318.4,410.8,480
+4/2/2021,-76.564471,3.416305,1023.279236,29.16776466,K 54A No 14A-30,Pueblo Joven,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,4.8,10.4,181.0,318.4,410.8,480
+4/2/2021,-76.565741,3.421343,1085.033813,36.38882065,C 25A Oeste No 49b - 29,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,20.0,33.0,254.0,477.0,773.0,872
+4/5/2021,-76.5629,3.3933,1049.604248,12.10340405,C f oeste # 66b-21,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,6.7,95.5,187.2,370.2,573.6,611
+4/5/2021,-76.563,3.3933,1049.930176,20.15525246,C 4 oeste # 68D-18,Las Veraneras,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,6.7,95.5,187.2,370.2,573.6,611
+4/5/2021,-76.5551,3.3844,1009.395264,51.85485458,K 82 # 1 A1 - 24,ALTOS NAPOLES,Zonas urbanas continuas,Amenaza baja,Lateritas Formacion Volcanica,6.7,95.5,187.2,370.2,573.6,611
+4/6/2021,-76.55894,3.38835,1001.018555,12.82371426,C 75 # 2� - 18,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,10.3,105.8,163.2,377.1,583.9,621
+4/7/2021,-76.57757,3.3995,1171.444702,5.996991158,Sector Planetario,La Sinera,Zonas urbanas continuas,Amenaza media,Lateritas Formacion Volcanica,0.0,63.0,74.0,360.0,753.0,850
+4/7/2021,-76.55955,3.42132,1079.01001,51.78972244,C 80 D Oeste # 49� - 01,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,2.0,95.0,113.0,424.0,848.0,920
+4/7/2021,-76.56382,3.39231,1066.047852,5.802911758,C 66B Oeste # 3G - 97,Las Veraneras,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.8,113.6,155.6,368.9,591.7,629
+4/8/2021,-76.56175,3.39326,1067.63623,79.18783569,C 3C Oeste # 66C - 60,Brisas de la Chorrera,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,0.0,111.9,155.4,353.9,591.7,629
+4/8/2021,-76.56269,3.42337,1106.881714,27.89746475,C 12 Oeste con Carrera 46 # 19 - 23,Siloe - Los Posos,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,95.0,113.0,357.0,848.0,873
+4/9/2021,-76.56186,3.39306,1082.535522,53.33098221,Manzana 5,Las Minas,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,0.0,96.0,152.3,296.3,561.8,629
+4/9/2021,-76.55843,3.42156,1112.605591,15.69567013,C 47 # 6H - 72,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,75.0,114.0,348.0,828.0,873
+4/9/2021,-76.55469,3.42581,1013.084229,10.98899364,C 40 # 2� - 30,Siloe - El hueco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,75.0,114.0,348.0,828.0,873
+4/9/2021,-76.5619,3.39113,1109.431274,75.63465118,"C 4 D Oeste # 72 � 27, Casa 135",La Cruz,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,0.0,96.0,152.3,296.3,561.8,629
+4/7/2021,-76.60381,3.48097,1681.765259,41.24684143,Cabecera Saladito,Saladito,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,54.4,74.0,138.4,366.2,413
+4/10/2021,-76.6343,3.45341,1758.947754,20.22131538,V�a el Porvenir, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.0,70.4,155.9,262.7,521.4,622
+4/10/2021,-76.61703,3.4506,1713.737305,45.85474014,Loma la Cajita, ,Bosque mixto denso alto de tierra firme,Riesgo medio,Formacion Volcanica,0.0,70.4,155.9,262.7,521.4,622
+4/21/2021,-76.563151,3.418325,1003.604004,6.475253105,K 52 Oeste # 13b -37,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,22.0,50.2,217.2,483.2,555
+4/28/2021,-76.54882,3.315313,1010.179321,14.95464897,,Pance -Pe�n,Pasto cultivado arbolado,Amenaza baja,Cono aluvial 2 rio Pance,12.0,49.0,272.0,414.0,682.0,842
+4/28/2021,-76.584766,3.315355,1245.10144,47.05675888,,Pance -Pe�n,Arbustal y matorral abierto bajo de tierra firme,Riesgo bajo,Formacion Jamundi,91.6,155.0,283.2,417.0,731.5,984
+4/28/2021,-76.58478,3.315677,1246.168213,19.98528099,,Pance -Pe�n,Arbustal y matorral abierto bajo de tierra firme,Riesgo bajo,Formacion Jamundi,91.6,155.0,283.2,417.0,731.5,984
+4/28/2021,-76.585087,3.315497,1251.595703,15.77154064,,Pance -Pe�n,Arbustal y matorral abierto bajo de tierra firme,Riesgo bajo,Formacion Jamundi,91.6,155.0,283.2,417.0,731.5,984
+6/2/2021,-76.561615,3.393185,1061.592041,75.71679688,Calle 3C Oeste #66c-60,Brisas de la Chorrera,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.3,23.7,26.4,57.5,283.6,551
+6/15/2021,-76.576329,3.382274,1215.313477,10.8241148,Km 7 callejon El Portal casa 10, ,Bosque mixto denso bajo de tierra firme,Riesgo medio,Lateritas Formacion Volcanica,0.0,78.0,130.0,219.0,503.0,771
+6/15/2021,-76.633165,3.468254,1792.852417,85.49398804,Felidia cabecera,Felidia cabecera,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.6,50.6,137.2,238.2,413.0,667
+6/15/2021,-76.578993,3.460406,1134.003906,38.83359528,,Monta�itas 2,Zonas urbanas discontinuas,Riesgo medio,Formacion Volcanica,0.6,17.6,44.0,85.2,172.6,309
+6/21/2021,-76.551352,3.428296,1013.19989,58.08582687,Carrera 38B Oeste No. 041A � 07,Belen,Otras superficies artificiales sin construcción,Riesgo medio,Formacion Volcanica,0.0,11.0,76.0,144.0,367.0,527
+6/23/2021,-76.5499,3.45618,1034.819702,47.61074448,Sector Aguacatal,Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,0.2,6.9,42.4,94.7,140
+7/29/2021,-76.556138,3.426849,1051.264038,9.158086777,C 6 Oeste No 34a-63,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.55629,3.42684,1058.138916,48.59349442,C 6 Oeste No 39a-65,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.556222,3.426837,1054.402344,50.16466141,C 6 Oeste No 39a-61,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.556221,3.426906,1054.19104,50.38008499,No encontrada en sitio,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.55599,3.42724,1056.407959,26.90325737,C 6 Oeste No 39a-73,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.556131,3.427145,1053.831543,18.0909214,K 40B Oeste No 5 - 36,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.55588,3.42705,1056.040527,62.44022751,C 6 Oeste No 39A-67,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.555934,3.426971,1051.49646,26.07922554,K 401A Oeste No 5 - 18,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.555933,3.426866,1051.267334,10.83177757,"K 40A Oeste No 5 - xx """"la casas de roca""""",Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.556013,3.426847,1051.040161,2.509325504,K 40b Oeste No 5 - xx,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.555908,3.426987,1052.738647,45.24713898,K 401A Oeste No 5 - 24,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+7/29/2021,-76.55609,3.42705,1052.313477,8.10593605,K 401A Oeste No 5 - 30,Bel�n,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,54.0,54.0,83.0,231.0,331
+8/2/2021,-76.543494,3.44537,1034.578247,49.856987,C 3 oeste # 12a-20,San Antonio,Otras superficies artificiales sin construcción,Riesgo bajo,Formacion Volcanica,0.0,0.2,47.8,135.2,268.4,449
+8/28/2021,-76.5663,3.4226,1139.761597,10.25385761,K 46 # 28-78,Parcelas,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,79.0,139.0,247.0,277.0,425
+8/28/2021,-76.5555,3.4262,1047.075562,74.57149506,K 40 bis Oe 3 90,El crucero,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,79.0,139.0,247.0,277.0,425
+9/17/2021,-76.555081,3.426987,1064.64209,69.03983307,K 40B Oeste No 5 - 30,Bel�n,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,14.0,77.0,209.0,378.0,431
+10/17/2021,-76.555441,3.425818,1054.134766,54.26916504,K 40 B Oeste No. 4 A 19,San Francisco,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,52.0,94.0,192.0,376.0,545
+10/17/2021,-76.5559,3.42795,1070.486328,76.82875061,K 40 B Oeste No. 6 - 48,San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,52.0,94.0,192.0,376.0,545
+10/21/2021,-76.548179,3.486423,1284.991577,16.04629135,Av 45 Oeste No 9B - 25,Sector 20 de Julio,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,53.0,96.0,116.0,123.0,215.0,284
+10/15/2021,-76.565752,3.421343,1085.460571,37.61511993, ,Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,15.0,47.0,69.0,167.0,371.0,540
+10/24/2021,-76.548386,3.44281,1026.406372,18.01449966,C 11 Oeste con K 24C,Avenida Circunvalaci�n,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.2,118.6,324.4,475.2,631.2,780
+11/26/2021,-76.563626,3.383673,1153.743286,24.48114967,Cra 28D Oeste,Tanque 3,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,3.6,31.8,43.5,94.9,266.3,458
+11/26/2021,-76.562758,3.386589,1107.495972,28.16271591,Carrera 80 Oeste casa 560,Cabildo - sector Tamayo,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.9,59.3,103.9,138.0,306.2,482
+11/26/2021,-76.56289,3.386507,1114.817261,70.794487,Calle 3 D Oeste casa 55,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,6.9,59.3,103.9,138.0,306.2,482
+11/26/2021,-76.560591,3.384045,1072.995239,38.70602798,Calle 3B Oeste #82B-16,Alto Napoles,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,6.9,59.3,103.9,138.0,306.2,482
+11/21/2021,-76.56296,3.42258,1085.13855,13.28485775,Carrera 49 oeste No. 18 C - 10,Lleras Camargo,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,36.0,59.0,122.0,211.0,396.0,645
+11/2/2021,-76.599595,3.474968,1654.762451,32.21852493,Antigua Via Cali-Saladito -Corregimiento Saladito,Saladito,Pasto cultivado,Amenaza media,Formacion Volcanica,11.0,30.6,88.6,154.2,279.6,424
+11/27/2021,-76.562893,3.381207,1099.761841,29.92726707,Calle 4B Oeste #82E-17,La Choclona,Otras superficies artificiales sin construcción,Riesgo alto,Lateritas Formacion Volcanica,0.0,59.3,96.6,140.1,306.2,482
+11/11/2021,-76.620939,3.325824,1446.527344,71.81580353,Quebrada el porvenir,vereda san francisco - Pance,Otras superficies artificiales con construcción,Riesgo bajo,Stock de Pance – Gabro hornblendico,9.4,99.4,137.1,282.3,467.5,679
+1/2/2022,-76.585022,3.421737,1322.784424,54.7730484,Cl 24 O # 47-59,Sultana,Vegetación secundaria o transición,Amenaza alta,Lateritas Formacion Volcanica,3.0,52.0,80.0,193.0,421.0,686
+1/20/2022,-76.56304,3.380632,1106.717529,39.62168121,Calle 5a Oeste #83-23,Palmas II,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,0.0,0.0,46.8,119.8,318.8,445
+1/20/2022,-76.555913,3.426943,1051.995483,35.03286362,Calle 6 Oeste #39a-40,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,0.0,26.0,178.0,479.0,660
+1/29/2022,-76.556303,3.424496,1098.982422,30.00439453, , ,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,2.0,2.0,31.0,291.0,573
+1/29/2022,-76.556618,3.425955,1102.744385,75.58666992, , ,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,2.0,2.0,31.0,291.0,573
+1/29/2022,-76.556506,3.426023,1097.654663,65.21030426, , ,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,2.0,2.0,31.0,291.0,573
+1/29/2022,-76.556788,3.426037,1094.55188,17.93000412,Calle 6 biz A Oeste # 42b,Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,2.0,2.0,31.0,291.0,573
+1/29/2022,-76.557288,3.426347,1107.9021,48.78902435,Calle 6C No. 40C - 05,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,2.0,2.0,31.0,291.0,573
+2/14/2022,-76.581577,3.385937,1248.862305,92.06652832,"Callejon Anchicay�, Buitrera",Buitrera,Pasto cultivado,Amenaza alta,Formacion Guachinte,0.0,44.0,82.0,113.0,247.0,483
+2/14/2022,-76.592718,3.375263,1444.915283,35.63484573,Km 9.5 Via Buitrera-El Oto�o Callejon Las Nubes,Buitrera,Pasto cultivado,Riesgo bajo,Lateritas Formacion Volcanica,0.2,33.8,78.2,104.6,225.0,445
+2/15/2022,-76.567374,3.423455,1162.262207,10.43564796,Kr 41 Cl 29 Oeste,Las Parcelas,Otras asociaciones de cultivos,Riesgo alto,Lateritas Formacion Volcanica,0.0,33.0,78.0,80.0,258.0,610
+2/27/2022,-76.564337,3.411261,982.5489502,3.632476807,Cl 25 Oes #30-15,La Arboleda,Bosque mixto denso alto de tierra firme,Riesgo bajo,Formacion Volcanica,15.9,56.3,98.6,149.7,272.0,408
+2/27/2022,-76.565474,3.421429,1086.286621,35.41916275,Cl 25 B #49a-04,La Arboleda,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,53.0,117.0,137.0,215.0,238.0,498
+2/27/2022,-76.565841,3.421418,1089.27002,23.6209507,Cl 25 Oe #43-12,La Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,53.0,117.0,137.0,215.0,238.0,498
+3/3/2022,-76.576995,3.399248,1179.193604,9.430892944,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,9.0,111.9,130.4,196.7,314.9,427
+3/3/2022,-76.577411,3.399587,1172.414185,8.977776527,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.57779,3.398328,1206.571167,46.61628723,Alto los Mangos Calleon Planetario, ,Pasto cultivado enmalezado,Amenaza alta,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.576587,3.40027,1161.064697,41.83205795,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,9.0,111.9,130.4,196.7,314.9,427
+3/3/2022,-76.577253,3.399352,1176.450439,21.44880486,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.577622,3.399578,1170.223389,27.87008858,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Amenaza media,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.577438,3.399423,1172.090088,30.56757736,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.577404,3.399511,1173.379272,12.12706757,Alto los Mangos Calleon Planetario, ,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.578079,3.399307,1187.921387,35.76283646,Alto los Mangos Calleon Planetario, ,Pasto cultivado,Amenaza media,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.578098,3.399504,1183.531006,31.76905251,Alto los Mangos Calleon Planetario, ,Pasto cultivado,Amenaza media,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/3/2022,-76.577613,3.399402,1172.609863,42.30244827,Alto los Mangos Calleon Planetario, ,Bosque mixto denso bajo de tierra firme,Amenaza media,Lateritas Formacion Volcanica,30.0,153.0,218.0,350.0,408.0,600
+3/11/2022,-76.55393,3.44649,1097.746826,35.74649048,K 2D BIS Oeste No. 13 - 17,Bellavista,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,10.2,32.6,234.6,277.6,384.6,648
+3/11/2022,-76.55927,3.38604,1029.88916,68.71858978,K 80 Oeste No. 2Abis - 25,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,14.6,23.9,158.5,241.6,285.4,499
+3/1/2022,-76.567815,3.42358,1169.74231,17.87975121,K 46a # 28Oeste -169,Las Parcelas,Otras asociaciones de cultivos,Riesgo medio,Lateritas Formacion Volcanica,12.0,137.0,171.0,249.0,256.0,513
+3/12/2022,-76.54846,3.484145,1298.014893,9.949829102,Via a Guacas -Cancha de Montebello,Montebello,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,0.0,17.0,82.0,197.0,240.0,366
+3/17/2022,-76.586187,3.376978,1300.261841,70.75720215,Via El Rosario -Sector La Carbonera,El Rosario,Zonas urbanas discontinuas,Amenaza media,Formacion Guachinte,0.2,28.8,104.2,244.8,349.0,474
+3/27/2022,-76.561041,3.385995,1073.85022,53.50439072,K 3 Oeste # 80b - 26,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,16.7,24.9,52.3,207.7,299.9,398
+3/27/2022,-76.56116,3.38552,1079.63562,16.70918083,K 3 Oeste # 80b - 22,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,16.7,24.9,52.3,207.7,299.9,398
+3/27/2022,-76.56114,3.38547,1080.722778,17.42653465,K 3 Oeste # 80b,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,16.7,24.9,52.3,207.7,299.9,398
+3/27/2022,-76.561129,3.385465,1080.931274,17.17210007,C 3 Oeste # 80b - 30,Alto Napoles,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,16.7,24.9,52.3,207.7,299.9,398
+3/4/2022,-76.555544,3.378403,1027.491089,34.53173065,K93 con calle 2,Alto Jordan,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,3.7,131.5,161.2,244.4,308.5,476
+3/4/2022,-76.589235,3.388346,1276.094727,51.95617676,La fonda,Buitrera,Zonas urbanas discontinuas,Riesgo bajo,Lateritas Formacion Volcanica,53.0,157.0,256.0,343.0,390.0,565
+3/4/2022,-76.576777,3.38122,1237.593628,55.7868309,Km 7 v�a la Buitrea - Sector el Crucero - Callej�n Don Chepe,Buitrera,Zonas urbanas discontinuas,Riesgo medio,Lateritas Formacion Volcanica,53.0,157.0,256.0,343.0,390.0,565
+3/4/2022,-76.578099,3.382365,1240.529175,35.56397629,Km 7 v�a la Buitrea - Sector el Crucero - Callej�n Don Chepe,Buitrera,Zonas urbanas discontinuas,Riesgo bajo,Lateritas Formacion Volcanica,53.0,157.0,256.0,343.0,390.0,565
+3/4/2022,-76.578297,3.382447,1245.830078,14.98416805,Km 7 v�a la Buitrea - Sector el Crucero - Callej�n Don Chepe,Buitrera,Zonas urbanas discontinuas,Riesgo bajo,Lateritas Formacion Volcanica,53.0,157.0,256.0,343.0,390.0,565
+3/24/2022,-76.623046,3.32357,1478.984131,83.43863678,San francisco,Pance,Bosque mixto denso alto de tierra firme,Amenaza media,Stock de Pance – Gabro hornblendico,0.0,14.2,89.0,327.0,466.4,572
+4/6/2022,-76.630462,3.477533,1903.744263,51.66565323,La Ascension casa 8, ,Misceláneo de pastos y cultivos,Amenaza media,Formacion Volcanica,0.2,56.8,132.4,168.4,276.6,358
+4/6/2022,-76.562034,3.4564,1086.934937,94.29418182,Av 9 oeste No. 19 C1 20,Alto Aguacatal,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,78.3,137.7,178.0,318.2,374
+4/6/2022,-76.57109,3.452074,1152.488037,65.89265442,"Km 3, Av 4 Oeste",Palermo,Pasto cultivado arbolado,Amenaza alta,Formacion Volcanica,0.0,107.2,135.4,165.0,238.8,255
+4/2/2022,-76.56292,3.392745,1058.874878,42.41773605,Sector Veraneras-Buitrera-Alto Los Chorros,Las Veraneras-La Buitrera,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,0.1,102.2,113.6,151.5,384.7,454
+4/24/2022,-76.563913,3.384515,1171.02124,64.99498749,Kr 82d #3d Oe -25,Tanque 3,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,1.8,32.0,58.7,170.7,350.1,465
+4/29/2022,-76.550782,3.441049,1116.621338,68.60508728,Cll 12 Oeste #24e32,Morti�al,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,73.8,165.0,318.0,546.8,787
+4/2/2022,-76.562,3.392138,1117.126343,51.93819809,Casa 155,Sector La Cruz,Zonas urbanas continuas,Riesgo medio,Formacion Guachinte,0.1,102.2,113.6,151.5,384.7,454
+4/23/2022,-76.556916,3.416931,980.255188,3.391060591,Cll 3 Oeste #52b-38,La Arboleda,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,49.6,73.7,245.3,405.7,503
+4/29/2022,-76.550794,3.441043,1117.289795,73.94491577,Cll 11 Oeste Casa 102 (vecino),Morti�al,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,73.8,165.0,318.0,546.8,787
+4/4/2022,-76.56689,3.410005,989.0897827,2.64323163,C 17b Oeste No. 55 - 32,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+4/4/2022,-76.56851,3.409904,992.5241699,9.216978073,K 55A No 17C - 36,Bella Suiza,Bosque mixto denso bajo de tierra firme,Amenaza baja,Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+4/4/2022,-76.567725,3.409105,992.4362793,8.666613579,K 55a No 17C - 38,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+4/4/2022,-76.566343,3.412332,998.5218506,8.040167809,C 17b Oeste No 55 - 40,Bella Suiza,Pasto cultivado arbolado,Amenaza baja,Lateritas Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+4/4/2022,-76.566892,3.41,989.0795288,2.53853488,C 17b Oeste No 55 - 44,Bella Suiza,Zonas urbanas discontinuas,Riesgo bajo,Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+4/4/2022,-76.569232,3.40807,1003.77533,12.54903889,C 17b Oeste No 55 - 48,Bella Suiza,Bosque mixto denso bajo de tierra firme,Amenaza baja,Formacion Volcanica,0.0,125.9,163.8,186.5,388.5,472
+5/23/2022,-76.558804,3.419652,1048.365112,24.33044243,Cll 25A Oeste #49-12,Sector La Arboleda,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,42.0,107.0,189.0,202.0,466.0,688
+5/24/2022,-76.555274,3.42493,1059.898438,46.79891205,Cl 4 Oeste #40D-22,Sector Los Balsos,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,107.0,189.0,202.0,462.0,681
+6/5/2022,-76.556546,3.428602,1083.413696,39.86376953,Calle 7 Oeste #40-02,Belen - San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,13.0,124.0,263.0,365.0,453.0,642
+6/5/2022,-76.555958,3.428387,1074.666016,56.09586334,Calle 7 Oeste #40,Quebrada Isabel Perez,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,13.0,124.0,263.0,365.0,453.0,642
+6/5/2022,-76.556107,3.428363,1070.023071,51.46220016,Calle 7 Oeste #39,Belen - San Francisco/ Quebrada Isabel Perez,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,13.0,124.0,263.0,365.0,453.0,642
+6/5/2022,-76.55562,3.426545,1041.53125,40.74066162,Quebrada Isabel Perez (HUECO),Belen - San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,13.0,124.0,263.0,365.0,453.0,642
+6/5/2022,-76.56221,3.45569,1087.412598,47.24618912,Calle 19 D Oeste #8A-22,Alto Aguacatal,Zonas urbanas discontinuas,Riesgo alto,Formacion Volcanica,14.0,121.0,127.0,233.6,349.2,533
+6/5/2022,-76.566746,3.4556,1077.588867,80.08631134,Cl 23 #8b-41,Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,7.2,33.4,87.0,146.0,185.6,344
+6/5/2022,-76.533696,3.466749,1005.744141,24.1718483,Av 10N #24AN-15,Santa Monica,Bosque mixto abierto alto de tierra firme,Riesgo bajo,Formacion Guachinte,14.0,120.6,126.8,193.2,324.8,427
+6/8/2022,-76.55752,3.41983,1060.001465,66.01264191,Calle 6D Oeste #49B-46,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,112.0,182.0,371.0,467.0,676
+6/8/2022,-76.55748,3.41986,1058.096802,69.69790649,Calle 6D #49B-44,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,112.0,182.0,371.0,467.0,676
+6/8/2022,-76.55733,3.41989,1049.607422,47.90723801,Calle 6D Oeste #49B-45,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,112.0,182.0,371.0,467.0,676
+6/8/2022,-76.5575,3.41974,1056.373413,65.57022095,Calle 6D Oeste #49B-52,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,112.0,182.0,371.0,467.0,676
+6/8/2022,-76.53528,3.49191,1129.010132,32.16088104,Calle 52C N. Av 91 #83,Altos de Menga,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,31.0,98.0,102.0,139.0,304.0,505
+6/8/2022,-76.564868,3.455248,1074.333374,16.10298538,Av 9 Oeste #22-29,Terron Colorado- Sector Alto Aguacatal,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.8,51.4,80.2,155.4,188.4,372
+6/8/2022,-76.5649,3.455238,1074.063721,20.66666985,Av 9 Oeste #22-27,Terron Colorado- Sector Alto Aguacatal,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.8,51.4,80.2,155.4,188.4,372
+6/13/2022,-76.557836,3.376812,1096.402588,59.64213562,Carrera 93E Oeste #2C-04,Sector Pampas del Mirador,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,7.5,50.4,137.5,227.5,401.8,530
+6/13/2022,-76.557912,3.376772,1101.711548,63.86278915,Carrera 93E Oeste #2C-13,Sector Pampas del Mirador,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,7.5,50.4,137.5,227.5,401.8,530
+6/13/2022,-76.558115,3.376693,1115.267212,61.28576279,Carrera 93E Oeste #2C-24,Sector Pampas del Mirador,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,7.5,50.4,137.5,227.5,401.8,530
+6/14/2022,-76.548931,3.44304,1058.712769,70.90747833,Carrera 24C #11C-130,Morti�al,Zonas urbanas continuas,Amenaza alta,Formacion Volcanica,0.0,39.8,141.7,228.2,526.2,800
+6/8/2022,-76.573908,3.455107,1186.479126,55.9787178,Calle 28B Oeste #7A-11,Palmas 1,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.8,51.4,80.2,155.4,188.4,372
+6/8/2022,-76.562223,3.417468,995.6569824,12.23008347,Carrera 52a Oeste #10a Oeste-52,Brisas de Mayo,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,0.0,0.0,0.0,0.0,0.0,0
+6/4/2022,-76.607657,3.389253,1432.014038,61.85525513,Vereda el Carmen,Charco El Minuto - Villacarmelo,Misceláneo de cultivos y espacios naturales,Riesgo bajo,Formacion Volcanica,4.4,74.6,145.6,296.2,467.6,656
+6/1/2022,-76.554539,3.426069,1019.029541,44.62950134,Calle 28 Oeste #39B-13,Belen,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,36.0,65.0,173.0,265.0,410.0,584
+6/1/2022,-76.554743,3.425627,1016.029541,18.88672256,Calle 2 Oeste #39-6,Siloe,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,36.0,65.0,173.0,265.0,410.0,584
+6/10/2022,-76.543621,3.455043,1052.000122,36.81436539,Calle 2 Oeste, ,Zonas urbanas continuas,Amenaza alta,Formacion Guachinte,0.0,92.0,134.2,193.3,267.4,358
+6/10/2022,-76.634942,3.46217,1712.018311,24.78830147,Santa Helena - Corregimiento Felidia, ,Bosque mixto denso alto de tierra firme,Riesgo bajo,Formacion Volcanica,47.6,99.8,138.0,286.2,426.8,595
+6/20/2022,-76.631618,3.462813,1642.456299,43.02135086,"referencia por la via """"las melcochas"""" parte baja",Santa Elena,Otros cultivos arbustivos plantados abiertos,Riesgo bajo,Formacion Volcanica,8.6,65.0,209.8,292.0,469.4,690
+6/20/2022,-76.633871,3.45819,1596.956909,26.25960541,referencia parte baja de la via hacia el r�o,Santa Elena,Bosque mixto denso alto de tierra firme,Amenaza alta,Formacion Volcanica,8.0,16.5,73.7,185.3,423.0,647
+6/20/2022,-76.633398,3.459771,1599.939087,78.53975677,Vivienda al lado de la Quebrada,Santa Elena,Otros cultivos arbustivos plantados abiertos,Riesgo bajo,Formacion Volcanica,8.6,65.0,209.8,292.0,469.4,690
+6/20/2022,-76.631665,3.457563,1671.435181,48.74583054,"Via que conduce gacia oarte baja de la vereda, hacia el r�o",Santa Elena,Misceláneo de pastos y cultivos,Riesgo bajo,Formacion Volcanica,8.0,16.5,73.7,185.3,423.0,647
+6/5/2022,-76.580166,3.423873,1344.461304,25.96161461,V�a Pichinde a la altura del sector La Hamaca, ,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,13.0,124.0,263.0,365.0,453.0,642
+6/9/2022,-76.56302,3.39306,1052.583618,12.5669241,K 66 B Oeste No. 3 G 23,Alto los Chorros,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,7.3,71.0,126.7,283.5,368.1,497
+6/16/2022,-76.559231,3.418869,1018.260132,61.17512894,C 8 Oeste No. 49 B 129,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,5.0,44.0,181.0,353.0,470.0,712
+6/16/2022,-76.55923,3.41924,1042.460205,69.53762054,C 8 Oeste No. 49 B 127,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,5.0,44.0,181.0,353.0,470.0,712
+6/21/2022,-76.557803,3.417437,986.9034424,26.8618412, ,Pe�as blancas,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.4,86.0,293.0,418.0,533.6,720
+6/21/2022,-76.59364,3.439828,1556.33374,19.26148033, ,Pe�as blancas,Misceláneo de pastos y cultivos,Riesgo bajo,Formacion Volcanica,0.0,75.0,147.0,304.0,509.0,737
+6/28/2022,-76.55528,3.42626,1032.866333,20.92349815,Carrera 40 B oeste No 3 - 24,Silo� San Francisco,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,34.0,72.0,177.0,379.0,597.0,827
+7/8/2022,-76.545608,3.486141,1354.476685,38.05532837,Calle 4 Oeste #43a-55,Montebello,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,2.0,68.0,158.0,297.0,462
+6/4/2022,-76.565048,3.420722,1068.443237,20.40509415,Parte baja Arboleda,Parte baja Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,55.0,130.0,231.0,333.0,443.0,629
+6/4/2022,-76.565099,3.420635,1069.631226,29.58429146,Parte baja Arboleda,Parte baja Arboleda,Otras superficies artificiales sin construcción,Riesgo alto,Formacion Volcanica,55.0,130.0,231.0,333.0,443.0,629
+6/16/2022,-76.588209,3.49692,1784.541626,25.71876907,Via rural Castilla-Elvira,,Bosque mixto denso alto de tierra firme,Amenaza media,Lateritas Formacion Volcanica,0.0,34.2,143.2,193.4,350.0,501
+8/6/2022,-76.557427,3.48882,1257.289429,11.0579977,Quebrada El Chocho-Sector Minas, ,Pasto cultivado arbolado,Amenaza media,Formacion Guachinte,30.0,66.0,97.0,97.0,286.0,394
+9/23/2022,-76.561369,3.456765,1085.382935,81.03557587,Av 9b Oeste #19c-24,Alto Aguacatal,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,28.1,43.2,45.5,140.4,202
+9/23/2022,-76.561358,3.456785,1083.770386,81.27155304,Av 9b biz Oeste #19c-19,Alto Aguacatal,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,28.1,43.2,45.5,140.4,202
+9/23/2022,-76.561305,3.45679,1084.843262,75.15090179,Av 9b Oeste #19c-36,Alto Aguacatal,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,28.1,43.2,45.5,140.4,202
+9/28/2022,-76.55794,3.417642,1000.874695,48.96360016,Cl 6B #52-13,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,5.4,14.4,60.5,151.0,358.7,531
+9/28/2022,-76.556182,3.424276,1092.46582,45.56459045,Cl 5B Oeste #41-14,Siloe,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,17.0,85.0,145.0,212.0,273
+10/2/2022,-76.559942,3.418942,1015.099304,28.13564491,Kr 51 Oeste # 8B - 26,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,63.3,118.6,136.3,224.9,360
+10/14/2022,-76.551653,3.500962,1469.027466,40.68317413,Sector La Fragua Casa 69,Golondrinas Cabecera,Zonas urbanas continuas,Amenaza muy alta,Lateritas Formacion Volcanica,3.0,10.0,11.0,20.0,23.0,133
+10/14/2022,-76.550777,3.501237,1459.782104,41.90071869,Hoyo Frio,Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,3.0,10.0,11.0,20.0,23.0,133
+10/13/2022,-76.53802,3.46503,1118.322998,34.02827835,Av 10 Calle 12B Norte Sector Casa 20,Bataclan,Bosque mixto abierto alto de tierra firme,Amenaza alta,Formacion Guachinte,0.0,31.4,124.0,179.4,222.0,329
+10/4/2022,-76.5574,3.422449,1122.023193,32.88292313,Carrera 44 oe # 6G-63,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.55637,3.421737,1076.53064,61.16025543,Los Guayabales,Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.55622,3.424241,1093.405762,39.48587036,Casa de Piedra,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.55573,3.4266,1048.150757,35.07627869,Carrera 40B oe # 3-24,Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.553506,3.424533,991.9353027,51.89107132,Los Guayabales,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.563188,3.418608,1006.170227,20.80079651,Lleras Camargo,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.564833,3.421501,1073.880737,11.28443432,Calle 24 os # 47-59,Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.56494,3.421512,1073.391846,7.926323891,Calle 2 oe # 47-59,Silo�,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/4/2022,-76.562997,3.422389,1084.868652,24.33436012,Sultana,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,7.2,70.5,92.0,143.6,221.2,359
+10/12/2022,-76.549283,3.440902,1052.237549,38.29735565,Morti�al,Morti�al,Otras superficies artificiales sin construcción,Riesgo medio,Formacion Volcanica,8.7,43.0,113.6,172.7,258.6,392
+10/12/2022,-76.551029,3.482479,1213.833008,55.06575012,Los Cristales,Los Cristales,Pasto cultivado arbolado,Riesgo medio,Lateritas Formacion Volcanica,0.0,7.0,8.0,17.0,30.0,130
+10/12/2022,-76.561787,3.386725,1088.991943,33.44952774,Sal�n Azul,Sal�n Azul,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,1.2,62.1,141.9,170.5,210.6,330
+10/12/2022,-76.559873,3.38947,1013.12915,33.51405334,Comuna 18,Comuna 18,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,1.2,62.1,141.9,170.5,210.6,330
+10/12/2022,-76.556255,3.407734,982.942749,22.5557785,Cerros de Guadalupe,Cerros de Guadalupe,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,0.0,31.6,132.4,195.5,409.8,560
+10/14/2022,-76.551396,3.500976,1462.125,27.46909714,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,3.0,10.0,11.0,20.0,23.0,133
+10/25/2022,-76.550959,3.501409,1464.731567,33.90829849,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.551185,3.50095,1456.752441,8.767216682,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.550817,3.50109,1457.021606,5.195363998,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.551038,3.501052,1458.750122,6.963339806,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.55328,3.499998,1544.591919,61.79437637,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Pasto cultivado,Amenaza media,Formacion Guachinte,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.55131,3.501928,1495.354126,72.14406586,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.551505,3.501567,1487.779175,50.42773056,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.550673,3.500793,1454.988159,9.572416306,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/25/2022,-76.549324,3.499898,1430.759644,44.20295715,"Sector """"Hoyo Fr�o""""",Golondrinas Cabecera,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,8.0,61.0,84.0,92.0,84.0,165
+10/28/2022,-76.610937,3.486859,1807.132813,36.58799362,Antigua v�a al Mar,,Bosque mixto denso alto de tierra firme,Amenaza media,Lateritas Formacion Volcanica,23.0,117.2,179.4,243.0,372.4,432
+11/6/2022,-76.55593,3.42213,1057.155273,65.23265839,Cra 44 Oeste #5-75,Siloe,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,34.7,115.4,162.6,335.0,412
+11/13/2022,-76.564405,3.455412,1064.191772,9.77491951,Av 9 oeste No 22A Bis - 05,Aguacatal,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.2,14.4,29.6,101.0,182.8,214
+11/3/2022,-76.556056,3.425982,1076.442261,38.38564682,calle 5 oeste # 40B - 34,Siloe San Francisco,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,12.3,21.6,103.9,176.0,312.6,390
+11/2/2022,-76.556095,3.422091,1066.715942,50.77840424,Carrera 44 # 5 - 31 oeste,Siloe San Martin,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,0.0,32.8,121.8,176.3,300.3,388
+11/3/2022,-76.583448,3.45828,1300.034424,16.64130783,Calle 38 #59-18 Oeste, ,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,5.2,9.4,71.0,90.6,168.8,196
+1/11/2023,-76.57105,3.454208,1183.754395,49.18910217,Av 7 Oe #26A-08,Terron Colorado-Palmas,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,6.8,12.2,15.4,43.2,144
+1/16/2023,-76.579083,3.411973,1066.22522,27.51220322, ,Sector Los Andes,Pasto cultivado enmalezado,Amenaza media,Lateritas Formacion Volcanica,0.0,83.0,135.0,169.0,241.0,561
+1/13/2023,-76.552767,3.486897,1219.263672,64.23167419,Av 46 Oe #11-35,Sector Aragones,Zonas urbanas continuas,Riesgo alto,Lateritas Formacion Volcanica,16.6,16.6,17.0,24.0,187.2,390
+1/21/2023,-76.626258,3.444985,1911.701904,3.21262908,Sector La Esmeralda,Pichinde,Pasto cultivado,Amenaza media,Lateritas Formacion Volcanica,11.7,14.4,121.8,191.7,371.0,522
+1/31/2023,-76.560772,3.391292,1061.284058,51.97519684,C 4 Oeste # 73 - 48,Los Chorros,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,0.0,0.0,0.0,0.0,0.0,0
+1/17/2023,-76.5777,3.484681,1664.661011,28.95821762,, ,Bosque mixto abierto alto de tierra firme,Amenaza alta,Formacion Volcanica,0.2,18.6,18.6,23.2,120.8,390
+2/14/2023,-76.602567,3.488953,1623.70752,101.9562073,Km 13 V�a al mar,El Saladito Cabecera,Pasto cultivado,Amenaza media,Formacion Volcanica,0.0,0.0,0.2,11.4,102.4,211
+3/6/2023,-76.611707,3.436149,1572.001221,58.08831787,Pichinde via Cementerio,Pichinde,Bosque mixto abierto alto de tierra firme,Amenaza media,Lateritas Formacion Volcanica,29.2,56.4,94.0,144.8,289.2,375
+3/7/2023,-76.63075,3.469165,1745.485718,65.43206787,,Cabecera Felidia,Otros cultivos arbóreos plantados densos,Riesgo bajo,Formacion Volcanica,6.4,81.9,125.2,176.4,324.3,391
+3/19/2023,-76.55967,3.37937,1139.464233,32.43120575,Calle 3 oeste No 90 Bis - 02,Las Palmas 1,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.3,9.8,142.8,181.7,215.4,348
+4/9/2023,-76.559514,3.419181,1046.72522,68.67971039,Calle 8 Oeste #50D � 10,Tierra Blanca,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.1,11.2,32.0,71.3,231.4,291
+5/28/2023,-76.561278,3.417893,1003.744629,53.08117294,Carrera 51 oeste No 11 - 16,Lleras Camargo,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,0.0,0.0,0.0,0.0,0
+2/28/1955,-76.533904,3.459923,984.8065796,5.49406147,AVDA 9 CON CLL 15A Y 16,Granada,Zonas urbanas continuas,Riesgo bajo,Conos aluviales,5.0,107.0,148.0,156.0,180.0,348
+11/19/1965,-76.535447,3.463092,1025.032593,14.77564716,AVDA10 CON CLL 19,F�tima,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,11.0,129.0,200.0,212.5,329.5,358
+7/23/1974,-76.546023,3.445904,1069.18457,18.36261368,BOCATOMA RIO CALI-CANTERA AYACENTE AL ACUEDUCTO DE SAN ANTONIO,San Antonio,Otras superficies artificiales sin construcción,Amenaza baja,Formacion Volcanica,11.0,15.0,28.0,85.0,226.0,357
+4/14/1993,-76.557641,3.421551,1094.184814,44.07290268,CLL 6H OESTE N� 48-07,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,1.0,52.0,103.0,326.0,493.0,626
+9/30/1996,-76.551563,3.460082,1044.360718,50.91924667,AVDA. 15 OESTE CON CLL 9,Aguacatal,Zonas urbanas continuas,Riesgo alto,Formacion Guachinte,0.0,44.0,75.0,123.0,156.0,283
+1/17/1997,-76.560042,3.391318,1035.735718,52.07505798,CLL 4OESTE CON CRA 73,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,1.0,76.0,100.0,162.0,276.0,384
+3/29/1997,-76.554682,3.428017,1093.286377,68.18556213,CRA 39 CON CLL 6 OESTE,Silo�,Vegetación secundaria o transición,Amenaza alta,Formacion Volcanica,0.0,0.0,94.0,216.0,401.0,624
+11/18/1997,-76.555357,3.425773,1049.57959,69.25362396,CLL 2 CON CRA 40,Belen,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,2.0,127.0,255.0,346.0,612.0,666
+11/24/1997,-76.558121,3.419893,1076.750854,50.92945862,CLL 6G OESTE N� 46-04,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,54.0,79.0,249.0,408.0,535.0,743
+2/17/1999,-76.553966,3.426713,1047.77002,21.83231163,CLL 3 OESTE CON CRA 39A,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,54.0,89.0,281.0,361.0,533.0,686
+2/18/1999,-76.558682,3.421886,1120.992065,41.36168289,CLL 8 CON CRA 49,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,11.0,100.0,306.0,388.0,535.0,690
+2/18/1999,-76.556615,3.420958,1068.523682,79.9154892,CLL 6 CON CRA 49,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,11.0,100.0,306.0,388.0,535.0,690
+2/18/1999,-76.559228,3.419257,1043.489014,67.50875854,CLL 7A OESTE CON 48A,Tierra Blanca,Zonas urbanas continuas,Riesgo alto,Formacion Volcanica,11.0,100.0,306.0,388.0,535.0,690
+2/23/1999,-76.560126,3.422507,1118.248779,28.64138031,CLL 7 CON CRA 49,Tierra Blanca,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,36.0,151.0,321.0,418.0,593.0,710
+2/28/1999,-76.559515,3.428985,1154.617798,37.64853287,CLL 10 CON CRA 56,Lleras Camargo,Bosque mixto fragmentado con vegetación natural,Amenaza media,Lateritas Formacion Volcanica,29.0,136.0,272.0,470.0,688.0,779
+1/16/2004,-76.560023,3.39132,1034.843506,52.36040497,Calle 4 oeste con 73,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,35.0,107.0,229.0,276.0,496.0,740
+12/14/2005,-76.556515,3.391923,975.1322021,18.00046349,Calle 1 Oeste No. 7-16,Los Chorros,Zonas urbanas continuas,Riesgo bajo,Cono aluvial rio Melendez,63.0,87.0,187.0,267.0,382.0,516
+12/14/2005,-76.554389,3.419306,981.4310303,21.14225006,Sector Los Pomos- Calle 1 Oeste con Carrera 49,Silo�,Zonas urbanas continuas,Riesgo medio,Formacion Volcanica,0.0,52.0,133.0,225.0,299.0,521
+4/12/2007,-76.542434,3.452214,1015.136963,11.5984478,Avenida 4 oeste con Calle 1 y 2 / Avenida 9 Norte con Calle 4,Juanamb�,Zonas urbanas continuas,Riesgo bajo,Formacion Guachinte,0.0,12.0,114.0,234.0,283.0,412
+4/27/2007,-76.540361,3.453813,1074.257935,36.94346237,Avenida 9 Norte con Calle 4N,Juanamb�,Pasto cultivado,Amenaza media,Formacion Guachinte,0.0,113.0,168.0,300.0,379.0,484
+5/18/2007,-76.556717,3.384821,1001.292419,41.51659012,"Calle 1 con Carrera 82,",Alto Napoles,Zonas urbanas continuas,Riesgo bajo,Lateritas Formacion Volcanica,0.0,103.0,145.0,438.0,695.0,790
+5/28/2007,-76.545308,3.450345,1014.111572,14.92614555,Museo de La Tertulia,,Zonas urbanas continuas,Amenaza baja,Formacion Volcanica,8.0,127.0,210.0,339.0,606.0,757
+2/22/2008,-76.565257,3.41695,1036.947632,56.9199791,Diag. 45 W - Cra. 54,Pueblo Joven,Zonas urbanas continuas,Riesgo medio,Lateritas Formacion Volcanica,0.0,215.0,279.0,340.0,446.0,676
+5/24/2010,-76.549019,3.438141,1053.318237,83.55845642,av. Circunvalar con cra 27,,Otras superficies artificiales sin construcción,Amenaza alta,Formacion Volcanica,0.0,43.0,66.0,240.0,453.0,507
+12/23/2013,-76.543553,3.454145,1046.513916,21.72542953,Avenida 6 Oeste con Carrera 5,Normand�a,Zonas urbanas continuas,Amenaza alta,Formacion Guachinte,2.0,83.0,88.0,198.0,290.0,645
+4/17/2018,-76.55484,3.425448,1025.939941,43.03956223,carrera 40c#3 oeste,Silo�,Zonas urbanas continuas,Riesgo bajo,Formacion Volcanica,108.0,168.0,226.0,392.5,402.5,446

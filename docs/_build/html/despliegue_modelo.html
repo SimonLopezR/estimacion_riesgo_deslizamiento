@@ -1,0 +1,1304 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Datos de estaciones en linea- Precipitaciones de lluvia acumulada &#8212; Informe</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'despliegue_modelo';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Calibración de clasificadores" href="calibracion.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Informe - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Informe - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Contextualización de la Problemática
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="eda.html">Análisis Exploratorio de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-randomforest.html">Implementación 1: Modelo RandomForest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-xgboost.html">Implementación 2: Gradient Boosted Trees</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="calibracion.html">Calibración de clasificadores</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Datos de estaciones en linea- Precipitaciones de lluvia acumulada</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2Fdespliegue_modelo.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/despliegue_modelo.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Datos de estaciones en linea- Precipitaciones de lluvia acumulada</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">geopandas</span> <span class="k">as</span> <span class="nn">gpd</span>
+<span class="kn">import</span> <span class="nn">boto3</span>
+<span class="kn">import</span> <span class="nn">io</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pytz</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">BytesIO</span>
+<span class="kn">import</span> <span class="nn">json</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">load_pkl</span><span class="p">(</span><span class="n">ruta</span><span class="p">):</span>
+    
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">ruta</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">archivo</span><span class="p">:</span>
+        <span class="n">datos</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">archivo</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">datos</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">leer_geojson</span><span class="p">(</span><span class="n">archivo_ruta</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">gdf</span> <span class="o">=</span> <span class="n">gpd</span><span class="o">.</span><span class="n">read_file</span><span class="p">(</span><span class="n">archivo_ruta</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">gdf</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al leer el archivo .geojson: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">guardar_geojson</span><span class="p">(</span><span class="n">geodf</span><span class="p">,</span> <span class="n">filepath</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Guardar el GeoDataFrame como archivo .geojson</span>
+        <span class="n">geodf</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Archivo guardado exitosamente en </span><span class="si">{</span><span class="n">filepath</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al guardar el archivo: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="datos-de-estaciones-en-linea-precipitaciones-de-lluvia-acumulada">
+<h1>Datos de estaciones en linea- Precipitaciones de lluvia acumulada<a class="headerlink" href="#datos-de-estaciones-en-linea-precipitaciones-de-lluvia-acumulada" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Diccionario global que almacenará la información recopilada</span>
+<span class="n">dicc_global</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;Estaciones&#39;</span><span class="p">:</span> <span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Traemos id activas</span>
+<span class="n">ruta_estaciones</span><span class="o">=</span><span class="s1">&#39;../Data/input/Estaciones-Activas.csv&#39;</span>
+<span class="n">estaciones_activas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">ruta_estaciones</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rango_ids</span> <span class="o">=</span> <span class="n">estaciones_activas</span><span class="p">[</span><span class="s1">&#39;ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL de la API para obtener datos históricos de estaciones meteorológicas en un rango de fechas</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://satic.cali.gov.co:9090/api/estaciones/historico_data/rango_fecha&#39;</span>
+
+<span class="c1"># Lista de variables de tiempo para las que se solicitarán datos</span>
+<span class="n">rango_variables</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span> <span class="s1">&#39;7d&#39;</span><span class="p">,</span> <span class="s1">&#39;10d&#39;</span><span class="p">,</span> <span class="s1">&#39;15d&#39;</span><span class="p">,</span> <span class="s1">&#39;30d&#39;</span><span class="p">,</span> <span class="s1">&#39;60d&#39;</span><span class="p">,</span> <span class="s1">&#39;90d&#39;</span><span class="p">]</span>
+
+<span class="c1"># Estructura del diccionario para almacenar la información</span>
+<span class="n">dicc_estructura</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;24h&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;7d&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;10d&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;15d&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;30d&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;60d&#39;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s1">&#39;90d&#39;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterar sobre los IDs de estaciones</span>
+<span class="k">for</span> <span class="n">rango_id</span> <span class="ow">in</span> <span class="n">rango_ids</span><span class="p">:</span>
+    <span class="c1"># Iterar sobre los diferentes rangos de tiempo   </span>
+    <span class="k">for</span> <span class="n">rango</span> <span class="ow">in</span> <span class="n">rango_variables</span><span class="p">:</span>
+        <span class="c1"># Configurar el cuerpo de la solicitud a la API</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">rango_id</span><span class="p">,</span>
+            <span class="s2">&quot;rango&quot;</span><span class="p">:</span> <span class="n">rango</span><span class="p">,</span>
+            <span class="s2">&quot;rangoFechaDisct&quot;</span><span class="p">:</span> <span class="kc">False</span>
+        <span class="p">}</span>
+        <span class="c1"># Realizar la solicitud POST a la API con el cuerpo especificado</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">body</span><span class="p">)</span>
+        <span class="c1"># Obtener la respuesta en formato JSON</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="c1"># Inicializar la suma acumulada de los registros de precipitación</span>
+        <span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># Verificar si la respuesta contiene información y tiene al menos un elemento</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Obtener la lista de datos de precipitación (P) del primer elemento de la respuesta</span>
+            <span class="n">p_list</span> <span class="o">=</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">,[])</span>
+            <span class="c1"># Iterar sobre los registros de precipitación y acumular los valores</span>
+            <span class="k">for</span> <span class="n">registro</span> <span class="ow">in</span> <span class="n">p_list</span><span class="p">:</span>
+                <span class="nb">sum</span> <span class="o">=</span> <span class="nb">sum</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">registro</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;acumulado&#39;</span><span class="p">))</span>
+        <span class="c1"># Agregar la suma acumulada al diccionario de estructura para el rango de tiempo actual</span>
+        <span class="n">dicc_estructura</span><span class="p">[</span><span class="n">rango</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">)</span>
+    <span class="c1"># Agregar el nombre del sensor (nom_sensor) al diccionario de estructura</span>
+    <span class="n">dicc_estructura</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rango_id</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Convierte la estructura del diccionario a un dataframe</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">dicc_estructura</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>0.0</td>
+      <td>0.2</td>
+      <td>0.2</td>
+      <td>22.6</td>
+      <td>68.4</td>
+      <td>303.0</td>
+      <td>363.2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4</td>
+      <td>0.0</td>
+      <td>0.4</td>
+      <td>7.8</td>
+      <td>147.2</td>
+      <td>214.6</td>
+      <td>351.0</td>
+      <td>396.8</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>11</td>
+      <td>0.0</td>
+      <td>6.2</td>
+      <td>32.8</td>
+      <td>53.6</td>
+      <td>69.4</td>
+      <td>130.4</td>
+      <td>247.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>0.0</td>
+      <td>5.3</td>
+      <td>5.5</td>
+      <td>10.9</td>
+      <td>22.2</td>
+      <td>56.0</td>
+      <td>100.3</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 23 entries, 0 to 22
+Data columns (total 8 columns):
+ #   Column  Non-Null Count  Dtype  
+---  ------  --------------  -----  
+ 0   id      23 non-null     int64  
+ 1   24h     23 non-null     float64
+ 2   7d      23 non-null     float64
+ 3   10d     23 non-null     float64
+ 4   15d     23 non-null     float64
+ 5   30d     23 non-null     float64
+ 6   60d     23 non-null     float64
+ 7   90d     23 non-null     float64
+dtypes: float64(7), int64(1)
+memory usage: 1.6 KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ruta_cuadricula_mapa</span><span class="o">=</span><span class="s1">&#39;../Data/input/cuadricula_datos_completa.geojson&#39;</span>
+<span class="n">cuadricula</span> <span class="o">=</span> <span class="n">leer_geojson</span><span class="p">(</span><span class="n">ruta_cuadricula_mapa</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cuadricula</span><span class="o">=</span><span class="n">cuadricula</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;ID_SATIC&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;Categ_Ries&#39;</span><span class="p">:</span> <span class="s1">&#39;zonificacion&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;CAT&#39;</span><span class="p">:</span> <span class="s1">&#39;Nomenclatura_del_Suelo&#39;</span><span class="p">,</span>
+                                      <span class="s1">&#39;Categ_CO_2&#39;</span><span class="p">:</span> <span class="s1">&#39;tipo_geologia&#39;</span>
+                                      <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Realiza un fusion con los datos del dataframe y la cuadricula</span>
+<span class="n">cuadricula</span> <span class="o">=</span> <span class="n">cuadricula</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nuevos_datos</span><span class="o">=</span><span class="n">cuadricula</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nuevos_datos</span> <span class="o">=</span> <span class="n">df_nuevos_datos</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nuevos_datos</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;geopandas.geodataframe.GeoDataFrame&#39;&gt;
+Int64Index: 3454 entries, 0 to 3453
+Data columns (total 22 columns):
+ #   Column                  Non-Null Count  Dtype   
+---  ------                  --------------  -----   
+ 0   OBJECTID_1              3454 non-null   int32   
+ 1   COD_COB25_              3454 non-null   object  
+ 2   NOM_COB25               3454 non-null   object  
+ 3   SIM_COB25               3454 non-null   object  
+ 4   GEOLOGIA_1              3454 non-null   object  
+ 5   GEOLOGIA_2              3454 non-null   object  
+ 6   ELEVACION               3454 non-null   float64 
+ 7   PENDIENT                3454 non-null   float64 
+ 8   Categ_1                 3454 non-null   object  
+ 9   zonificacion            3454 non-null   int32   
+ 10  tipo_geologia           3454 non-null   int32   
+ 11  Nomenclatura_del_Suelo  3454 non-null   int32   
+ 12  NOMBRE_SIM              3454 non-null   object  
+ 13  id                      3454 non-null   int32   
+ 14  geometry                3454 non-null   geometry
+ 15  24h                     3454 non-null   float64 
+ 16  7d                      3454 non-null   float64 
+ 17  10d                     3454 non-null   float64 
+ 18  15d                     3454 non-null   float64 
+ 19  30d                     3454 non-null   float64 
+ 20  60d                     3454 non-null   float64 
+ 21  90d                     3454 non-null   float64 
+dtypes: float64(9), geometry(1), int32(5), object(7)
+memory usage: 553.2+ KB
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columnas_resp</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NOM_COB25&#39;</span><span class="p">,</span> <span class="s1">&#39;GEOLOGIA_1&#39;</span><span class="p">,</span><span class="s1">&#39;GEOLOGIA_2&#39;</span><span class="p">,</span> <span class="s1">&#39;ELEVACION&#39;</span><span class="p">,</span> <span class="s1">&#39;PENDIENT&#39;</span><span class="p">,</span> <span class="s1">&#39;Categ_1&#39;</span><span class="p">,</span> <span class="s1">&#39;zonificacion&#39;</span><span class="p">,</span>
+       <span class="s1">&#39;tipo_geologia&#39;</span><span class="p">,</span> <span class="s1">&#39;Nomenclatura_del_Suelo&#39;</span><span class="p">,</span> <span class="s1">&#39;NOMBRE_SIM&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span> <span class="s1">&#39;7d&#39;</span><span class="p">,</span> <span class="s1">&#39;10d&#39;</span><span class="p">,</span><span class="s1">&#39;15d&#39;</span><span class="p">,</span> <span class="s1">&#39;30d&#39;</span><span class="p">,</span> <span class="s1">&#39;60d&#39;</span><span class="p">,</span> <span class="s1">&#39;90d&#39;</span><span class="p">,</span> <span class="s1">&#39;geometry&#39;</span> <span class="p">]</span>
+<span class="n">df_nuevos_datos</span><span class="o">=</span><span class="n">df_nuevos_datos</span><span class="p">[</span><span class="n">columnas_resp</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_nuevos_datos</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NOM_COB25</th>
+      <th>GEOLOGIA_1</th>
+      <th>GEOLOGIA_2</th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>Categ_1</th>
+      <th>zonificacion</th>
+      <th>tipo_geologia</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>NOMBRE_SIM</th>
+      <th>id</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>1984.197632</td>
+      <td>26.739103</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67031 3.45152, -76.67136 3.45152...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2033.651123</td>
+      <td>6.319678</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45402, -76.67281 3.45259...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2095.797607</td>
+      <td>29.865055</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45652, -76.67281 3.45402...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">columnas_modelo</span><span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ELEVACION&#39;</span><span class="p">,</span><span class="s1">&#39;PENDIENT&#39;</span><span class="p">,</span><span class="s1">&#39;zonificacion&#39;</span><span class="p">,</span><span class="s1">&#39;Nomenclatura_del_Suelo&#39;</span><span class="p">,</span><span class="s1">&#39;tipo_geologia&#39;</span><span class="p">,</span><span class="s1">&#39;24h&#39;</span><span class="p">,</span><span class="s1">&#39;7d&#39;</span><span class="p">,</span><span class="s1">&#39;15d&#39;</span><span class="p">,</span><span class="s1">&#39;30d&#39;</span><span class="p">,</span><span class="s1">&#39;60d&#39;</span><span class="p">,</span><span class="s1">&#39;90d&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="c1"># Apagar los warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+<span class="n">ruta_model_deploy</span><span class="o">=</span><span class="s1">&#39;../Models/output/production-model.pkl&#39;</span>
+<span class="n">modelo</span><span class="o">=</span><span class="n">load_pkl</span><span class="p">(</span><span class="n">ruta_model_deploy</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">predecir_probabilidades</span><span class="p">(</span><span class="n">df_nuevos_datos</span><span class="p">,</span> <span class="n">modelo</span><span class="p">,</span> <span class="n">columnas</span><span class="p">):</span>
+    <span class="n">classifier</span><span class="o">=</span><span class="n">modelo</span><span class="p">[</span><span class="s2">&quot;model&quot;</span><span class="p">]</span>
+    <span class="n">calibrator</span><span class="o">=</span><span class="n">modelo</span><span class="p">[</span><span class="s2">&quot;calibrator&quot;</span><span class="p">]</span>
+    <span class="n">df_predict</span><span class="o">=</span><span class="n">df_nuevos_datos</span><span class="p">[</span><span class="n">columnas</span><span class="p">]</span>
+    <span class="c1"># Predecir probabilidades</span>
+    <span class="n">y_pred_proba</span> <span class="o">=</span> <span class="n">classifier</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df_predict</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="c1"># Calibrar porbabildiades</span>
+    <span class="n">y_pred_calibrated</span> <span class="o">=</span> <span class="n">calibrator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">y_pred_proba</span><span class="p">)</span>
+    <span class="c1"># Predecir probabilidades</span>
+
+    <span class="c1"># Extraer las probabilidades para la clase positiva</span>
+    <span class="n">df_nuevos_datos</span><span class="p">[</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred_calibrated</span>
+    <span class="k">return</span> <span class="n">df_nuevos_datos</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">probabilidades_nuevos_datos</span><span class="o">=</span><span class="n">predecir_probabilidades</span><span class="p">(</span><span class="n">df_nuevos_datos</span><span class="p">,</span><span class="n">modelo</span><span class="p">,</span><span class="n">columnas_modelo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_columns</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">probabilidades_nuevos_datos</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>NOM_COB25</th>
+      <th>GEOLOGIA_1</th>
+      <th>GEOLOGIA_2</th>
+      <th>ELEVACION</th>
+      <th>PENDIENT</th>
+      <th>Categ_1</th>
+      <th>zonificacion</th>
+      <th>tipo_geologia</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>NOMBRE_SIM</th>
+      <th>id</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+      <th>geometry</th>
+      <th>Probabilidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>1984.197632</td>
+      <td>26.739103</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67031 3.45152, -76.67136 3.45152...</td>
+      <td>0.069844</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2033.651123</td>
+      <td>6.319678</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45402, -76.67281 3.45259...</td>
+      <td>0.045477</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2095.797607</td>
+      <td>29.865055</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45652, -76.67281 3.45402...</td>
+      <td>0.085116</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2131.399902</td>
+      <td>67.399857</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45902, -76.67281 3.45652...</td>
+      <td>0.822138</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">probabilidades_nuevos_datos</span><span class="o">=</span><span class="n">probabilidades_nuevos_datos</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;NOM_COB25&#39;</span><span class="p">:</span> <span class="s1">&#39;Cobertura_Suelo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;GEOLOGIA_1&#39;</span><span class="p">:</span> <span class="s1">&#39;Abreviacion_Unidad_Geologica_Suelo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;GEOLOGIA_2&#39;</span><span class="p">:</span> <span class="s1">&#39;Unidad_Geologica_Suelo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;PENDIENT&#39;</span><span class="p">:</span> <span class="s1">&#39;PENDIENTE&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Categ_1&#39;</span><span class="p">:</span> <span class="s1">&#39;Clasificacion_Riesgo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Categ_Ries&#39;</span><span class="p">:</span> <span class="s1">&#39;Categorizacion_riesgo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;Categ_CO_2&#39;</span><span class="p">:</span> <span class="s1">&#39;Categorizacion_cobertura_suelo&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;NOMBRE_SIM&#39;</span><span class="p">:</span> <span class="s1">&#39;Nombre_Estacion&#39;</span><span class="p">,</span>
+                      <span class="s1">&#39;CAT&#39;</span><span class="p">:</span> <span class="s1">&#39;Categorizacion_geologia&#39;</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">probabilidades_nuevos_datos</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Cobertura_Suelo</th>
+      <th>Abreviacion_Unidad_Geologica_Suelo</th>
+      <th>Unidad_Geologica_Suelo</th>
+      <th>ELEVACION</th>
+      <th>PENDIENTE</th>
+      <th>Clasificacion_Riesgo</th>
+      <th>zonificacion</th>
+      <th>tipo_geologia</th>
+      <th>Nomenclatura_del_Suelo</th>
+      <th>Nombre_Estacion</th>
+      <th>id</th>
+      <th>24h</th>
+      <th>7d</th>
+      <th>10d</th>
+      <th>15d</th>
+      <th>30d</th>
+      <th>60d</th>
+      <th>90d</th>
+      <th>geometry</th>
+      <th>Probabilidad</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>1984.197632</td>
+      <td>26.739103</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67031 3.45152, -76.67136 3.45152...</td>
+      <td>0.069844</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Bosque mixto denso alto de tierra firme</td>
+      <td>Kv</td>
+      <td>Formacion Volcanica</td>
+      <td>2033.651123</td>
+      <td>6.319678</td>
+      <td>Amenaza media</td>
+      <td>3</td>
+      <td>5</td>
+      <td>20</td>
+      <td>LA_TERESITA</td>
+      <td>23</td>
+      <td>0.0</td>
+      <td>0.3</td>
+      <td>3.6</td>
+      <td>48.7</td>
+      <td>289.8</td>
+      <td>445.0</td>
+      <td>523.0</td>
+      <td>POLYGON ((-76.67281 3.45402, -76.67281 3.45259...</td>
+      <td>0.045477</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distribucion de probabilidades:</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">probabilidades_nuevos_datos</span><span class="p">[</span><span class="s1">&#39;Probabilidad&#39;</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Histograma&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Valores&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Frecuencia&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/400845e2d353487d585cc66ce2b8069e0b826c8a0178552c59134375dbc453b0.png" src="_images/400845e2d353487d585cc66ce2b8069e0b826c8a0178552c59134375dbc453b0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ruta_new_data</span><span class="o">=</span><span class="s1">&#39;../Data/output/new_Data_snap_shot.geojson&#39;</span>
+<span class="n">ruta_infered_data</span><span class="o">=</span><span class="s1">&#39;../Data/output/new_estimated_data.geojson&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">guardar_geojson</span><span class="p">(</span><span class="n">df_nuevos_datos</span><span class="p">,</span><span class="n">ruta_new_data</span><span class="p">)</span>
+<span class="n">guardar_geojson</span><span class="p">(</span><span class="n">probabilidades_nuevos_datos</span><span class="p">,</span><span class="n">ruta_infered_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Archivo guardado exitosamente en ../Data/output/new_Data_snap_shot.geojson
+Archivo guardado exitosamente en ../Data/output/new_estimated_data.geojson
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="calibracion.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Calibración de clasificadores</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Simon Lopez Ramos
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

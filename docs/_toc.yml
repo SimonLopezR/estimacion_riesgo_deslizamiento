@@ -10,3 +10,4 @@ chapters:
 - file: implementacion-logisticR
 - file: implementacion-svc
 - file: calibracion
+- file: despliegue_modelo
