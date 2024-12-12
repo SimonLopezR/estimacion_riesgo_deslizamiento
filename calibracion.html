@@ -60,6 +60,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'calibracion';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Datos de estaciones en linea- Precipitaciones de lluvia acumulada" href="despliegue_modelo.html" />
     <link rel="prev" title="Implementación 4: Modelo Support Vector Machines" href="implementacion-svc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -185,6 +186,7 @@
 <li class="toctree-l1"><a class="reference internal" href="implementacion-logisticR.html">Implementación 3: Modelo Logistic Regression</a></li>
 <li class="toctree-l1"><a class="reference internal" href="implementacion-svc.html">Implementación 4: Modelo Support Vector Machines</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Calibración de clasificadores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="despliegue_modelo.html">Datos de estaciones en linea- Precipitaciones de lluvia acumulada</a></li>
 </ul>
 
     </div>
@@ -386,6 +388,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-calibration">Beta Calibration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-para-comparar-distribuciones">Pruebas para comparar distribuciones</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparando-metodos">Comparando Métodos</a><ul class="nav section-nav flex-column">
@@ -623,8 +626,8 @@ document.write(`
 <span class="c1">#     return ece</span>
 
 
-<span class="n">n_bins</span><span class="o">=</span><span class="mi">8</span>
-<span class="k">def</span> <span class="nf">calculate_ece</span><span class="p">(</span><span class="n">y_true_labels</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">):</span>
+<span class="c1">#n_bins=8</span>
+<span class="k">def</span> <span class="nf">calculate_ece</span><span class="p">(</span><span class="n">y_true_labels</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">,</span> <span class="n">fraction_of_positives</span><span class="p">,</span> <span class="n">mean_predicted_value</span><span class="p">,</span> <span class="n">n_bins</span><span class="p">):</span>
 
     <span class="c1"># Validar tamaños de entrada</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">fraction_of_positives</span><span class="p">)</span> <span class="o">==</span> <span class="n">n_bins</span><span class="p">,</span> <span class="s2">&quot;fraction_of_positives debe coincidir con n_bins.&quot;</span>
@@ -788,12 +791,51 @@ document.write(`
 <span class="n">y_pred_xgb</span> <span class="o">=</span> <span class="n">model_xgb</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_xgb</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
 <span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">model_lr</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_lr</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
 <span class="n">y_pred_svc</span> <span class="o">=</span> <span class="n">model_svc</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_valid_svc</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">std_dev_rf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_xgb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_lr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_svc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n</span><span class="o">=</span><span class="n">y_pred_lr</span><span class="o">.</span><span class="n">size</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_bins_rf</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_rf</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_xgb</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_xgb</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_lr</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_lr</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_svc</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_svc</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
 
-<span class="c1"># Obtener las curvas de calibración</span>
-<span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">mean_predicted_value_rf</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span> <span class="c1"># strategy{‘uniform’, ‘quantile’}</span>
-<span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">mean_predicted_value_lr</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">mean_predicted_value_svc</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width rf: </span><span class="si">{</span><span class="n">n_bins_rf</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width xgb: </span><span class="si">{</span><span class="n">n_bins_xgb</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width lr: </span><span class="si">{</span><span class="n">n_bins_lr</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width svc: </span><span class="si">{</span><span class="n">n_bins_svc</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bin width rf: 0.17752859956550185 , numeros de bins: 6
+bin width xgb: 0.2180086458888306 , numeros de bins: 5
+bin width lr: 0.1875961266952431 , numeros de bins: 5
+bin width svc: 0.17661288397596228 , numeros de bins: 6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración</span>
+<span class="n">fraction_of_positives_rf</span><span class="p">,</span> <span class="n">mean_predicted_value_rf</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf</span><span class="p">),</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span> <span class="c1"># strategy{‘uniform’, ‘quantile’}</span>
+<span class="n">fraction_of_positives_xgb</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb</span><span class="p">),</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr</span><span class="p">,</span> <span class="n">mean_predicted_value_lr</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr</span><span class="p">),</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc</span><span class="p">,</span> <span class="n">mean_predicted_value_svc</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc</span><span class="p">),</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Crear una figura con 4 subgráficas</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>  <span class="c1"># 2 filas y 2 columnas</span>
@@ -840,7 +882,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9072b081b255758062e4c6040242a3c5c4a7b1fbb6301cd6e39e70ccb9ce9658.png" src="_images/9072b081b255758062e4c6040242a3c5c4a7b1fbb6301cd6e39e70ccb9ce9658.png" />
+<img alt="_images/bd92365e317fb6230580e2556cd265681b78b29058c6531f25a7ef5b47a4f4d4.png" src="_images/bd92365e317fb6230580e2556cd265681b78b29058c6531f25a7ef5b47a4f4d4.png" />
 </div>
 </div>
 <p>En la siguiente gráfica de ejemplo, podemos ver el eje X (Mean predicted value) representa las probabilidades predichas por cada uno de los modelos, va de 0 a 1, indicando la confianza con la que los modelos estiman la existencia de deslizamientos de tierra (clase positiva). Respecto al eje Y (Fraction of positives) muestra la fracción de positivos reales, es decir, la proporción de veces que un evento predicho como probable en realidad ocurre en el conjunto de datos.
@@ -850,18 +892,19 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
-<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_pred_lr</span><span class="p">,</span>
+<span class="n">dict_hist_base</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_pred_lr</span><span class="p">,</span>
               <span class="s2">&quot;Support Vector Classifier&quot;</span><span class="p">:</span><span class="n">y_pred_svc</span><span class="p">}</span>
 <span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+<span class="n">n_bins_hist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc</span><span class="p">)]</span>
 
 <span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># Itera sobre cada columna y cada subplot</span>
-<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_base</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">,</span> <span class="n">n_bins_hist</span><span class="p">)):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># Usar bins específico</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mean predicted probability&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
 
@@ -873,7 +916,40 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1b31d3259d4c7ef794879fcd551edaae1cfa89b629396e359c96a0b1a4391d84.png" src="_images/1b31d3259d4c7ef794879fcd551edaae1cfa89b629396e359c96a0b1a4391d84.png" />
+<img alt="_images/2635fc4d617775e05d2e4de29f94391f0894febbea999ed6972dfe6e7ad3b87a.png" src="_images/2635fc4d617775e05d2e4de29f94391f0894febbea999ed6972dfe6e7ad3b87a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada gráfico</span>
+<span class="c1"># Configura el tamaño del plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada modelo para calcular y graficar su CDF</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_base</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">):</span>
+    <span class="c1"># Ordenar los valores y calcular la CDF</span>
+    <span class="n">sorted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+
+    <span class="c1"># Graficar la CDF</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="c1"># Configura el título y las etiquetas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cumulative Distribution Functions (CDF)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Mean Predicted Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.savefig(&#39;../Reports/empirical_dist_base.png&#39;, dpi=300, bbox_inches=&#39;tight&#39;)  # Guardar la imagen</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/a2155674a9f33e656bc1623cabd26842b15274316614e43c13b488d7d1d4b5c3.png" src="_images/a2155674a9f33e656bc1623cabd26842b15274316614e43c13b488d7d1d4b5c3.png" />
 </div>
 </div>
 <p>Ahora, calculemos los indicadores expuestos y explicados en la sección de <a class="reference internal" href="intro.html#calibradores-de-probabilidad"><span class="std std-ref">Calibradores de probabilidad</span></a></p>
@@ -893,10 +969,10 @@ Todas las series serán comparadas con una línea que representa el caso de cali
 <span class="n">brier_svc</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">)</span>
 
 <span class="c1"># Calcular ECE para cada caso</span>
-<span class="n">ece_rf</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf</span><span class="p">,</span><span class="n">mean_predicted_value_rf</span><span class="p">)</span>
-<span class="n">ece_xgb</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb</span><span class="p">,</span><span class="n">mean_predicted_value_xgb</span><span class="p">)</span>
-<span class="n">ece_lr</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr</span><span class="p">,</span><span class="n">mean_predicted_value_lr</span><span class="p">)</span>
-<span class="n">ece_svc</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc</span><span class="p">,</span><span class="n">mean_predicted_value_svc</span><span class="p">)</span>
+<span class="n">ece_rf</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf</span><span class="p">,</span><span class="n">mean_predicted_value_rf</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf</span><span class="p">))</span>
+<span class="n">ece_xgb</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb</span><span class="p">,</span><span class="n">mean_predicted_value_xgb</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb</span><span class="p">))</span>
+<span class="n">ece_lr</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr</span><span class="p">,</span><span class="n">mean_predicted_value_lr</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr</span><span class="p">))</span>
+<span class="n">ece_svc</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_pred_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc</span><span class="p">,</span><span class="n">mean_predicted_value_svc</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc</span><span class="p">))</span>
 
 <span class="c1"># Agregar resultados a la lista</span>
 <span class="n">indicators</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Support Vector Classifer&#39;</span><span class="p">],</span>
@@ -938,28 +1014,28 @@ Todas las series serán comparadas con una línea que representa el caso de cali
     <tr>
       <th>0</th>
       <td>Random Forest Classifier</td>
-      <td>0.053239</td>
+      <td>0.055052</td>
       <td>0.056771</td>
       <td>0.195018</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Gradient Boosting Classifier</td>
-      <td>0.032253</td>
+      <td>0.032725</td>
       <td>0.033180</td>
       <td>0.155890</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Logistic Regressor</td>
-      <td>0.036069</td>
+      <td>0.023269</td>
       <td>0.071608</td>
       <td>0.225550</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Support Vector Classifer</td>
-      <td>0.049949</td>
+      <td>0.044269</td>
       <td>0.071822</td>
       <td>0.234976</td>
     </tr>
@@ -1029,11 +1105,38 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">std_dev_rf_platt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_xgb_platt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_lr_platt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_svc_platt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n_bins_rf_platt</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_rf_platt</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_xgb_platt</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_xgb_platt</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_lr_platt</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_lr_platt</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_svc_platt</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_svc_platt</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width rf platt puntuation: </span><span class="si">{</span><span class="n">n_bins_rf_platt</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_platt</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width xgb platt puntuation: </span><span class="si">{</span><span class="n">n_bins_xgb_platt</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_platt</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width lr platt puntuation: </span><span class="si">{</span><span class="n">n_bins_lr_platt</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_platt</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width svc platt puntuation: </span><span class="si">{</span><span class="n">n_bins_svc_platt</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_platt</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bin width rf platt puntuation: 0.1971394489257394 , numeros de bins: 5
+bin width xgb platt puntuation: 0.20618999051951103 , numeros de bins: 5
+bin width lr platt puntuation: 0.1863764057857453 , numeros de bins: 5
+bin width svc platt puntuation: 0.18588001458421435 , numeros de bins: 5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración para cada modelo</span>
-<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_platt</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_platt</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_platt</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_platt</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Crear una figura con cuatro subgráficos</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -1088,7 +1191,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/484a5372c2f304032498c87dd249501099914a57a4bbcd4473398efaff24476d.png" src="_images/484a5372c2f304032498c87dd249501099914a57a4bbcd4473398efaff24476d.png" />
+<img alt="_images/4c978b85874eeb3224d9c606f2c0f4c87409ac5f1e76d3656760c4bdd539cf77.png" src="_images/4c978b85874eeb3224d9c606f2c0f4c87409ac5f1e76d3656760c4bdd539cf77.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1124,10 +1227,10 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 
 
 <span class="c1"># Calcular ECE para cada caso</span>
-<span class="n">ece_rf_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_rf_calibrated</span><span class="p">)</span>
-<span class="n">ece_xgb_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_xgb_calibrated</span><span class="p">)</span>
-<span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_lr_calibrated</span><span class="p">)</span>
-<span class="n">ece_svc_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_svc_calibrated</span><span class="p">)</span>
+<span class="n">ece_rf_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_rf_calibrated</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_platt</span><span class="p">))</span>
+<span class="n">ece_xgb_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_xgb_calibrated</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_platt</span><span class="p">))</span>
+<span class="n">ece_lr_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_lr_calibrated</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_platt</span><span class="p">))</span>
+<span class="n">ece_svc_c</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc_calibrated</span><span class="p">,</span><span class="n">mean_predicted_value_svc_calibrated</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_platt</span><span class="p">))</span>
 
 <span class="n">indicators_pc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Sigmoid Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Sigmoid Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
             <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c</span><span class="p">,</span><span class="n">ece_xgb_c</span><span class="p">,</span><span class="n">ece_lr_c</span><span class="p">,</span><span class="n">ece_svc_c</span><span class="p">],</span>
@@ -1167,28 +1270,28 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>0</th>
       <td>Sigmoid Calibrated Random Forest Classifier</td>
-      <td>0.036564</td>
+      <td>0.032687</td>
       <td>0.054173</td>
       <td>0.178029</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Sigmoid Calibrated Gradient Boosting Classifier</td>
-      <td>0.024520</td>
+      <td>0.011078</td>
       <td>0.030608</td>
       <td>0.106156</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Sigmoid Calibrated Logistic Regressor</td>
-      <td>0.022398</td>
+      <td>0.029328</td>
       <td>0.070023</td>
       <td>0.222612</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Sigmoid Calibrated Support Vector Classifer</td>
-      <td>0.030165</td>
+      <td>0.044789</td>
       <td>0.069655</td>
       <td>0.224920</td>
     </tr>
@@ -1232,22 +1335,24 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
-<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf</span><span class="p">,</span> 
+<span class="n">dict_hist_platt</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf</span><span class="p">,</span> 
              <span class="s2">&quot;Boosted Trees - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> 
              <span class="s2">&quot;Logistic Regression - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_lr</span><span class="p">,</span>
               <span class="s2">&quot;Support Vector Classifier - Platt Scaling&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_svc</span><span class="p">}</span>
 <span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+<span class="n">n_bins_hist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_platt</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_platt</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_platt</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_platt</span><span class="p">)]</span>
 
 <span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># Itera sobre cada columna y cada subplot</span>
-<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_platt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">,</span> <span class="n">n_bins_hist</span><span class="p">)):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># Usar bins específico</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mean predicted probability&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
+
 
 <span class="c1"># Ajusta el espaciado entre subplots</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -1258,7 +1363,40 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/37de157d9ccb3e95d607440733a1c592aa878bbaa1d121bf5d163920b0641ef8.png" src="_images/37de157d9ccb3e95d607440733a1c592aa878bbaa1d121bf5d163920b0641ef8.png" />
+<img alt="_images/dc2f2e51caedd0f401b53600aac1f49b62f5755783967c25efaec3d6394159c6.png" src="_images/dc2f2e51caedd0f401b53600aac1f49b62f5755783967c25efaec3d6394159c6.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada gráfico</span>
+<span class="c1"># Configura el tamaño del plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada modelo para calcular y graficar su CDF</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_platt</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">):</span>
+    <span class="c1"># Ordenar los valores y calcular la CDF</span>
+    <span class="n">sorted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+
+    <span class="c1"># Graficar la CDF</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="c1"># Configura el título y las etiquetas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cumulative Distribution Functions (CDF)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Mean Predicted Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.savefig(&#39;../Reports/empirical_dist_platt.png&#39;, dpi=300, bbox_inches=&#39;tight&#39;)  # Guardar la imagen</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/6b115a6bc49fa5ca961c0647a2dec3003253849212331f73545e6a9b0391395f.png" src="_images/6b115a6bc49fa5ca961c0647a2dec3003253849212331f73545e6a9b0391395f.png" />
 </div>
 </div>
 </section>
@@ -1343,11 +1481,38 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">std_dev_rf_beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_xgb_beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_lr_beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">std_dev_svc_beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">n_bins_rf_beta</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_rf_beta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_xgb_beta</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_xgb_beta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_lr_beta</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_lr_beta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">n_bins_svc_beta</span><span class="o">=</span><span class="p">(</span><span class="mf">3.5</span><span class="o">*</span><span class="n">std_dev_svc_beta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">n</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width rf platt puntuation: </span><span class="si">{</span><span class="n">n_bins_rf_beta</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_beta</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width xgb platt puntuation: </span><span class="si">{</span><span class="n">n_bins_xgb_beta</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_beta</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width lr platt puntuation: </span><span class="si">{</span><span class="n">n_bins_lr_beta</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_beta</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;bin width svc platt puntuation: </span><span class="si">{</span><span class="n">n_bins_svc_beta</span><span class="si">}</span><span class="s1"> , numeros de bins: </span><span class="si">{</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_beta</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>bin width rf platt puntuation: 0.19869584668717694 , numeros de bins: 5
+bin width xgb platt puntuation: 0.2089029798816124 , numeros de bins: 5
+bin width lr platt puntuation: 0.18966473306282533 , numeros de bins: 5
+bin width svc platt puntuation: 0.19056688581654432 , numeros de bins: 5
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Obtener las curvas de calibración para cada modelo</span>
-<span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
-<span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="n">n_bins</span><span class="p">,</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_beta</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_beta</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_beta</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
+<span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_beta</span> <span class="o">=</span> <span class="n">calibration_curve</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span> <span class="n">n_bins</span><span class="o">=</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_beta</span><span class="p">),</span> <span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;uniform&#39;</span><span class="p">)</span>
 
 <span class="c1"># Crear una figura con cuatro subgráficos</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
@@ -1401,7 +1566,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/1c0f5ad6b941fd757513300b4291343d198d62f9a70c7f3c0770288407a132e4.png" src="_images/1c0f5ad6b941fd757513300b4291343d198d62f9a70c7f3c0770288407a132e4.png" />
+<img alt="_images/0694124d542b422189a3ccc0b836281749ec011d9f197de844ae14e8e07ad4a6.png" src="_images/0694124d542b422189a3ccc0b836281749ec011d9f197de844ae14e8e07ad4a6.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1433,10 +1598,10 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="n">brier_rf_c_beta</span> <span class="o">=</span> <span class="n">brier_score_loss</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">)</span>
 
 <span class="c1"># Calcular ECE para cada caso</span>
-<span class="n">ece_rf_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_beta</span><span class="p">)</span>
-<span class="n">ece_xgb_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_beta</span><span class="p">)</span>
-<span class="n">ece_lr_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_beta</span><span class="p">)</span>
-<span class="n">ece_svc_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_beta</span><span class="p">)</span>
+<span class="n">ece_rf_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span><span class="n">fraction_of_positives_rf_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_rf_calibrated_beta</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_beta</span><span class="p">))</span>
+<span class="n">ece_xgb_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span><span class="n">fraction_of_positives_xgb_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_xgb_calibrated_beta</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_beta</span><span class="p">))</span>
+<span class="n">ece_lr_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span><span class="n">fraction_of_positives_lr_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_lr_calibrated_beta</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_beta</span><span class="p">))</span>
+<span class="n">ece_svc_c_beta</span> <span class="o">=</span> <span class="n">calculate_ece</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="n">y_prob_calibrated_beta_svc</span><span class="p">,</span><span class="n">fraction_of_positives_svc_calibrated_beta</span><span class="p">,</span> <span class="n">mean_predicted_value_svc_calibrated_beta</span><span class="p">,</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_beta</span><span class="p">))</span>
 
 <span class="n">indicators_beta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Classifier&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Beta Calibrated Random Forest Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Gradient Boosting Classifier&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Logistic Regressor&#39;</span><span class="p">,</span><span class="s1">&#39;Beta Calibrated Support Vector Classifer&#39;</span><span class="p">],</span>
             <span class="s1">&#39;ECE&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">ece_rf_c_beta</span><span class="p">,</span><span class="n">ece_xgb_c_beta</span><span class="p">,</span><span class="n">ece_lr_c_beta</span><span class="p">,</span><span class="n">ece_svc_c_beta</span><span class="p">],</span>
@@ -1476,28 +1641,28 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>0</th>
       <td>Beta Calibrated Random Forest Classifier</td>
-      <td>0.031713</td>
+      <td>0.016184</td>
       <td>0.052830</td>
       <td>0.166308</td>
     </tr>
     <tr>
       <th>1</th>
       <td>Beta Calibrated Gradient Boosting Classifier</td>
-      <td>0.008022</td>
+      <td>0.008923</td>
       <td>0.030675</td>
       <td>0.104300</td>
     </tr>
     <tr>
       <th>2</th>
       <td>Beta Calibrated Logistic Regressor</td>
-      <td>0.016968</td>
+      <td>0.017300</td>
       <td>0.069486</td>
       <td>0.221017</td>
     </tr>
     <tr>
       <th>3</th>
       <td>Beta Calibrated Support Vector Classifer</td>
-      <td>0.021882</td>
+      <td>0.020115</td>
       <td>0.067874</td>
       <td>0.219572</td>
     </tr>
@@ -1508,20 +1673,21 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Suponiendo que tienes un DataFrame llamado `df` con las cuatro columnas de interés</span>
-<span class="n">dict_hist</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> 
+<span class="n">dict_hist_beta</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> 
              <span class="s2">&quot;Boosted Trees - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> 
              <span class="s2">&quot;Logistic Regression - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span>
               <span class="s2">&quot;Support Vector Classifier - Beta Calibration&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_svc</span><span class="p">}</span>
 <span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada histograma</span>
+<span class="n">n_bins_hist</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_rf_beta</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_xgb_beta</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_lr_beta</span><span class="p">),</span> <span class="nb">round</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">n_bins_svc_beta</span><span class="p">)]</span>
 
 <span class="c1"># Configura el tamaño del plot y la cuadrícula 2x2</span>
 <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 
 <span class="c1"># Itera sobre cada columna y cada subplot</span>
-<span class="k">for</span> <span class="n">j</span><span class="p">,(</span><span class="n">i</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dict_hist</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+<span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_beta</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">,</span> <span class="n">n_bins_hist</span><span class="p">)):</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">j</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span> <span class="o">%</span> <span class="mi">2</span><span class="p">]</span>  <span class="c1"># Selección de subplot en la cuadrícula</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">)</span>  <span class="c1"># Usar bins específico</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s1"> Histogram&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Mean predicted probability&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Count&#39;</span><span class="p">)</span>
 
@@ -1534,8 +1700,201 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/e55c3347dc809e2422e258a75ef08bb7284b922c63c4830e0e2c410fc4890d5d.png" src="_images/e55c3347dc809e2422e258a75ef08bb7284b922c63c4830e0e2c410fc4890d5d.png" />
+<img alt="_images/a2524d479c1fcac434a2eeb56481217becf0921fbecd17b7211770c293986f92.png" src="_images/a2524d479c1fcac434a2eeb56481217becf0921fbecd17b7211770c293986f92.png" />
 </div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;skyblue&#39;</span><span class="p">,</span> <span class="s1">&#39;salmon&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgreen&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">]</span>  <span class="c1"># Lista de colores para cada gráfico</span>
+<span class="c1"># Configura el tamaño del plot</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Itera sobre cada modelo para calcular y graficar su CDF</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">col</span><span class="p">),</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">dict_hist_beta</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">colores</span><span class="p">):</span>
+    <span class="c1"># Ordenar los valores y calcular la CDF</span>
+    <span class="n">sorted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+    <span class="n">cdf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">)</span>
+
+    <span class="c1"># Graficar la CDF</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sorted_data</span><span class="p">,</span> <span class="n">cdf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+<span class="c1"># Configura el título y las etiquetas</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Cumulative Distribution Functions (CDF)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Mean Predicted Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Cumulative Probability&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;lower right&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+<span class="c1"># Ajusta el espaciado entre subplots</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="c1"># plt.savefig(&#39;../Reports/empirical_dist_betacal.png&#39;, dpi=300, bbox_inches=&#39;tight&#39;)  # Guardar la imagen</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1b94861e9ae9404f4bbe52bffae3cd93857a8423c383b0e9156ffac51d48cbc5.png" src="_images/1b94861e9ae9404f4bbe52bffae3cd93857a8423c383b0e9156ffac51d48cbc5.png" />
+</div>
+</div>
+</section>
+<section id="pruebas-para-comparar-distribuciones">
+<h3>Pruebas para comparar distribuciones<a class="headerlink" href="#pruebas-para-comparar-distribuciones" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">ks_2samp</span>
+
+<span class="c1"># Diccionario de probabilidades antes de calibrar</span>
+<span class="n">dict_hist_base</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_pred_rf</span><span class="p">,</span> <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_pred_xgb</span><span class="p">,</span> <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_pred_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier&quot;</span><span class="p">:</span><span class="n">y_pred_svc</span><span class="p">}</span>
+
+<span class="c1"># Diccionario de probabilidades calibradas platt</span>
+<span class="n">dict_hist_platt</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_rf</span><span class="p">,</span> 
+             <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_xgb</span><span class="p">,</span> 
+             <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_svc</span><span class="p">}</span>
+
+<span class="c1"># Diccionario de probabilidades calibradas beta</span>
+<span class="n">dict_hist_beta</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Random Forest&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_rf</span><span class="p">,</span> 
+             <span class="s2">&quot;Boosted Trees&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_xgb</span><span class="p">,</span> 
+             <span class="s2">&quot;Logistic Regression&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_lr</span><span class="p">,</span>
+              <span class="s2">&quot;Support Vector Classifier&quot;</span><span class="p">:</span><span class="n">y_prob_calibrated_beta_svc</span><span class="p">}</span>
+
+<span class="n">results_ks_platt</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">classifier</span> <span class="ow">in</span> <span class="n">dict_hist_base</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># Aplicar KS Test</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">dict_hist_base</span><span class="p">[</span><span class="n">classifier</span><span class="p">],</span> <span class="n">dict_hist_platt</span><span class="p">[</span><span class="n">classifier</span><span class="p">])</span>
+    <span class="n">results_ks_platt</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">classifier</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">))</span>
+
+<span class="n">results_ks_beta</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">classifier</span> <span class="ow">in</span> <span class="n">dict_hist_base</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="c1"># Aplicar KS Test</span>
+    <span class="n">stat</span><span class="p">,</span> <span class="n">pvalue</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">dict_hist_base</span><span class="p">[</span><span class="n">classifier</span><span class="p">],</span> <span class="n">dict_hist_beta</span><span class="p">[</span><span class="n">classifier</span><span class="p">])</span>
+    <span class="n">results_ks_beta</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">classifier</span><span class="p">,</span> <span class="n">stat</span><span class="p">,</span> <span class="n">pvalue</span><span class="p">))</span>
+
+<span class="c1"># Mostrar los resultados</span>
+<span class="n">df_ks_platt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results_ks_platt</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Classifier_base_vs_platt&quot;</span><span class="p">,</span> <span class="s2">&quot;KS Statistic&quot;</span><span class="p">,</span> <span class="s2">&quot;p-value&quot;</span><span class="p">])</span>
+<span class="n">df_ks_beta</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results_ks_beta</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Classifier_base_vs_beta&quot;</span><span class="p">,</span> <span class="s2">&quot;KS Statistic&quot;</span><span class="p">,</span> <span class="s2">&quot;p-value&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ks_platt</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Classifier_base_vs_platt</th>
+      <th>KS Statistic</th>
+      <th>p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest</td>
+      <td>0.202105</td>
+      <td>6.691604e-09</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Boosted Trees</td>
+      <td>0.454737</td>
+      <td>1.219704e-44</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Logistic Regression</td>
+      <td>0.052632</td>
+      <td>5.266418e-01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Support Vector Classifier</td>
+      <td>0.111579</td>
+      <td>5.371706e-03</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ks_beta</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Classifier_base_vs_beta</th>
+      <th>KS Statistic</th>
+      <th>p-value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Random Forest</td>
+      <td>0.170526</td>
+      <td>1.902248e-06</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Boosted Trees</td>
+      <td>0.383158</td>
+      <td>1.827046e-31</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Logistic Regression</td>
+      <td>0.052632</td>
+      <td>5.266418e-01</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Support Vector Classifier</td>
+      <td>0.147368</td>
+      <td>6.446819e-05</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
 </div>
 </section>
 </section>
@@ -1607,7 +1966,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>0</th>
       <td>Random Forest</td>
-      <td>0.053239</td>
+      <td>0.055052</td>
       <td>0.056771</td>
       <td>0.195018</td>
       <td>Base Model</td>
@@ -1615,7 +1974,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>1</th>
       <td>Boosted Trees</td>
-      <td>0.032253</td>
+      <td>0.032725</td>
       <td>0.033180</td>
       <td>0.155890</td>
       <td>Base Model</td>
@@ -1623,7 +1982,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>2</th>
       <td>Logistic Regression</td>
-      <td>0.036069</td>
+      <td>0.023269</td>
       <td>0.071608</td>
       <td>0.225550</td>
       <td>Base Model</td>
@@ -1631,7 +1990,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>3</th>
       <td>SVC</td>
-      <td>0.049949</td>
+      <td>0.044269</td>
       <td>0.071822</td>
       <td>0.234976</td>
       <td>Base Model</td>
@@ -1639,7 +1998,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>4</th>
       <td>Random Forest</td>
-      <td>0.036564</td>
+      <td>0.032687</td>
       <td>0.054173</td>
       <td>0.178029</td>
       <td>Platt Scaling</td>
@@ -1647,7 +2006,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>5</th>
       <td>Boosted Trees</td>
-      <td>0.024520</td>
+      <td>0.011078</td>
       <td>0.030608</td>
       <td>0.106156</td>
       <td>Platt Scaling</td>
@@ -1655,7 +2014,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>6</th>
       <td>Logistic Regression</td>
-      <td>0.022398</td>
+      <td>0.029328</td>
       <td>0.070023</td>
       <td>0.222612</td>
       <td>Platt Scaling</td>
@@ -1663,7 +2022,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>7</th>
       <td>SVC</td>
-      <td>0.030165</td>
+      <td>0.044789</td>
       <td>0.069655</td>
       <td>0.224920</td>
       <td>Platt Scaling</td>
@@ -1671,7 +2030,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>8</th>
       <td>Random Forest</td>
-      <td>0.031713</td>
+      <td>0.016184</td>
       <td>0.052830</td>
       <td>0.166308</td>
       <td>Beta Calibration</td>
@@ -1679,7 +2038,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>9</th>
       <td>Boosted Trees</td>
-      <td>0.008022</td>
+      <td>0.008923</td>
       <td>0.030675</td>
       <td>0.104300</td>
       <td>Beta Calibration</td>
@@ -1687,7 +2046,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>10</th>
       <td>Logistic Regression</td>
-      <td>0.016968</td>
+      <td>0.017300</td>
       <td>0.069486</td>
       <td>0.221017</td>
       <td>Beta Calibration</td>
@@ -1695,7 +2054,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
     <tr>
       <th>11</th>
       <td>SVC</td>
-      <td>0.021882</td>
+      <td>0.020115</td>
       <td>0.067874</td>
       <td>0.219572</td>
       <td>Beta Calibration</td>
@@ -1706,118 +2065,51 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de barras Brier Score</span>
-<span class="c1"># Crear el gráfico de barras</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">full_indicators</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Classifier&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Brier Score&#39;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear la figura y subplots</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">18</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Tres gráficos, uno encima de otro</span>
 
-<span class="c1"># Agregar etiquetas de número a cada barra</span>
-<span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
-    <span class="c1"># Agregar valores en la parte superior de las barras</span>
-    <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>  <span class="c1"># Ignorar barras vacías</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-                <span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Posición x</span>
-                <span class="n">height</span><span class="p">,</span>  <span class="c1"># Posición y</span>
-                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># Texto (redondeado a 2 decimales)</span>
-                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span>  <span class="c1"># Estilo del texto</span>
-            <span class="p">)</span>
+<span class="c1"># Métricas y títulos</span>
+<span class="n">metrics</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Brier Score&#39;</span><span class="p">,</span> <span class="s1">&#39;Log Loss&#39;</span><span class="p">,</span> <span class="s1">&#39;ECE&#39;</span><span class="p">]</span>
+<span class="n">titles</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Brier Score per Classifier&#39;</span><span class="p">,</span> <span class="s1">&#39;Log Loss per Classifier&#39;</span><span class="p">,</span> <span class="s1">&#39;ECE per Classifier&#39;</span><span class="p">]</span>
 
-<span class="c1"># Configuración del gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Brier Score per Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Brier Score&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">)</span>
+<span class="c1"># Iterar sobre las métricas y crear cada subplot</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">metrics</span><span class="p">,</span> <span class="n">titles</span><span class="p">)):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">df_pivot</span> <span class="o">=</span> <span class="n">full_indicators</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Classifier&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">metric</span><span class="p">)</span>
+    <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># Agregar etiquetas de número a cada barra</span>
+    <span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
+            <span class="n">height</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>  <span class="c1"># Ignorar barras vacías</span>
+                <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+                    <span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Posición x</span>
+                    <span class="n">height</span><span class="p">,</span>  <span class="c1"># Posición y</span>
+                    <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># Texto (redondeado a 3 decimales)</span>
+                    <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span>
+                <span class="p">)</span>
+    
+    <span class="c1"># Configurar título y ejes</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Classifier&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">ax</span><span class="o">.</span><span class="n">get_xticklabels</span><span class="p">(),</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">)</span>
+
+<span class="c1"># Ajustar diseño</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Reports/bier_score_barplot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>  <span class="c1"># Guardar la imagen</span>
 
-<span class="c1"># Mostrar el gráfico</span>
+<span class="c1"># Guardar la imagen completa</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Reports/combined_metrics_vertical_barplot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+
+<span class="c1"># Mostrar el gráfico combinado</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/c80aaba5481f0f72fc4c56d38bd585c4ccb0536547e81a9c74ae4d5aca451b66.png" src="_images/c80aaba5481f0f72fc4c56d38bd585c4ccb0536547e81a9c74ae4d5aca451b66.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de barras Log Loss</span>
-<span class="c1"># Crear el gráfico de barras</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">full_indicators</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Classifier&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;Log Loss&#39;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">)</span>
-
-<span class="c1"># Agregar etiquetas de número a cada barra</span>
-<span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
-    <span class="c1"># Agregar valores en la parte superior de las barras</span>
-    <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>  <span class="c1"># Ignorar barras vacías</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-                <span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Posición x</span>
-                <span class="n">height</span><span class="p">,</span>  <span class="c1"># Posición y</span>
-                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># Texto (redondeado a 2 decimales)</span>
-                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span>  <span class="c1"># Estilo del texto</span>
-            <span class="p">)</span>
-
-<span class="c1"># Configuración del gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Log Loss per Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Log Loss&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Reports/logloss_barplot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>  <span class="c1"># Guardar la imagen</span>
-
-<span class="c1"># Mostrar el gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/d3b4fbf9e43a59d7da02096c7b577ca2bf1054e23abff4a2b041fc2c4427d890.png" src="_images/d3b4fbf9e43a59d7da02096c7b577ca2bf1054e23abff4a2b041fc2c4427d890.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Crear el gráfico de barras</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="n">df_pivot</span> <span class="o">=</span> <span class="n">full_indicators</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;Classifier&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;ECE&#39;</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">df_pivot</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">colormap</span><span class="o">=</span><span class="s1">&#39;Set2&#39;</span><span class="p">)</span>
-
-<span class="c1"># Agregar etiquetas de número a cada barra</span>
-<span class="k">for</span> <span class="n">container</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">containers</span><span class="p">:</span>
-    <span class="c1"># Agregar valores en la parte superior de las barras</span>
-    <span class="k">for</span> <span class="n">bar</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
-        <span class="n">height</span> <span class="o">=</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">height</span><span class="p">):</span>  <span class="c1"># Ignorar barras vacías</span>
-            <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
-                <span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Posición x</span>
-                <span class="n">height</span><span class="p">,</span>  <span class="c1"># Posición y</span>
-                <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">height</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span>  <span class="c1"># Texto (redondeado a 2 decimales)</span>
-                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span>  <span class="c1"># Estilo del texto</span>
-            <span class="p">)</span>
-
-<span class="c1"># Configuración del gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;ECE per Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;ECE&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Classifier&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Method&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Reports/ece_barplot.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>  <span class="c1"># Guardar la imagen</span>
-
-<span class="c1"># Mostrar el gráfico</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/c1199cda2d9798a01845305aa9e3598adc390add9310c139ee3f7782c4574ee5.png" src="_images/c1199cda2d9798a01845305aa9e3598adc390add9310c139ee3f7782c4574ee5.png" />
+<img alt="_images/a730ab929d327ad3200d86f0bf7a41beda959a4e2d98cc28b7b638a2a8a1e7e7.png" src="_images/a730ab929d327ad3200d86f0bf7a41beda959a4e2d98cc28b7b638a2a8a1e7e7.png" />
 </div>
 </div>
 </section>
@@ -1874,6 +2166,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <span class="c1"># Ajustar el espacio entre gráficos</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;../Reports/curva_calibracion_combinada.png&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
 
 <span class="c1"># Mostrar la figura con todos los subgráficos</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -1881,7 +2174,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/cf690d279c2a5257951d90f4ce38768d915671689170ecb3053d15a1debf31a4.png" src="_images/cf690d279c2a5257951d90f4ce38768d915671689170ecb3053d15a1debf31a4.png" />
+<img alt="_images/a0fe1b68546da38b3ae96cf7cd9ecde3574e71786ebe1ae3f2172bacd907a19a.png" src="_images/a0fe1b68546da38b3ae96cf7cd9ecde3574e71786ebe1ae3f2172bacd907a19a.png" />
 </div>
 </div>
 <p>Despues de comparar metricas de calibracion y modelos, se toma la decision de implementar el modelo de Boosted Trees calibrado con Beta Calibration para el uso del DSS</p>
@@ -1971,6 +2264,15 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
         <p class="prev-next-title">Implementación 4: Modelo Support Vector Machines</p>
       </div>
     </a>
+    <a class="right-next"
+       href="despliegue_modelo.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Datos de estaciones en linea- Precipitaciones de lluvia acumulada</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
 </div>
                 </footer>
               
@@ -1993,6 +2295,7 @@ Brier Score y Log Loss: Ambos son los peores entre los modelos, lo que concuerda
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aplicar-calibracion">Aplicar Calibración</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platt-scaling">Platt Scaling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-calibration">Beta Calibration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pruebas-para-comparar-distribuciones">Pruebas para comparar distribuciones</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparando-metodos">Comparando Métodos</a><ul class="nav section-nav flex-column">
